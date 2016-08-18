@@ -112,12 +112,14 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.Facebook2OAuth2',
     'social.backends.facebook.Facebook2AppOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 SOCIAL_AUTH_FACEBOOK_KEY = env('FACEBOOK_APP')
 SOCIAL_AUTH_FACEBOOK_SECRET = env('FACEBOOK_SECRET')
 
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['user_friends',]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

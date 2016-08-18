@@ -1,0 +1,45 @@
+{
+  "in": {
+    "img": "img/**/*",
+    "js": "js/**/*.js",
+    "sass": {
+      "path": "sass/**/*.scss",
+      "file": "sass/app.scss"
+    }
+  },
+
+  "out": {
+    "img": "img",
+    "js": {
+      "path": "js",
+      "name": "app"
+    },
+    "sass": {
+      "path": "css",
+      "name": "app"
+    }
+  },
+
+  "templates": "../templates/**/*.html",
+
+  "env": "development",
+
+  "server": "http://localhost:8000",
+
+  "environments": {
+    "development": {
+      "minify": false,
+      "sourcemap": true,
+      "out": "../static/quiz"
+    },
+
+    "production": {
+      "minify": true,
+      "sourcemap": true,
+      "out": "../static/quiz"
+    }
+  },
+  "static": [
+
+  ]
+}

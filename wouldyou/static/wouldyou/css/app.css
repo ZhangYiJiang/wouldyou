@@ -2010,4 +2010,14 @@ tbody.collapse.in {
   position: fixed;
 }
 
+header.global {
+  padding: 20px;
+}
+
+header.global h1 {
+  font-size: 20px;
+  margin: 0;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=app.css.map */

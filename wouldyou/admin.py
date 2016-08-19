@@ -15,14 +15,14 @@ class ProfileAdmin(admin.ModelAdmin):
     ]
 
 
-# class CustomUserAdmin(UserAdmin):
-#     inlines = [
-#         ActionInline,
-#     ]
+class CustomUserAdmin(UserAdmin):
+    inlines = [
+        ActionInline,
+    ]
 
 admin.site.register(models.Action)
 admin.site.register(models.Verb)
 admin.site.register(models.Profile, ProfileAdmin)
 
-# admin.site.unregister(User)
-# admin.site.register(User, CustomUserAdmin)
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)

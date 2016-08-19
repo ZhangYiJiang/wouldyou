@@ -7,22 +7,29 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="{% static "wouldyou/css/app.css" %}" rel="stylesheet">
-  {% block head %}{% endblock %}
+  {% block styles %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
+{% block header %}
 <header class="global">
-  <h1><a href="{% url 'app:index' %}">Would You ___?</a></h1>
-
+  <h1><a href="{% url 'app:index' %}">Would You ____?</a></h1>
 </header>
+{% endblock %}
+
+{% block main %}
 <main>
   {% block content %}{% endblock %}
 </main>
+{% endblock %}
+
+{% block footer %}
 <footer class="global">
 
 </footer>
+{% endblock %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="{% static "wouldyou/js/app.js" %}"></script>
-{% block foot %}{% endblock %}
+{% block scripts %}{% endblock %}
 </body>
 </html>

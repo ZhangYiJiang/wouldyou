@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'social.apps.django_app.default',
 
+    'wouldyou',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +120,7 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_FACEBOOK_KEY = env('FACEBOOK_APP')
 SOCIAL_AUTH_FACEBOOK_SECRET = env('FACEBOOK_SECRET')
 
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['user_friends',]
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['user_friends', ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -140,3 +141,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'

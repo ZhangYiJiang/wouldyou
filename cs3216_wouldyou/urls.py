@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
+    url('', include('wouldyou.urls', namespace='app')),
     url(r'^admin/', admin.site.urls),
 ]

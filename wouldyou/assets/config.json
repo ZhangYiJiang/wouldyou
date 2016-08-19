@@ -30,13 +30,13 @@
     "development": {
       "minify": false,
       "sourcemap": true,
-      "out": "../static/quiz"
+      "out": "../static/wouldyou"
     },
 
     "production": {
       "minify": true,
       "sourcemap": true,
-      "out": "../static/quiz"
+      "out": "../static/wouldyou"
     }
   },
   "static": [

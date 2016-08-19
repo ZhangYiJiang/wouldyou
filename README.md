@@ -24,6 +24,8 @@
      
  6. Return to the project root (`cd ..`) and run the database migrations using `./manage.py migrate` or for OSX `python manage.python migrate`
  
+ 7. Load fixture data using `./manage.py loaddata wouldyou/fixtures/verbs.json`
+ 
  7. Start the server using `./manage.py runserver` or for OSX `python manage.python runserver` 
  
  8. Create a superuser using `./manage.py createsuperuser` and follow the instructions 

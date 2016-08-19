@@ -1,0 +1,11 @@
+{% extends 'wouldyou/base.html' %}
+
+{% block content %}
+  <div class="list-group">
+  {% for friend in invitable.data %}
+    <div class="list-group-item">
+      <img src="{{ friend.picture.data.url }}"> {{ friend.name }}
+    </div>
+  {% endfor %}
+  </div>
+{% endblock %}

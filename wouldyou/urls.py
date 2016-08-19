@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^welcome/$', views.OnboardView.as_view(), name='onboard'),
 ]

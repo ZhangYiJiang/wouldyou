@@ -12,13 +12,8 @@ class BaseView(LoginRequiredMixin, FacebookMixin, View):
     pass
 
 
-def after_login(request):
-    """Decide where the user should go after logging in"""
-    # TODO: Complete this stub
-
-
-def onboard(request):
-    # TODO: Complete this stub
-    pass
-
-
+class OnboardView(BaseView):
+    def get(self, request):
+        return render(request, 'wouldyou/pages/onboard.html', {
+            'invitable': self.facebook.invitable_friends(),
+        })

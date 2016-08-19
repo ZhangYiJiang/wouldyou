@@ -120,7 +120,9 @@ SOCIAL_AUTH_FACEBOOK_KEY = env('FACEBOOK_APP')
 SOCIAL_AUTH_FACEBOOK_SECRET = env('FACEBOOK_SECRET')
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['user_friends', ]
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'id', ]
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'gender', 'id', ]
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/welcome/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
+from django.contrib.auth.models import User
 
 
 class BaseModel(models.Model):
@@ -22,14 +23,23 @@ class Verb(BaseModel):
 class Profile(BaseModel):
     name = models.CharField(max_length=200)
     image = models.ImageField()
+    gender = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
 
 
+class ProfileSet(BaseModel):
+    profiles = models.ManyToManyField(Profile)
+
+    def __str__(self):
+        return ' '.join([str(x) for x in self.profiles.all()])
+
+
 class Action(BaseModel):
     verb = models.ForeignKey(Verb)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(User)
+    profile_set = models.ForeignKey(ProfileSet, default=None)
 
     limit = models.Q(app_label='django.contrib.auth', model=settings.AUTH_USER_MODEL) | \
             models.Q(app_label='wouldyou', model='Profile')

@@ -20,7 +20,7 @@
     and fill in the blanks. 
      
      - `SECRET_KEY` can be created using http://www.miniwebtool.com/django-secret-key-generator/
-     - `FACEBOOK_KEY` and `FACEBOOK_SECRET` is from http://developer.facebook.com. Use the test app for local testing and the actual app for staging and production 
+     - `FACEBOOK_KEY` and `FACEBOOK_SECRET` are from http://developer.facebook.com. Use the test app for local testing and the actual app for staging and production 
      
  6. Return to the project root (`cd ..`) and run the database migrations using `./manage.py migrate` or for OSX `python manage.python migrate`
  
@@ -30,16 +30,26 @@
 
 ### To start with the asset pipeline, 
  
- 1. Change to the aseet directory `cd wouldyou/assets`
+ 1. Change to the asset directory `cd wouldyou/assets`
  2. Install the prerequisites `npm install`
  3. If necessary, install gulp globally `npm i -g gulp`
  4. Run `gulp serve` to start the Browsersync server, *or* 
  5. Run `gulp watch` to watch for asset changes without using Browsersync
  
- 
-### To deploy
+## Fabric tasks 
 
+Fabric is a automatic deployment and system administration utility. We use this for deployment and other server admin tasks. 
+
+### Getting started
+ 
  1. Ensure you have a ssh key registered with the `app` user of the server 
  2. [Install Fabric](http://www.fabfile.org/installing.html)
- 3. Run `fab staging` from the project directory 
+ 
+### `fab deploy` - Deployment 
+
+This will pull a copy of the code from the master branch to the server and run through the steps needed to update the site including `migrate` and `collectstatic`. 
+ 
+### `fab createsuperuser` - Create admin user 
+
+Creates an admin user on the server. Please pick a strong password because this is on the actual server! 
 

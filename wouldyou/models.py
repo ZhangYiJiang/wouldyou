@@ -43,5 +43,8 @@ class Action(BaseModel):
     object_id = models.PositiveIntegerField()
     subject = GenericForeignKey()
 
+    def popularity(self):
+        """Percentage of people that select this option"""
+
     def __str__(self):
         return '{0!s} {0!s} {0!s}'.format(self.user, self.verb, self.subject)

@@ -2488,4 +2488,28 @@ header.global h1 {
   font-weight: bold;
 }
 
+body.onboard .friend-selector {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+body.onboard .friend-selector label {
+  width: 70px;
+  text-align: center;
+  line-height: 1.1;
+}
+
+body.onboard .friend-selector div {
+  padding: 5px 0;
+}
+
+body.onboard .friend-selector input:checked + div {
+  background: rgba(51, 122, 183, 0.1);
+}
+
+body.onboard .friend-selector img {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
 /*# sourceMappingURL=app.css.map */

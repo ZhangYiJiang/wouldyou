@@ -1,0 +1,28 @@
+body.onboard {
+  .friends {
+  }
+
+  .friend-selector {
+    display: flex;
+    flex-wrap: wrap;
+
+    label {
+      width: 70px;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    div {
+      padding: 5px 0;
+    }
+
+    input:checked + div {
+      background: rgba($brand-primary, .1);
+    }
+
+    img {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+  }
+}

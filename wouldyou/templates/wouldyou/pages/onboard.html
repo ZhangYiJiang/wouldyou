@@ -1,11 +1,28 @@
 {% extends 'wouldyou/base.html' %}
 
+{% block body_class %}onboard{% endblock %}
+
 {% block content %}
-  <div class="list-group">
-  {% for friend in invitable.data %}
-    <div class="list-group-item">
-      <img src="{{ friend.picture.data.url }}"> {{ friend.name }}
-    </div>
-  {% endfor %}
+<div class="container-fluid">
+  <div class="row">
+    <header class="col-sm-12">
+      <h1>Would you like to play with...</h1>
+    </header>
+
+    <div class="col-md-6 friends">
+      <h2>Friends</h2>
+      {# TODO: Show start game button if friends are already available #}
+      <form method="post" class="friend-selector">
+      {% for friend in invitable.data %}
+        <label>
+          <input type="checkbox" class="sr-only" name="invite" value="{{ friend.id }}">
+          <div>
+            <img src="{{ friend.picture.data.url }}"> {{ friend.name }}
+          </div>
+        </label>
+      {% endfor %}
+      </form>
+    </div> {# /.friends #}
   </div>
+</div>
 {% endblock %}

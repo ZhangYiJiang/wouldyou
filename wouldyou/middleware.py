@@ -1,3 +1,7 @@
+from debug_toolbar.middleware import DebugToolbarMiddleware
+from django.utils.deprecation import MiddlewareMixin
+
+
 def fb_skip_security_middleware(get_response):
     def middleware(request):
         if request.user.is_authenticated and 'signed_request' in request.POST:
@@ -6,3 +10,7 @@ def fb_skip_security_middleware(get_response):
         response.xframe_options_exempt = True
         return response
     return middleware
+
+
+class PatchedDebugToolbarMiddleware(MiddlewareMixin, DebugToolbarMiddleware):
+    pass

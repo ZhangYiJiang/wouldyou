@@ -44,13 +44,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # Python Social Auth
     'social.apps.django_app.default',
+    # Django Debug toolbar
+    'debug_toolbar',
 
+    # Would You app
     'wouldyou',
 ]
 
 MIDDLEWARE = [
+    'wouldyou.middleware.PatchedDebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -156,4 +160,11 @@ MEDIA_ROOT = 'media'
 # https://github.com/jkbrzt/django-settings-export
 SETTINGS_EXPORT = [
     'SOCIAL_AUTH_FACEBOOK_KEY',
+]
+
+# Debug toolbar options
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+INTERNAL_IPS = [
+    '127.0.0.1',
 ]

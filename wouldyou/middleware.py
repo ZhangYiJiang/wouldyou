@@ -1,5 +1,6 @@
 from debug_toolbar.middleware import DebugToolbarMiddleware
 from django.utils.deprecation import MiddlewareMixin
+from django.conf import settings
 
 
 def fb_skip_security_middleware(get_response):
@@ -14,3 +15,10 @@ def fb_skip_security_middleware(get_response):
 
 class PatchedDebugToolbarMiddleware(MiddlewareMixin, DebugToolbarMiddleware):
     pass
+
+
+def show_toolbar(request):
+    if request.is_ajax():
+        return False
+
+    return bool(settings.DEBUG)

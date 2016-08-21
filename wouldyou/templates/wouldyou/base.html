@@ -10,6 +10,7 @@
   {% block styles %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
+{% include 'wouldyou/components/fb.html' %}
 {% block header %}
 <header class="global">
   <h1><a href="{% url 'app:index' %}">Would You ____?</a></h1>

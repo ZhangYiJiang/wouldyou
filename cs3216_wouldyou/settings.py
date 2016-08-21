@@ -72,9 +72,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
+                # Python Social Auth
                 'social.apps.django_app.context_processors.backends',
                 'social.apps.django_app.context_processors.login_redirect',
+                # Django Settings Export
+                'django_settings_export.settings_export',
             ],
         },
     },
@@ -118,6 +120,7 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_FACEBOOK_KEY = env('FACEBOOK_APP')
 SOCIAL_AUTH_FACEBOOK_SECRET = env('FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_NAMESPACE = 'wouldyouspace'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['user_friends', ]
 SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'gender', 'id', ]
@@ -146,3 +149,9 @@ STATIC_ROOT = 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
+
+# Settings export - Settings included here will be exported to templates
+# https://github.com/jkbrzt/django-settings-export
+SETTINGS_EXPORT = [
+    'SOCIAL_AUTH_FACEBOOK_KEY',
+]

@@ -7,22 +7,30 @@
   <div class="row">
     <header class="col-sm-12">
       <h1>Would you like to play with...</h1>
-    </header>
+    </header> {# /header.col-sm-12 #}
 
     <div class="col-md-6 friends">
       <h2>Friends</h2>
       {# TODO: Show start game button if friends are already available #}
-      <form method="post" class="friend-selector">
-      {% for friend in invitable.data %}
+      <div class="friend-selector">
+        {% for friend in invitable.data %}
         <label>
           <input type="checkbox" class="sr-only" name="invite" value="{{ friend.id }}">
           <div>
             <img src="{{ friend.picture.data.url }}"> {{ friend.name }}
           </div>
         </label>
-      {% endfor %}
-      </form>
-    </div> {# /.friends #}
+        {% endfor %}
+      </div>
+      <button class="btn btn-primary">Invite</button>
+    </div> {# /.friends.col-md-6 #}
+
+    <div class="col-md-6 celebrities">
+      <h2>Celebrities</h2>
+      <div class="">
+
+      </div>
+    </div> {# /.celebrities.col-md-6 #}
   </div>
 </div>
 {% endblock %}

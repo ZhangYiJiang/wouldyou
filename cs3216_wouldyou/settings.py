@@ -166,5 +166,5 @@ SETTINGS_EXPORT = [
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 INTERNAL_IPS = [
-    '127.0.0.1',
+    env.str('SERVER_IP', '127.0.0.1'),
 ]

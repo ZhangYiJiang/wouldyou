@@ -3,6 +3,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.html import format_html
 
 
 class BaseModel(models.Model):
@@ -24,6 +25,9 @@ class Profile(BaseModel):
     name = models.CharField(max_length=200)
     image = models.ImageField()
     gender = models.CharField(max_length=20)
+
+    def image_tag(self):
+        return format_html('<img src="{}" alt="" style="max-width: 100px">', self.image.url)
 
     def __str__(self):
         return self.name

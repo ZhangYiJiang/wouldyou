@@ -1,7 +1,8 @@
 from django.contrib import admin
-from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.admin import GenericTabularInline
+
 from . import models
 
 
@@ -9,10 +10,11 @@ class ActionInline(GenericTabularInline):
     model = models.Action
 
 
+@admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    inlines = [
-        ActionInline,
-    ]
+    list_display = ('name', 'gender', 'image_tag', )
+    list_filter = ('gender', )
+    inlines = [ActionInline, ]
 
 
 class CustomUserAdmin(UserAdmin):
@@ -27,6 +29,7 @@ class ProfileInline(admin.TabularInline):
     min_num = 3
 
 
+@admin.register(models.ProfileSet)
 class ProfileSetAdmin(admin.ModelAdmin):
     inlines = [
         ProfileInline,
@@ -35,8 +38,6 @@ class ProfileSetAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Action)
 admin.site.register(models.Verb)
-admin.site.register(models.Profile, ProfileAdmin)
-admin.site.register(models.ProfileSet, ProfileSetAdmin)
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)

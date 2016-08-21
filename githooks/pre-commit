@@ -3,6 +3,8 @@
 # Only run if gulp is available
 if hash gulp 2>/dev/null; then
     gulp --gulpfile wouldyou/assets/gulpfile.js build --env=production
+    git add wouldyou/assets/css/*.min.css
+    git add wouldyou/assets/js/*.min.js
 else
     echo "WARNING: gulp not found. Not running gulp build"
 fi
@@ -10,6 +12,7 @@ fi
 # Should be inside virtual env
 if [ "$VIRTUAL_ENV" != "" ]; then
     pip freeze > requirements.txt
+    git add requirements.txt
 else
     echo "WARNING: Not in virtualenv. Prerequisites not frozen."
 fi

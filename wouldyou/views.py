@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from .facebook import FacebookMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.views import View
+
+from .facebook import FacebookMixin
 
 
 def index(request):
@@ -9,7 +10,11 @@ def index(request):
 
 
 class BaseView(LoginRequiredMixin, FacebookMixin, View):
-    pass
+    def get(self, request):
+        raise NotImplementedError
+
+    def post(self, request):
+        return self.get(request)
 
 
 class OnboardView(BaseView):

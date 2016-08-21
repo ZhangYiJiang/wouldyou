@@ -1,9 +1,14 @@
-from django.db import models
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.utils.html import format_html
+
+GENDER_CHOICES = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+)
 
 
 class BaseModel(models.Model):
@@ -24,7 +29,7 @@ class Verb(BaseModel):
 class Profile(BaseModel):
     name = models.CharField(max_length=200)
     image = models.ImageField()
-    gender = models.CharField(max_length=20)
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default=1)
 
     def image_tag(self):
         return format_html('<img src="{}" alt="" style="max-width: 100px">', self.image.url)
@@ -34,10 +39,14 @@ class Profile(BaseModel):
 
 
 class ProfileSet(BaseModel):
+    name = models.CharField(max_length=40, default='')
     profiles = models.ManyToManyField(Profile)
 
     def __str__(self):
-        return ' '.join([str(x) for x in self.profiles.all()])
+        if self.name:
+            return self.name
+        else:
+            return ' / '.join([str(x) for x in self.profiles.all()])
 
 
 class Action(BaseModel):
@@ -59,6 +68,7 @@ class Action(BaseModel):
 
     def popularity(self):
         """Percentage of people that select this option"""
+        # TODO: Complete this stub
 
     def __str__(self):
         return '{0!s} {0!s} {0!s}'.format(self.user, self.verb, self.subject)

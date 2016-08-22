@@ -21,39 +21,53 @@ class Facebook:
     def _request(self, endpoint, data=None, method='get'):
         if data is None:
             data = {}
-        # data['appsecret_proof'] = self._app_secret_proof()
+
         url = '{}/{}/{}'.format(self.url_prefix, self.version, endpoint)
 
-        print(url)
-        print(data)
+        if 'fields' in data:
+            data['fields'] = ','.join(data['fields'])
+
         if method == 'get':
             r = requests.get(url, params=data)
         else:
-            r = requests.request(method, data=data)
+            r = requests.request(method, url, data=data)
+
         # TODO: Replace with better exceptions
-        print(r.text)
         r.raise_for_status()
         return json.loads(r.text)
 
     def _user_request(self, endpoint, *args, **kwargs):
         """Injects access token into request data"""
         social = self.user.social_auth.get(provider='facebook')
-        token = {'access_token': social.extra_data['access_token']}
-        kwargs['data'] = {**kwargs.get('data', {}), **token}
+        token = social.extra_data['access_token']
+        token_data = {
+            'access_token': token,
+            'appsecret_proof': self._app_secret_proof(token),
+        }
+        kwargs['data'] = {**kwargs.get('data', {}), **token_data}
         return self._request(endpoint, *args, **kwargs)
 
-    def _app_secret_proof(self):
+    def _app_secret_proof(self, token):
+        """Generates app secret proof"""
         h = hmac.new(
             settings.SOCIAL_AUTH_FACEBOOK_SECRET.encode('utf-8'),
-            msg=settings.SOCIAL_AUTH_FACEBOOK_KEY.encode('utf-8'),
+            msg=token.encode('utf-8'),
             digestmod=hashlib.sha256
         )
         return h.hexdigest()
 
-    def invitable_friends(self, user_id='me'):
+    def invitable_friends(self, user_id='me', picture_width=70):
         endpoint = '{}/invitable_friends'.format(user_id)
-        return self._user_request(endpoint)
+        return self._user_request(endpoint, data={
+            # TODO: Figure out how Facebook's images work
+            'fields': ['name', 'id', 'picture', ]
+        })
 
-    def invite(self):
-        # TODO: Complete this stub
-        pass
+    def friends(self, user_id='me', fields=None):
+        if fields is None:
+            fields = ['picture', 'name', 'id']
+
+        endpoint = '{}/friends'.format(user_id)
+        return self._user_request(endpoint, data={
+            'fields': fields
+        })

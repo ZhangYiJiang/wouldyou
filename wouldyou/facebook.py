@@ -29,6 +29,8 @@ def profile_context_processor(request):
         return {
             'player': request.user.player
         }
+    else:
+        return {}
 
 
 class FacebookMixin:

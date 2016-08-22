@@ -18,16 +18,11 @@ env = environ.Env()
 environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = [
@@ -119,6 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Python Social Authentication
+# http://psa.matiasaguirre.net/docs/index.html
+
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.Facebook2OAuth2',
     'social.backends.facebook.Facebook2AppOAuth2',
@@ -176,11 +174,14 @@ MEDIA_ROOT = 'media'
 
 # Settings export - Settings included here will be exported to templates
 # https://github.com/jkbrzt/django-settings-export
+
 SETTINGS_EXPORT = [
     'SOCIAL_AUTH_FACEBOOK_KEY',
 ]
 
 # Debug toolbar options
+# http://django-debug-toolbar.readthedocs.io/en/stable/index.html
+
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 DEBUG_TOOLBAR_CONFIG = {

@@ -2576,7 +2576,7 @@ body.onboard .friend-selector {
 }
 
 body.onboard .friend-selector label {
-  width: 70px;
+  width: 100px;
   text-align: center;
   line-height: 1.1;
 }

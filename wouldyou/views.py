@@ -21,4 +21,5 @@ class OnboardView(BaseView):
     def get(self, request):
         return render(request, 'wouldyou/pages/onboard.html', {
             'invitable': self.facebook.invitable_friends(),
+            'friends': self.facebook.friends(),
         })

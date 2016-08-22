@@ -1959,6 +1959,67 @@ tbody.collapse.in {
   transition-timing-function: ease;
 }
 
+.media {
+  margin-top: 15px;
+}
+
+.media:first-child {
+  margin-top: 0;
+}
+
+.media,
+.media-body {
+  zoom: 1;
+  overflow: hidden;
+}
+
+.media-body {
+  width: 10000px;
+}
+
+.media-object {
+  display: block;
+}
+
+.media-object.img-thumbnail {
+  max-width: none;
+}
+
+.media-right,
+.media > .pull-right {
+  padding-left: 10px;
+}
+
+.media-left,
+.media > .pull-left {
+  padding-right: 10px;
+}
+
+.media-left,
+.media-right,
+.media-body {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.media-middle {
+  vertical-align: middle;
+}
+
+.media-bottom {
+  vertical-align: bottom;
+}
+
+.media-heading {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.media-list {
+  padding-left: 0;
+  list-style: none;
+}
+
 .list-group {
   margin-bottom: 20px;
   padding-left: 0;
@@ -2480,12 +2541,33 @@ button.list-group-item-danger.active:focus {
 
 header.global {
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 header.global h1 {
   font-size: 20px;
   margin: 0;
   font-weight: bold;
+  flex: 0 0 auto;
+}
+
+header.global h1 a {
+  padding: 12px 0 24px;
+}
+
+header.global .profile {
+  flex: 0 0 auto;
+  display: flex;
+}
+
+header.global .profile p {
+  margin: 0;
+}
+
+header.global .profile .profile-image {
+  display: block;
+  margin-right: 8px;
 }
 
 body.onboard .friend-selector {

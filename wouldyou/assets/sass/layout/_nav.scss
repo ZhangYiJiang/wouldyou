@@ -1,9 +1,30 @@
 header.global {
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
 
   h1 {
     font-size: 20px;
     margin: 0;
     font-weight: bold;
+    flex: 0 0 auto;
+
+    a {
+      padding: 12px 0 24px;
+    }
+  }
+
+  .profile {
+    flex: 0 0 auto;
+    display: flex;
+
+    p {
+      margin: 0;
+    }
+
+    .profile-image {
+      display: block;
+      margin-right: 8px;
+    }
   }
 }

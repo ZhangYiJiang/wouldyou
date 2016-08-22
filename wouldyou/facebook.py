@@ -1,8 +1,34 @@
-import requests
-import hmac
 import hashlib
+import hmac
 import json
+
+import requests
 from django.conf import settings
+
+from .models import Player
+
+
+def create_profile(backend, user, response, *args, **kwargs):
+    if backend.name == 'facebook':
+        fb = Facebook(user)
+        try:
+            player = user.player
+        except Player.DoesNotExist:
+            player = Player(user=user)
+
+        # TODO: Think of better design for restricting data
+        fb_user = fb.user(fields=('gender', 'picture', ))
+        player.gender = fb_user['gender'].title()
+        player.picture = fb_user['picture']['data']['url']
+        player.name = response['name']
+        player.save()
+
+
+def profile_context_processor(request):
+    if request.user.is_authenticated:
+        return {
+            'player': request.user.player
+        }
 
 
 class FacebookMixin:
@@ -16,7 +42,7 @@ class Facebook:
     url_prefix = 'https://graph.facebook.com'
 
     def __init__(self, user):
-        self.user = user
+        self._user = user
 
     def _request(self, endpoint, data=None, method='get'):
         if data is None:
@@ -38,7 +64,7 @@ class Facebook:
 
     def _user_request(self, endpoint, *args, **kwargs):
         """Injects access token into request data"""
-        social = self.user.social_auth.get(provider='facebook')
+        social = self._user.social_auth.get(provider='facebook')
         token = social.extra_data['access_token']
         token_data = {
             'access_token': token,
@@ -56,18 +82,24 @@ class Facebook:
         )
         return h.hexdigest()
 
+    def user(self, user_id='me', fields=None):
+        if fields is None:
+            fields = ['picture', 'gender', ]
+
+        return self._user_request(user_id, data={'fields': fields})
+
     def invitable_friends(self, user_id='me', picture_width=70):
+        # TODO: Account for when the user declines to give permission
         endpoint = '{}/invitable_friends'.format(user_id)
         return self._user_request(endpoint, data={
             # TODO: Figure out how Facebook's images work
-            'fields': ['name', 'id', 'picture', ]
-        })
+            'fields': ['name', 'id', 'picture', ],
+        })['data']
 
     def friends(self, user_id='me', fields=None):
         if fields is None:
-            fields = ['picture', 'name', 'id']
+            fields = ['picture', 'name', 'id', ]
 
         endpoint = '{}/friends'.format(user_id)
-        return self._user_request(endpoint, data={
-            'fields': fields
-        })
+        return self._user_request(endpoint, data={'fields': fields})['data']
+

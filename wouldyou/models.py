@@ -11,6 +11,16 @@ GENDER_CHOICES = (
 )
 
 
+class Player(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
+    picture = models.URLField()
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -51,7 +61,7 @@ class ProfileSet(BaseModel):
 
 class Action(BaseModel):
     verb = models.ForeignKey(Verb)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     profile_set = models.ForeignKey(ProfileSet, default=None)
 
     limit = models.Q(app_label='django.contrib.auth', model=settings.AUTH_USER_MODEL) | \

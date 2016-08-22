@@ -83,6 +83,8 @@ TEMPLATES = [
                 'social.apps.django_app.context_processors.login_redirect',
                 # Django Settings Export
                 'django_settings_export.settings_export',
+                # App context processor
+                'wouldyou.facebook.profile_context_processor',
             ],
         },
     },
@@ -129,9 +131,24 @@ SOCIAL_AUTH_FACEBOOK_SECRET = env('FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_NAMESPACE = 'wouldyouspace'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['user_friends', ]
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'gender', 'id', ]
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'id', ]
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/welcome/'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    # Custom create profile function mixed into auth pipeline
+    # See http://psa.matiasaguirre.net/docs/pipeline.html#extending-the-pipeline
+    'wouldyou.facebook.create_profile',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

@@ -14,6 +14,16 @@
 {% block header %}
 <header class="global">
   <h1><a href="{% url 'app:index' %}">Would You ____?</a></h1>
+
+  {% if request.user.is_authenticated %}
+  <div class="profile">
+    <img class="profile-image" src="{{ player.picture }}" alt="">
+    <div class="profile-detail">
+      <p>{{ player.name }}</p>
+      <p class="text-muted">Not {{ player.name }}? <a href="{% url 'logout' %}">Logout</a></p>
+    </div>
+  </div>
+  {% endif %}
 </header>
 {% endblock %}
 

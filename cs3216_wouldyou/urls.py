@@ -16,9 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth import views as auth
 
 urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
+    # TODO: Replace this with proper logout page
+    url(r'^logout$', auth.logout, name='logout'),
     url('', include('wouldyou.urls', namespace='app')),
     url(r'^admin/', admin.site.urls),
 ]

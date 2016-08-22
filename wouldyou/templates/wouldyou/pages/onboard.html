@@ -25,7 +25,7 @@
       <div class="friend-selector">
         {% for friend in invitable %}
         <label>
-          <input type="checkbox" class="sr-only" name="invite" value="{{ friend.id }}">
+          <input type="checkbox" name="invite" value="{{ friend.id }}">
           <div>
             <img src="{{ friend.picture.data.url }}" alt=""> {{ friend.name }}
           </div>

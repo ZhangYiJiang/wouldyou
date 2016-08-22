@@ -5,23 +5,45 @@ body.onboard {
   .friend-selector {
     display: flex;
     flex-wrap: wrap;
+    align-items: stretch;
 
     label {
-      width: 100px;
+      width: 80px;
       text-align: center;
       line-height: 1.1;
+      position: relative;
+      flex: 1 auto;
+      font-size: 12px;
+
+      &:hover input[type='checkbox'] {
+        opacity: 1;
+      }
     }
 
-    div {
+    input[type='checkbox'] + div {
       padding: 5px 0;
+      transition: background .3s;
     }
 
-    input:checked + div {
-      background: rgba($brand-primary, .1);
+    input[type='checkbox'] {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      opacity: 0;
+      transition: opacity .3s;
+
+      &:checked {
+        opacity: 1;
+      }
+    }
+
+    input[type='checkbox']:checked + div,
+    input[type='checkbox'] + div:hover {
+      background: rgba($brand-primary, .2);
     }
 
     img {
-      display: inline-block;
+      display: block;
       margin: 0 auto 5px;
     }
   }

@@ -2573,24 +2573,46 @@ header.global .profile .profile-image {
 body.onboard .friend-selector {
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 
 body.onboard .friend-selector label {
-  width: 100px;
+  width: 80px;
   text-align: center;
   line-height: 1.1;
+  position: relative;
+  flex: 1 auto;
+  font-size: 12px;
 }
 
-body.onboard .friend-selector div {
+body.onboard .friend-selector label:hover input[type='checkbox'] {
+  opacity: 1;
+}
+
+body.onboard .friend-selector input[type='checkbox'] + div {
   padding: 5px 0;
+  transition: background .3s;
 }
 
-body.onboard .friend-selector input:checked + div {
-  background: rgba(51, 122, 183, 0.1);
+body.onboard .friend-selector input[type='checkbox'] {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+body.onboard .friend-selector input[type='checkbox']:checked {
+  opacity: 1;
+}
+
+body.onboard .friend-selector input[type='checkbox']:checked + div,
+body.onboard .friend-selector input[type='checkbox'] + div:hover {
+  background: rgba(51, 122, 183, 0.2);
 }
 
 body.onboard .friend-selector img {
-  display: inline-block;
+  display: block;
   margin: 0 auto 5px;
 }
 

@@ -20,7 +20,8 @@
       <img class="profile-image" src="{{ player.picture }}" alt="">
       <div class="profile-detail">
         <p>{{ player.name }}</p>
-        <p class="text-muted">Not {{ player.name }}? <a href="{% url 'logout' %}">Logout</a></p>
+        <p class="text-muted">Not {{ player.name }}?
+          <a href="{% url 'app:logout' %}">Logout</a></p>
       </div>
     {% else %}
       <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>

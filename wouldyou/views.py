@@ -1,5 +1,6 @@
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from .facebook import FacebookMixin
@@ -7,6 +8,11 @@ from .facebook import FacebookMixin
 
 def index(request):
     return render(request, 'wouldyou/pages/index.html')
+
+
+def logout(request):
+    auth_logout(request)
+    return redirect('app:index')
 
 
 class BaseView(LoginRequiredMixin, FacebookMixin, View):

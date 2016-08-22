@@ -2591,7 +2591,7 @@ body.onboard .friend-selector input:checked + div {
 
 body.onboard .friend-selector img {
   display: inline-block;
-  margin-bottom: 5px;
+  margin: 0 auto 5px;
 }
 
 /*# sourceMappingURL=app.css.map */

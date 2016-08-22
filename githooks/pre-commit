@@ -3,8 +3,10 @@
 # Only run if gulp is available
 if hash gulp 2>/dev/null; then
     gulp --gulpfile wouldyou/assets/gulpfile.js build --env=production
-    git add wouldyou/assets/css/*.min.css
-    git add wouldyou/assets/js/*.min.js
+    git add wouldyou/static/wouldyou/css/*.min.css
+    git add wouldyou/static/wouldyou/css/*.css
+    git add wouldyou/static/wouldyou/js/*.min.js
+    git add wouldyou/static/wouldyou/css/*.js
 else
     echo "WARNING: gulp not found. Not running gulp build"
 fi

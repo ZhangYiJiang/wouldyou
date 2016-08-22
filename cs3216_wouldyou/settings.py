@@ -143,10 +143,10 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
     'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
     # Custom create profile function mixed into auth pipeline
     # See http://psa.matiasaguirre.net/docs/pipeline.html#extending-the-pipeline
     'wouldyou.facebook.create_profile',
-    'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
 )

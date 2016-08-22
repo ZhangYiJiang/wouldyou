@@ -6,7 +6,7 @@ if hash gulp 2>/dev/null; then
     git add wouldyou/static/wouldyou/css/*.min.css
     git add wouldyou/static/wouldyou/css/*.css
     git add wouldyou/static/wouldyou/js/*.min.js
-    git add wouldyou/static/wouldyou/css/*.js
+    git add wouldyou/static/wouldyou/js/*.js
 else
     echo "WARNING: gulp not found. Not running gulp build"
 fi

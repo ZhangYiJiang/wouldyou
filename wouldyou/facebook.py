@@ -26,9 +26,10 @@ def create_profile(backend, user, response, *args, **kwargs):
 
 def profile_context_processor(request):
     if request.user.is_authenticated:
-        return {
-            'player': request.user.player
-        }
+        try:
+            return {'player': request.user.player}
+        except Player.DoesNotExist:
+            return {}
     else:
         return {}
 

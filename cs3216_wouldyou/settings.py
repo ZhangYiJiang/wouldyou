@@ -131,9 +131,10 @@ SOCIAL_AUTH_FACEBOOK_SECRET = env('FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_NAMESPACE = 'wouldyouspace'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['user_friends', ]
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'id', ]
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/welcome/'
+
+LOGIN_URL = '/login/facebook'
 
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',

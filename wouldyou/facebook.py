@@ -67,8 +67,13 @@ class Facebook:
 
     def _user_request(self, endpoint, *args, **kwargs):
         """Injects access token into request data"""
-        social = self._user.social_auth.get(provider='facebook')
-        token = social.extra_data['access_token']
+        try:
+            token = self._token
+        except AttributeError:
+            social = self._user.social_auth.get(provider='facebook')
+            token = social.extra_data['access_token']
+            self._token = token
+
         token_data = {
             'access_token': token,
             'appsecret_proof': self._app_secret_proof(token),

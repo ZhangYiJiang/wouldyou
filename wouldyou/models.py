@@ -21,6 +21,20 @@ class Player(models.Model):
         return self.name
 
 
+class Invite(models.Model):
+    player = models.ForeignKey(Player)
+    request = models.CharField(max_length=255)
+    to = models.CharField(max_length=255)
+
+    @property
+    def request_id(self):
+        # From https://developers.facebook.com/docs/games/services/gamerequests#responsedata
+        return '{}_{}'.format(self.request, self.to)
+
+    def __str__(self):
+        return self.request_id
+
+
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -109,7 +109,7 @@ class Facebook:
 
         return self._user_request(user_id, data={'fields': fields})
 
-    def invitable_friends(self, user_id='me', picture_width=100):
+    def invitable_friends(self, user_id='me', picture_width=70):
         # TODO: Account for when the user declines to give permission
         endpoint = '{}/invitable_friends'.format(user_id)
         return self._user_request(endpoint, data={
@@ -121,9 +121,13 @@ class Facebook:
             ],
         })
 
-    def friends(self, user_id='me', fields=None):
+    def friends(self, user_id='me', fields=None, picture_width=70):
         if fields is None:
-            fields = ['picture', 'name', 'id', ]
+            fields = [
+                'name',
+                'id',
+                'picture.width({}).height({})'.format(picture_width, picture_width),
+            ]
 
         endpoint = '{}/friends'.format(user_id)
         return self._user_request(endpoint, data={'fields': fields})

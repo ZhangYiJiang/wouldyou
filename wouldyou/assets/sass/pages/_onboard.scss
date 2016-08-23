@@ -1,28 +1,71 @@
 body.onboard {
+  $friend-image-size: 70px;
+  $friend-image-padding: 5px;
+
   .friends {
+  }
+
+  .friend-invite {
+    position: relative;
+
+    header {
+      margin: 10px 0 12px;
+      display: flex;
+
+      h3 {
+        flex: 1 auto;
+        margin: 0;
+      }
+    }
   }
 
   .friend-selector {
     display: flex;
     flex-wrap: wrap;
 
+    label, .empty-label, .load-more {
+      width: $friend-image-size + $friend-image-padding * 2;
+      flex: 1 auto;
+    }
+
     label {
-      width: 100px;
+      font-size: 12px;
+      cursor: pointer;
       text-align: center;
       line-height: 1.1;
+      position: relative;
+
+      &:hover input[type='checkbox'] {
+        opacity: 1;
+      }
     }
 
-    div {
-      padding: 5px 0;
+    input[type='checkbox'] + div {
+      padding: $friend-image-padding 0;
+      transition: background .3s;
     }
 
-    input:checked + div {
-      background: rgba($brand-primary, .1);
+    input[type='checkbox'] {
+      position: absolute;
+      right: $friend-image-padding;
+      top: $friend-image-padding;
+      opacity: 0;
+      transition: opacity .3s;
+
+      &:checked {
+        opacity: 1;
+      }
+    }
+
+    input[type='checkbox']:checked + div,
+    input[type='checkbox'] + div:hover {
+      background: rgba($brand-primary, .2);
     }
 
     img {
-      display: inline-block;
+      display: block;
       margin: 0 auto 5px;
+      height: $friend-image-size;
     }
   }
 }

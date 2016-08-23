@@ -57,6 +57,7 @@ class ProfileSetAdmin(admin.ModelAdmin):
 admin.site.register(models.Action)
 admin.site.register(models.Verb)
 admin.site.register(models.Player)
+admin.site.register(models.Invite)
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)

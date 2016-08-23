@@ -3,9 +3,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
+import logging
 
 from .facebook import FacebookMixin
 from . import models
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -26,10 +29,9 @@ class AjaxView(LoginRequiredMixin, FacebookMixin, View):
                 data['data'] = response
             return JsonResponse(data)
         except Exception as e:
-            raise e
+            logger.error(e)
             return JsonResponse({
-                # TODO: Figure out logging and error handling for Ajax requests
-                'error': ''
+                'error': e,
             }, status=500)
 
     def post(self, request):

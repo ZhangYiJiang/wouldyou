@@ -56,8 +56,9 @@ class OnboardView(BaseView):
 
 class InviteView(AjaxView):
     def post(self, request):
+        player = request.user.player
         request_id = request.POST.get('response[request]')
-        to_list = request.POST.getlist('response[to]')
+        to_list = request.POST.getlist('response[to][]')
         models.Invite.objects.bulk_create([
-            models.Invite(request=request_id, to=to) for to in to_list
+            models.Invite(request=request_id, to=to, player=player) for to in to_list
         ])

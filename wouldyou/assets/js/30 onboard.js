@@ -18,7 +18,6 @@ $('body.onboard .friends button').click(function(){
     message: message,
     to: ids.join(','),
   }, function(response){
-    console.log(response);
     if (!response || 'error_code' in response) {
       block.hide();
       return;

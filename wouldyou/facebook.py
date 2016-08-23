@@ -121,9 +121,13 @@ class Facebook:
             ],
         })
 
-    def friends(self, user_id='me', fields=None):
+    def friends(self, user_id='me', fields=None, picture_width=70):
         if fields is None:
-            fields = ['picture', 'name', 'id', ]
+            fields = [
+                'name',
+                'id',
+                'picture.width({}).height({})'.format(picture_width, picture_width),
+            ]
 
         endpoint = '{}/friends'.format(user_id)
         return self._user_request(endpoint, data={'fields': fields})

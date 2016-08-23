@@ -1,19 +1,39 @@
 body.onboard {
+  $friend-image-size: 70px;
+  $friend-image-padding: 5px;
+
   .friends {
+  }
+
+  .friend-invite {
+    position: relative;
+
+    header {
+      margin: 10px 0 12px;
+      display: flex;
+
+      h3 {
+        flex: 1 auto;
+        margin: 0;
+      }
+    }
   }
 
   .friend-selector {
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
+
+    label, .empty-label, .load-more {
+      width: $friend-image-size + $friend-image-padding * 2;
+      flex: 1 auto;
+    }
 
     label {
-      width: 80px;
+      font-size: 12px;
+      cursor: pointer;
       text-align: center;
       line-height: 1.1;
       position: relative;
-      flex: 1 auto;
-      font-size: 12px;
 
       &:hover input[type='checkbox'] {
         opacity: 1;
@@ -21,14 +41,14 @@ body.onboard {
     }
 
     input[type='checkbox'] + div {
-      padding: 5px 0;
+      padding: $friend-image-padding 0;
       transition: background .3s;
     }
 
     input[type='checkbox'] {
       position: absolute;
-      right: 5px;
-      top: 5px;
+      right: $friend-image-padding;
+      top: $friend-image-padding;
       opacity: 0;
       transition: opacity .3s;
 
@@ -45,6 +65,7 @@ body.onboard {
     img {
       display: block;
       margin: 0 auto 5px;
+      height: $friend-image-size;
     }
   }
 }

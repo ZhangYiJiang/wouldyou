@@ -7,5 +7,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^logout$', views.logout, name='logout'),
-    url(r'^welcome/$', views.OnboardView.as_view(), name='onboard'),
+    url(r'^welcome$', views.OnboardView.as_view(), name='onboard'),
+
+    url(r'^api/invite$', views.InviteView.as_view(), name='api.invite'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

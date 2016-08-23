@@ -75,11 +75,11 @@ class ProfileSet(BaseModel):
 
 class Action(BaseModel):
     verb = models.ForeignKey(Verb)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    player = models.ForeignKey(Player)
     profile_set = models.ForeignKey(ProfileSet, default=None)
 
-    limit = models.Q(app_label='django.contrib.auth', model=settings.AUTH_USER_MODEL) | \
-            models.Q(app_label='wouldyou', model='Profile')
+    limit = models.Q(app_label='wouldyou', model=Player) | \
+            models.Q(app_label='wouldyou', model=Profile)
 
     content_type = models.ForeignKey(
         ContentType,
@@ -95,4 +95,4 @@ class Action(BaseModel):
         # TODO: Complete this stub
 
     def __str__(self):
-        return '{0!s} {0!s} {0!s}'.format(self.user, self.verb, self.subject)
+        return '{0!s} {0!s} {0!s}'.format(self.player, self.verb, self.subject)

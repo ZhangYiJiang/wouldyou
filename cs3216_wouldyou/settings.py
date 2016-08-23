@@ -130,7 +130,7 @@ SOCIAL_AUTH_FACEBOOK_NAMESPACE = 'wouldyouspace'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['user_friends', ]
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/welcome/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/welcome'
 
 LOGIN_URL = '/login/facebook'
 

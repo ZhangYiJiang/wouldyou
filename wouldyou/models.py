@@ -28,20 +28,6 @@ class Player(models.Model):
         return self.name
 
 
-class Invite(models.Model):
-    player = models.ForeignKey(Player)
-    request = models.CharField(max_length=255)
-    to = models.CharField(max_length=255)
-
-    @property
-    def request_id(self):
-        # From https://developers.facebook.com/docs/games/services/gamerequests#responsedata
-        return '{}_{}'.format(self.request, self.to)
-
-    def __str__(self):
-        return self.request_id
-
-
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -97,9 +83,19 @@ class Action(BaseModel):
     object_id = models.PositiveIntegerField()
     subject = GenericForeignKey()
 
-    def popularity(self):
-        """Percentage of people that select this option"""
-        # TODO: Complete this stub
-
     def __str__(self):
         return '{0!s} {0!s} {0!s}'.format(self.player, self.verb, self.subject)
+
+
+class Invite(BaseModel):
+    player = models.ForeignKey(Player)
+    request = models.CharField(max_length=255)
+    to = models.CharField(max_length=255)
+
+    @property
+    def request_id(self):
+        # From https://developers.facebook.com/docs/games/services/gamerequests#responsedata
+        return '{}_{}'.format(self.request, self.to)
+
+    def __str__(self):
+        return self.request_id

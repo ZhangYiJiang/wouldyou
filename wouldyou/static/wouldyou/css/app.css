@@ -2679,4 +2679,33 @@ body.onboard .friend-selector img {
   height: 70px;
 }
 
+body.game .game-choice {
+  text-align: center;
+}
+
+body.game .game-choice img {
+  width: 200px;
+}
+
+body.game .game-choice .game-action {
+  margin-top: 10px;
+}
+
+body.game .game-choice label {
+  text-align: left;
+  cursor: pointer;
+  padding: 5px;
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+}
+
+body.game .game-choice label:hover {
+  background: rgba(51, 122, 183, 0.2);
+}
+
+body.game .game-choice label input {
+  vertical-align: middle;
+}
+
 /*# sourceMappingURL=app.css.map */

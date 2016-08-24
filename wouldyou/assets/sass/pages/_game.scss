@@ -1,0 +1,31 @@
+body.game {
+  .game-choice {
+    text-align: center;
+
+    img {
+      width: 200px;
+    }
+
+    .game-action {
+      margin-top: 10px;
+    }
+
+    label {
+      text-align: left;
+      cursor: pointer;
+
+      padding: 5px;
+      display: block;
+      width: 200px;
+      margin: 0 auto;
+
+      &:hover {
+        background: rgba($brand-primary, .2);
+      }
+
+      input {
+        vertical-align: middle;
+      }
+    }
+  }
+}

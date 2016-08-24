@@ -1,3 +1,5 @@
+import random
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -14,8 +16,13 @@ GENDER_CHOICES = (
 class Player(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
-    picture = models.URLField(default='')
+    image = models.URLField(default='')
     name = models.CharField(max_length=100)
+
+    def next_profileset(self):
+        """Selects a random profile set from all unplayed profile sets"""
+        not_played = ProfileSet.objects.exclude(action__player=self).values_list('pk', flat=True)
+        return ProfileSet.objects.get(pk=random.choice(not_played))
 
     def __str__(self):
         return self.name

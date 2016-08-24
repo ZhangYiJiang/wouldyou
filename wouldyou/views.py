@@ -1,12 +1,15 @@
-from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.views import View
 import logging
 
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Prefetch
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
+from django.views import View
+
 from .facebook import FacebookMixin
-from . import models
+from .models import Action, Verb, ProfileSet, Invite
 
 logger = logging.getLogger(__name__)
 
@@ -39,11 +42,11 @@ class AjaxView(LoginRequiredMixin, FacebookMixin, View):
 
 
 class BaseView(LoginRequiredMixin, FacebookMixin, View):
-    def get(self, request):
-        raise NotImplementedError
-
-    def post(self, request):
-        return self.get(request)
+    def http_method_not_allowed(self, request, *args, **kwargs):
+        if request.method.lower() == 'post' and hasattr(self, 'get'):
+            return self.get(request, *args, **kwargs)
+        else:
+            super().http_method_not_allowed(request, *args, **kwargs)
 
 
 class OnboardView(BaseView):
@@ -54,11 +57,49 @@ class OnboardView(BaseView):
         })
 
 
+class NextProfileView(BaseView):
+    def get(self, request):
+        profileset = request.user.player.next_profileset()
+        return redirect('app:game.play', profileset_id=profileset.pk)
+
+    def post(self, request):
+        profileset_id = request.POST.get('profileset_id', None)
+        if profileset_id:
+            profileset = ProfileSet.objects.get(pk=profileset_id)
+            profiles = profileset.profiles
+            actions = []
+            for verb in Verb.objects.all():
+                profile_id = request.POST.get(str(verb), None)
+                profile = profiles.filter(pk=profile_id).first()
+                if profile:
+                    actions.append(Action(
+                        verb=verb,
+                        profile_set=profileset,
+                        subject=profile,
+                        player=request.user.player,
+                    ))
+
+            if actions:
+                Action.objects.bulk_create(actions)
+
+        return self.get(request)
+
+
+class GameView(BaseView):
+    def get(self, request, profileset_id):
+        profileset = get_object_or_404(ProfileSet, pk=profileset_id)
+        verbs = Verb.objects.all()
+        return render(request, 'wouldyou/pages/game.html', {
+            'profileset': profileset,
+            'verbs': verbs,
+        })
+
+
 class InviteView(AjaxView):
     def post(self, request):
         player = request.user.player
         request_id = request.POST.get('response[request]')
         to_list = request.POST.getlist('response[to][]')
-        models.Invite.objects.bulk_create([
-            models.Invite(request=request_id, to=to, player=player) for to in to_list
+        Invite.objects.bulk_create([
+            Invite(request=request_id, to=to, player=player) for to in to_list
         ])

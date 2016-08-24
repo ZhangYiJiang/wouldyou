@@ -1,0 +1,40 @@
+{% extends "wouldyou/base.html" %}
+
+{% block body_class %}game{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+    <form method="post" action="{% url 'app:game.next' %}">
+      {% csrf_token %}
+      <input type="hidden" name="profileset_id" value="{{ profileset.pk }}">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h2>{{ profileset.name }}</h2>
+        </div>
+
+        {% for profile in profileset.profiles.all %}
+        <div class="col-md-4 game-choice">
+          <h3>{{ profile.name }}</h3>
+          <img src="{{ profile.image.url }}" alt="">
+
+          <ul class="game-action list-unstyled">
+            {% for verb in verbs %}
+            <li>
+              <label>
+                <input type="radio" name="{{ verb }}" value="{{ profile.pk }}">
+                {{ verb|title }}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+
+        <div class="col-sm-12">
+          <button class="btn btn-primary btn-lg">Next!</button>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

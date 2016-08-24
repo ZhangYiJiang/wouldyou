@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL('DELETE FROM `wouldyou_action`'),
+        migrations.RunSQL('DELETE FROM wouldyou_action'),
+
         migrations.RemoveField(
             model_name='action',
             name='user',

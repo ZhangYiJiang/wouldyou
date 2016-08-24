@@ -84,7 +84,7 @@ class Action(BaseModel):
     subject = GenericForeignKey()
 
     def __str__(self):
-        return '{0!s} {0!s} {0!s}'.format(self.player, self.verb, self.subject)
+        return '{} {} {}'.format(self.player, self.verb, self.subject)
 
 
 class Invite(BaseModel):

@@ -2,16 +2,22 @@ body.game {
   .game-choice {
     text-align: center;
 
-    img {
-      width: 200px;
-    }
+    .game-card {
+      position: relative;
 
-    .game-action {
-      margin-top: 10px;
+      img {
+        width: 200px;
+      }
+
+      .game-action {
+        margin-top: 10px;
+        position: absolute;
+        top: 0px;
+        text-align: middle;
+      }
     }
 
     label {
-      text-align: left;
       cursor: pointer;
 
       padding: 5px;

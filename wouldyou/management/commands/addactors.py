@@ -16,7 +16,7 @@ class Command(BaseCommand):
     def _save_image(self, profile, url):
         path = urlparse(url).path
         ext = os.path.splitext(path)[1]
-        image_name = slugify(url) + '.' + ext
+        image_name = slugify(profile.name) + ext
 
         r = requests.get(url)
         r.raise_for_status()

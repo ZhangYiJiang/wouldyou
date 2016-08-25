@@ -2690,8 +2690,25 @@ body.game .game-choice {
   text-align: center;
 }
 
+body.game .game-choice .game-card-selected img {
+  filter: brightness(70%);
+  -webkit-filter: brightness(70%);
+}
+
+body.game .game-choice .game-card:hover img {
+  filter: brightness(70%);
+  -webkit-filter: brightness(70%);
+}
+
+body.game .game-choice .game-card:hover .game-action {
+  visibility: visible;
+}
+
 body.game .game-choice .game-card {
   position: relative;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body.game .game-choice .game-card img {
@@ -2699,10 +2716,40 @@ body.game .game-choice .game-card img {
 }
 
 body.game .game-choice .game-card .game-action {
-  margin-top: 10px;
+  visibility: hidden;
   position: absolute;
-  top: 0px;
-  text-align: middle;
+  display: block;
+  top: 25%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.game .game-choice .game-card .game-action .verb-button {
+  height: 40px;
+  width: 160px;
+  margin-bottom: 20px;
+  border: 0;
+  color: white;
+  filter: brightness(70%);
+  -webkit-filter: brightness(70%);
+}
+
+body.game .game-choice .game-card .game-action .verb-button:hover {
+  filter: brightness(100%);
+  -webkit-filter: brightness(100%);
+}
+
+body.game .game-choice .game-card .game-action .kiss-verb-button {
+  background-color: #cd244d;
+}
+
+body.game .game-choice .game-card .game-action .merry-verb-button {
+  background-color: #9f4db5;
+}
+
+body.game .game-choice .game-card .game-action .kill-verb-button {
+  background-color: #59a8c5;
 }
 
 body.game .game-choice label {

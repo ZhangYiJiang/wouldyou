@@ -2,24 +2,76 @@ body.game {
   .game-choice {
     text-align: center;
 
+    .game-card-selected {
+      img {
+        filter: brightness(70%);
+        -webkit-filter: brightness(70%);
+      }
+    }
+
+    .game-card:hover {
+      img {
+        filter: brightness(70%);
+        -webkit-filter: brightness(70%);
+      }
+
+      .game-action {
+        visibility: visible;
+      }
+    }
+
     .game-card {
       position: relative;
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
 
       img {
         width: 200px;
       }
 
       .game-action {
-        margin-top: 10px;
+        visibility: hidden;
         position: absolute;
-        top: 0px;
-        text-align: middle;
+        display: block;
+        top: 25%;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+        .verb-button {
+          height: 40px;
+          width: 160px;
+          margin-bottom: 20px;
+          border: 0;
+          color: white;
+          filter: brightness(70%);
+          -webkit-filter: brightness(70%);
+        }
+
+        .verb-button:hover {
+          filter: brightness(100%);
+          -webkit-filter: brightness(100%);
+        }
+
+        .kiss-verb-button {
+          background-color: $kiss-colour;
+        }
+
+        .merry-verb-button {
+          background-color: $marry-colour;
+        }
+
+        .kill-verb-button {
+          background-color: $kill-colour;
+        }
       }
     }
 
+
+    // for now no use
     label {
       cursor: pointer;
-
       padding: 5px;
       display: block;
       width: 200px;

@@ -38,6 +38,12 @@
  4. Run `gulp serve` to start the Browsersync server, *or* 
  5. Run `gulp watch` to watch for asset changes without using Browsersync
  
+ Remember to include the compiled CSS and JS files. You should also run `gulp build --env=production` before pushing so that the minified files are included in the commit. 
+ 
+ You can also used the included githook to do this automatically on each commit. 
+ 
+     ln -s /full/path/to/githook/pre-commit /path/to/repo/.git/hook/pre-commit
+ 
 ## Fabric tasks 
 
 Fabric is a automatic deployment and system administration utility. We use this for deployment and other server admin tasks. 

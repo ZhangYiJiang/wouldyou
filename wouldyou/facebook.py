@@ -74,7 +74,7 @@ class Facebook:
 
         return FacebookResponse(r, self)
 
-    def _user_request(self, endpoint, *args, **kwargs):
+    def _user_request(self, user_id, endpoint='', *args, **kwargs):
         """Injects access token into request data"""
         try:
             token = self._token
@@ -83,12 +83,16 @@ class Facebook:
             token = social.extra_data['access_token']
             self._token = token
 
+        if not isinstance(user_id, str):
+            user_id = ','.join(user_id)
+
         token_data = {
             'access_token': token,
             'appsecret_proof': self._app_secret_proof(token),
         }
         kwargs['data'] = {**kwargs.get('data', {}), **token_data}
-        return self._facebook_request(endpoint, *args, **kwargs)
+        url = '{}/{}'.format(user_id, endpoint).strip('/')
+        return self._facebook_request(url, *args, **kwargs)
 
     def _app_secret_proof(self, token):
         """Generates app secret proof"""
@@ -107,8 +111,7 @@ class Facebook:
 
     def invitable_friends(self, user_id='me', picture_width=70):
         # TODO: Account for when the user declines to give permission
-        endpoint = '{}/invitable_friends'.format(user_id)
-        return self._user_request(endpoint, data={
+        return self._user_request(user_id, 'invitable_friends', data={
             # TODO: Figure out how Facebook's image width work
             'fields': [
                 'name',
@@ -124,9 +127,7 @@ class Facebook:
                 'id',
                 'picture.width({}).height({})'.format(picture_width, picture_width),
             ]
-
-        endpoint = '{}/friends'.format(user_id)
-        return self._user_request(endpoint, data={'fields': fields})
+        return self._user_request(user_id, 'friends', data={'fields': fields})
 
     def picture(self, user_id='me', width=300, height=600):
         return '{}/{}/{}/picture?width={}&height={}'.format(self.url_prefix, self.version, user_id, width, height)

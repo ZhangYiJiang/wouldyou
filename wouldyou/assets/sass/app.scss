@@ -9,3 +9,25 @@
 @import "pages/index";
 @import "pages/onboard";
 @import "pages/game";
+
+header.global {
+	color: white;
+	background-color: $navigation-bar-brown;
+	padding: 5px;
+
+	h1 {
+		padding-top: 5px;
+		padding-left: 5px;
+
+		a {
+			color: white;
+		}
+	}
+
+	.profile {
+		.profile-image {
+			width: 30px;
+			height: 30px;
+		}
+	}
+}

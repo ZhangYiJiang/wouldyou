@@ -1,12 +1,7 @@
 from django.contrib import admin
-from django.contrib.contenttypes.admin import GenericTabularInline
 from django.forms import ModelForm, ValidationError, RadioSelect
 
 from . import models
-
-
-class ActionInline(GenericTabularInline):
-    model = models.Action
 
 
 class ProfileForm(ModelForm):
@@ -21,7 +16,6 @@ class ProfileAdmin(admin.ModelAdmin):
     form = ProfileForm
     list_display = ('name', 'gender', 'image_tag', )
     list_filter = ('gender', )
-    inlines = [ActionInline, ]
 
 
 class ProfileInlineForm(ModelForm):
@@ -46,7 +40,8 @@ class ProfileSetAdmin(admin.ModelAdmin):
     ]
     exclude = ('profiles', )
 
-admin.site.register(models.Action)
 admin.site.register(models.Verb)
 admin.site.register(models.Player)
 admin.site.register(models.Invite)
+admin.site.register(models.PlayerAction)
+admin.site.register(models.ProfileAction)

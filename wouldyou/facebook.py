@@ -5,7 +5,7 @@ import json
 import requests
 from django.conf import settings
 
-from .models import Player
+from . import models
 
 
 def create_profile(backend, user, response, *args, **kwargs):
@@ -19,8 +19,8 @@ def create_profile(backend, user, response, *args, **kwargs):
         fb = Facebook(user)
         try:
             player = user.player
-        except Player.DoesNotExist:
-            player = Player(user=user)
+        except models.Player.DoesNotExist:
+            player = models.Player(user=user)
 
         # TODO: Think of better design for restricting data
         # We need to match up the fields in the Player model with the
@@ -29,9 +29,11 @@ def create_profile(backend, user, response, *args, **kwargs):
         fb_user = fb.user(fields=('gender', 'picture', ))
         player.gender = fb_user.get('gender', '')[:1].upper()
         try:
-            player.picture = fb_user['picture']['data']['url']
+            player.image = fb_user['picture']['data']['url']
         except KeyError:
             pass
+
+        player.uid = response['id']
         player.name = response['name']
         player.save()
 
@@ -40,7 +42,7 @@ def profile_context_processor(request):
     if request.user.is_authenticated:
         try:
             return {'player': request.user.player}
-        except Player.DoesNotExist:
+        except models.Player.DoesNotExist:
             return {}
     else:
         return {}
@@ -131,6 +133,9 @@ class Facebook:
 
         endpoint = '{}/friends'.format(user_id)
         return self._user_request(endpoint, data={'fields': fields})
+
+    def picture(self, user_id='me', width=300, height=600):
+        return '{}/{}/{}/picture?width={}&height={}'.format(self.url_prefix, self.version, user_id, width, height)
 
 
 class FacebookResponse:

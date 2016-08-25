@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from .facebook import FacebookMixin
-from .models import Action, Verb, ProfileSet, Invite
+from .models import Verb, PlayerSet, ProfileSet, Invite
 
 logger = logging.getLogger(__name__)
 
@@ -56,42 +56,46 @@ class OnboardView(BaseView):
         })
 
 
-class NextProfileView(BaseView):
+class NextProfile(BaseView):
+    model = None
+
     def get(self, request):
-        profileset = request.user.player.next_profileset()
-        return redirect('app:game.play', profileset_id=profileset.pk)
+        set_obj = request.user.player.next_set(self.model)
+        return redirect(set_obj, set_id=set_obj.pk)
 
     def post(self, request):
-        profileset_id = request.POST.get('profileset_id', None)
-        if profileset_id:
-            profileset = ProfileSet.objects.get(pk=profileset_id)
-            profiles = profileset.profiles
+        set_model = self.model.set_model
+        set_id = request.POST.get('set_id', None)
+        set_obj = set_model.objects.filter(pk=set_id).first()
+
+        if set_obj:
             actions = []
             for verb in Verb.objects.all():
                 profile_id = request.POST.get(str(verb), None)
-                profile = profiles.filter(pk=profile_id).first()
-                if profile:
-                    actions.append(Action(
-                        verb=verb,
-                        profile_set=profileset,
-                        subject=profile,
-                        player=request.user.player,
-                    ))
-
-            if actions:
-                Action.objects.bulk_create(actions)
-
+                if profile_id is not None:
+                    actions.append((verb, profile_id,))
+            set_obj.create_action(request.user.player, actions)
         return self.get(request)
 
 
 class GameView(BaseView):
-    def get(self, request, profileset_id):
-        profileset = get_object_or_404(ProfileSet, pk=profileset_id)
+    model = None
+
+    def get(self, request, set_id):
+        set_obj = get_object_or_404(self.model, pk=set_id)
         verbs = Verb.objects.all()
         return render(request, 'wouldyou/pages/game.html', {
-            'profileset': profileset,
+            'set': set_obj,
             'verbs': verbs,
         })
+
+
+class PlayerGame(GameView):
+    model = PlayerSet
+
+
+class CelebrityGame(GameView):
+    model = ProfileSet
 
 
 class InviteView(AjaxView):

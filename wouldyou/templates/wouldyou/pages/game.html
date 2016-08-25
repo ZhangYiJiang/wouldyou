@@ -4,25 +4,25 @@
 
 {% block content %}
   <div class="container-fluid">
-    <form method="post" action="{% url 'app:game.next' %}">
+    <form method="post" action="{{ set.get_next_url }}">
       {% csrf_token %}
-      <input type="hidden" name="profileset_id" value="{{ profileset.pk }}">
+      <input type="hidden" name="set_id" value="{{ set.pk }}">
 
       <div class="row">
         <div class="col-sm-12">
-          <h2>{{ profileset.name }}</h2>
+          <h2>{{ set.name }}</h2>
         </div>
 
-        {% for profile in profileset.profiles.all %}
+        {% for subject in set.subjects.all %}
         <div class="col-md-4 game-choice">
-          <h3>{{ profile.name }}</h3>
-          <img src="{{ profile.image.url }}" alt="">
+          <h3>{{ subject.name }}</h3>
+          <img src="{{ subject.image.url }}" alt="">
 
           <ul class="game-action list-unstyled">
             {% for verb in verbs %}
             <li>
               <label>
-                <input type="radio" name="{{ verb }}" value="{{ profile.pk }}">
+                <input type="radio" name="{{ verb }}" value="{{ subject.pk }}">
                 {{ verb|title }}
               </label>
             </li>

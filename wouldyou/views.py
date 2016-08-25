@@ -7,7 +7,6 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .facebook import FacebookMixin
 from .models import Verb, PlayerSet, ProfileSet, Invite
 
 logger = logging.getLogger(__name__)
@@ -22,7 +21,7 @@ def logout(request):
     return redirect('app:index')
 
 
-class AjaxView(LoginRequiredMixin, FacebookMixin, View):
+class AjaxView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
         try:
             data = {'success': True}
@@ -40,7 +39,7 @@ class AjaxView(LoginRequiredMixin, FacebookMixin, View):
         raise NotImplementedError
 
 
-class BaseView(LoginRequiredMixin, FacebookMixin, View):
+class BaseView(LoginRequiredMixin, View):
     def http_method_not_allowed(self, request, *args, **kwargs):
         if request.method.lower() == 'post' and hasattr(self, 'get'):
             return self.get(request, *args, **kwargs)
@@ -50,9 +49,10 @@ class BaseView(LoginRequiredMixin, FacebookMixin, View):
 
 class OnboardView(BaseView):
     def get(self, request):
+        player = request.user.player
         return render(request, 'wouldyou/pages/onboard.html', {
-            'invitable': self.facebook.invitable_friends(),
-            'friends': self.facebook.friends(),
+            'invitable': player.facebook.invitable_friends(),
+            'friends': player.facebook.friends(),
         })
 
 

@@ -48,12 +48,6 @@ def profile_context_processor(request):
         return {}
 
 
-class FacebookMixin:
-    def dispatch(self, request, *args, **kwargs):
-        self.facebook = Facebook(request.user)
-        return super().dispatch(request, *args, **kwargs)
-
-
 class Facebook:
     version = 'v2.7'
     url_prefix = 'https://graph.facebook.com'

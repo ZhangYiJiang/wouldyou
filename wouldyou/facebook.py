@@ -17,24 +17,15 @@ def create_profile(backend, user, response, *args, **kwargs):
     """
     if backend.name == 'facebook':
         fb = Facebook(user)
+        fb_user = fb.user()
+
         try:
-            player = user.player
+            player = models.Player.objects.get(uid=fb_user['id'])
         except models.Player.DoesNotExist:
-            player = models.Player(user=user)
+            player = models.Player()
 
-        # TODO: Think of better design for restricting data
-        # We need to match up the fields in the Player model with the
-        # ones from the FB API. This is currently done manually, but
-        # there might be a DRY-er way to do this
-        fb_user = fb.user(fields=('gender', 'picture', ))
-        player.gender = fb_user.get('gender', '')[:1].upper()
-        try:
-            player.image = fb_user['picture']['data']['url']
-        except KeyError:
-            pass
-
-        player.uid = response['id']
-        player.name = response['name']
+        player.user = user
+        player.from_fb_user(fb_user)
         player.save()
 
 
@@ -46,12 +37,6 @@ def profile_context_processor(request):
             return {}
     else:
         return {}
-
-
-class FacebookMixin:
-    def dispatch(self, request, *args, **kwargs):
-        self.facebook = Facebook(request.user)
-        return super().dispatch(request, *args, **kwargs)
 
 
 class Facebook:
@@ -80,7 +65,7 @@ class Facebook:
 
         return FacebookResponse(r, self)
 
-    def _user_request(self, endpoint, *args, **kwargs):
+    def _user_request(self, user_id, endpoint='', *args, **kwargs):
         """Injects access token into request data"""
         try:
             token = self._token
@@ -89,12 +74,19 @@ class Facebook:
             token = social.extra_data['access_token']
             self._token = token
 
-        token_data = {
+        data = {
             'access_token': token,
             'appsecret_proof': self._app_secret_proof(token),
         }
-        kwargs['data'] = {**kwargs.get('data', {}), **token_data}
-        return self._facebook_request(endpoint, *args, **kwargs)
+
+        if not isinstance(user_id, str):
+            data['ids'] = ','.join(user_id)
+            url = endpoint
+        else:
+            url = '{}/{}'.format(user_id, endpoint).strip('/')
+
+        kwargs['data'] = {**kwargs.get('data', {}), **data}
+        return self._facebook_request(url, *args, **kwargs)
 
     def _app_secret_proof(self, token):
         """Generates app secret proof"""
@@ -107,14 +99,13 @@ class Facebook:
 
     def user(self, user_id='me', fields=None):
         if fields is None:
-            fields = ['picture', 'gender', ]
+            fields = ['id', 'name', 'picture', 'gender', ]
 
         return self._user_request(user_id, data={'fields': fields})
 
     def invitable_friends(self, user_id='me', picture_width=70):
         # TODO: Account for when the user declines to give permission
-        endpoint = '{}/invitable_friends'.format(user_id)
-        return self._user_request(endpoint, data={
+        return self._user_request(user_id, 'invitable_friends', data={
             # TODO: Figure out how Facebook's image width work
             'fields': [
                 'name',
@@ -130,9 +121,7 @@ class Facebook:
                 'id',
                 'picture.width({}).height({})'.format(picture_width, picture_width),
             ]
-
-        endpoint = '{}/friends'.format(user_id)
-        return self._user_request(endpoint, data={'fields': fields})
+        return self._user_request(user_id, 'friends', data={'fields': fields})
 
     def picture(self, user_id='me', width=300, height=600):
         return '{}/{}/{}/picture?width={}&height={}'.format(self.url_prefix, self.version, user_id, width, height)

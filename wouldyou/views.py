@@ -7,8 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .facebook import FacebookMixin
-from .models import Verb, PlayerSet, ProfileSet, Invite
+from .models import Verb, PlayerSet, ProfileSet, Player
 
 logger = logging.getLogger(__name__)
 
@@ -22,25 +21,19 @@ def logout(request):
     return redirect('app:index')
 
 
-class AjaxView(LoginRequiredMixin, FacebookMixin, View):
+class AjaxView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
-        try:
-            data = {'success': True}
-            response = super().dispatch(request, *args, **kwargs)
-            if response:
-                data['data'] = response
-            return JsonResponse(data)
-        except Exception as e:
-            logger.error(e)
-            return JsonResponse({
-                'error': e,
-            }, status=500)
+        data = {'success': True}
+        response = super().dispatch(request, *args, **kwargs)
+        if response:
+            data['data'] = response
+        return JsonResponse(data)
 
     def post(self, request):
         raise NotImplementedError
 
 
-class BaseView(LoginRequiredMixin, FacebookMixin, View):
+class BaseView(LoginRequiredMixin, View):
     def http_method_not_allowed(self, request, *args, **kwargs):
         if request.method.lower() == 'post' and hasattr(self, 'get'):
             return self.get(request, *args, **kwargs)
@@ -50,9 +43,10 @@ class BaseView(LoginRequiredMixin, FacebookMixin, View):
 
 class OnboardView(BaseView):
     def get(self, request):
+        player = request.user.player
         return render(request, 'wouldyou/pages/onboard.html', {
-            'invitable': self.facebook.invitable_friends(),
-            'friends': self.facebook.friends(),
+            'invitable': player.facebook.invitable_friends(),
+            'friends': player.facebook.friends(),
         })
 
 
@@ -103,6 +97,8 @@ class InviteView(AjaxView):
         player = request.user.player
         request_id = request.POST.get('response[request]')
         to_list = request.POST.getlist('response[to][]')
-        Invite.objects.bulk_create([
-            Invite(request=request_id, to=to, player=player) for to in to_list
-        ])
+
+        players = []
+        for friend in player.facebook.user(to_list).values():
+            players.append(Player.from_fb_user(Player(request=request_id), friend))
+        Player.objects.bulk_create(players)

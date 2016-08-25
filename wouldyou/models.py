@@ -2,8 +2,8 @@ import random
 
 from django.conf import settings
 from django.db import models
-from django.utils.html import format_html
 from django.urls import reverse
+from django.utils.html import format_html
 
 from .facebook import Facebook
 
@@ -161,9 +161,10 @@ class AbstractProfile(BaseModel):
 class Player(AbstractProfile):
     set_model = PlayerSet
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, default=None)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, blank=True, null=True)
     image = models.URLField()
     uid = models.CharField(max_length=255)
+    request = models.CharField(max_length=255, default='')
 
     @property
     def portrait(self):
@@ -193,11 +194,20 @@ class Player(AbstractProfile):
 
         return
 
-
     def next_profileset(self):
         """Selects a random profile set from all unplayed profile sets"""
         not_played = ProfileSet.objects.exclude(profileaction__player=self).values_list('pk', flat=True)
         return ProfileSet.objects.get(pk=random.choice(not_played))
+
+    def from_fb_user(self, fb_user):
+        self.name = fb_user['name']
+        self.uid = fb_user['id']
+        self.gender = fb_user.get('gender', '')[:1].upper()
+        try:
+            self.image = fb_user['picture']['data']['url']
+        except KeyError:
+            pass
+        return self
 
 
 class Profile(AbstractProfile):

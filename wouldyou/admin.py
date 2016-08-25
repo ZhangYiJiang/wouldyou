@@ -18,27 +18,30 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ('gender', )
 
 
-class ProfileInlineForm(ModelForm):
-    def clean(self):
-        profile = self.fields['profile']
-        profile_set = self.fields['profileset_set'].profiles
-        if not profile_set.filter(profile=profile).exists():
-            raise ValidationError
-        return super().clean()
-
-
-class ProfileInline(admin.TabularInline):
-    model = models.ProfileSet.profiles.through
+class AbstractProfileInline(admin.TabularInline):
     max_num = 3
     min_num = 3
 
 
+class ProfileInline(AbstractProfileInline):
+    model = models.ProfileSet.profiles.through
+
+
 @admin.register(models.ProfileSet)
 class ProfileSetAdmin(admin.ModelAdmin):
-    inlines = [
-        ProfileInline,
-    ]
+    inlines = [ProfileInline, ]
     exclude = ('profiles', )
+
+
+class PlayerInline(AbstractProfileInline):
+    model = models.PlayerSet.players.through
+
+
+@admin.register(models.PlayerSet)
+class PlayerSetAdmin(admin.ModelAdmin):
+    inlines = [PlayerInline, ]
+    exclude = ('players', )
+
 
 admin.site.register(models.Verb)
 admin.site.register(models.Player)

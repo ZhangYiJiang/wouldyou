@@ -17,24 +17,15 @@ def create_profile(backend, user, response, *args, **kwargs):
     """
     if backend.name == 'facebook':
         fb = Facebook(user)
+        fb_user = fb.user()
+
         try:
-            player = user.player
+            player = models.Player.objects.get(uid=fb_user['id'])
         except models.Player.DoesNotExist:
-            player = models.Player(user=user)
+            player = models.Player()
 
-        # TODO: Think of better design for restricting data
-        # We need to match up the fields in the Player model with the
-        # ones from the FB API. This is currently done manually, but
-        # there might be a DRY-er way to do this
-        fb_user = fb.user(fields=('gender', 'picture', ))
-        player.gender = fb_user.get('gender', '')[:1].upper()
-        try:
-            player.image = fb_user['picture']['data']['url']
-        except KeyError:
-            pass
-
-        player.uid = response['id']
-        player.name = response['name']
+        player.user = user
+        player.from_fb_user(fb_user)
         player.save()
 
 
@@ -83,15 +74,18 @@ class Facebook:
             token = social.extra_data['access_token']
             self._token = token
 
-        if not isinstance(user_id, str):
-            user_id = ','.join(user_id)
-
-        token_data = {
+        data = {
             'access_token': token,
             'appsecret_proof': self._app_secret_proof(token),
         }
-        kwargs['data'] = {**kwargs.get('data', {}), **token_data}
-        url = '{}/{}'.format(user_id, endpoint).strip('/')
+
+        if not isinstance(user_id, str):
+            data['ids'] = ','.join(user_id)
+            url = endpoint
+        else:
+            url = '{}/{}'.format(user_id, endpoint).strip('/')
+
+        kwargs['data'] = {**kwargs.get('data', {}), **data}
         return self._facebook_request(url, *args, **kwargs)
 
     def _app_secret_proof(self, token):
@@ -105,7 +99,7 @@ class Facebook:
 
     def user(self, user_id='me', fields=None):
         if fields is None:
-            fields = ['picture', 'gender', ]
+            fields = ['id', 'name', 'picture', 'gender', ]
 
         return self._user_request(user_id, data={'fields': fields})
 

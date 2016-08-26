@@ -11,10 +11,13 @@ slash.
 """
 
 urlpatterns = [
+    # Static pages
     url(r'^$', views.index, name='index'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^welcome/$', views.OnboardView.as_view(), name='onboard'),
+    url(r'^privacy/$', views.StaticView.as_view(page='privacy'), name='static.privacy'),
 
+    # Game pages
     url(r'^celebrities/next/$', views.NextProfile.as_view(model=models.Profile), name='profile.next'),
     url(r'^celebrities/(?P<set_id>[0-9]+)/$', views.CelebrityGame.as_view(), name='profile.play'),
 

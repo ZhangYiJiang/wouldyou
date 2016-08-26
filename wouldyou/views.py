@@ -21,6 +21,16 @@ def logout(request):
     return redirect('app:index')
 
 
+class StaticView(View):
+    page = None
+
+    def get(self, request):
+        return render(request, 'wouldyou/pages/static/{}.html'.format(self.page))
+
+    def post(self, request):
+        return self.get(request)
+
+
 class AjaxView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
         data = {'success': True}
@@ -53,10 +63,13 @@ class OnboardView(BaseView):
 class NextProfile(BaseView):
     model = None
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.set_model = self.model.set_model
+
     def get(self, request):
         if 'prev' in request.GET:
-            set_model = self.model.set_model
-            set_obj = set_model.objects.filter(pk=request.GET['prev']).first()
+            set_obj = self.set_model.objects.filter(pk=request.GET['prev']).first()
             if set_obj:
                 set_obj.skip_set(request.user.player)
 
@@ -64,9 +77,8 @@ class NextProfile(BaseView):
         return redirect(next_obj, set_id=next_obj.pk)
 
     def post(self, request):
-        set_model = self.model.set_model
         set_id = request.POST.get('set_id', None)
-        set_obj = set_model.objects.filter(pk=set_id).first()
+        set_obj = self.set_model.objects.filter(pk=set_id).first()
 
         if set_obj:
             actions = []
@@ -128,4 +140,3 @@ class ActionView(AjaxView):
         player = request.user.player
         action = set.create_subject(player, verb, set, subject)
         action.save()
-

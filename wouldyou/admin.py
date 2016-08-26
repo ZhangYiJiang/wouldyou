@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.forms import ModelForm, ValidationError, RadioSelect
+from django.forms import ModelForm, RadioSelect
 
 from . import models
 
@@ -45,6 +45,5 @@ class PlayerSetAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Verb)
 admin.site.register(models.Player)
-admin.site.register(models.Invite)
 admin.site.register(models.PlayerAction)
 admin.site.register(models.ProfileAction)

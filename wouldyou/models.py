@@ -237,17 +237,3 @@ class Profile(AbstractProfile):
 
     def image_tag(self):
         return format_html('<img src="{}" alt="" style="max-width: 100px">', self.image.url)
-
-
-class Invite(BaseModel):
-    player = models.ForeignKey(Player)
-    request = models.CharField(max_length=255)
-    to = models.CharField(max_length=255)
-
-    @property
-    def request_id(self):
-        # From https://developers.facebook.com/docs/games/services/gamerequests#responsedata
-        return '{}_{}'.format(self.request, self.to)
-
-    def __str__(self):
-        return self.request_id

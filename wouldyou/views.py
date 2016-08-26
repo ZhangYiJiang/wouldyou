@@ -54,8 +54,14 @@ class NextProfile(BaseView):
     model = None
 
     def get(self, request):
-        set_obj = request.user.player.next_set(self.model)
-        return redirect(set_obj, set_id=set_obj.pk)
+        if 'prev' in request.GET:
+            set_model = self.model.set_model
+            set_obj = set_model.objects.filter(pk=request.GET['prev']).first()
+            if set_obj:
+                set_obj.skip_set(request.user.player)
+
+        next_obj = request.user.player.next_set(self.model)
+        return redirect(next_obj, set_id=next_obj.pk)
 
     def post(self, request):
         set_model = self.model.set_model
@@ -102,3 +108,24 @@ class InviteView(AjaxView):
         for friend in player.facebook.user(to_list).values():
             players.append(Player.from_fb_user(Player(request=request_id), friend))
         Player.objects.bulk_create(players)
+
+
+class ActionView(AjaxView):
+    models = (PlayerSet, ProfileSet, )
+
+    def get_model(self, view):
+        for model in self.models:
+            if model.view_prefix == view:
+                return model
+        raise ValueError
+
+    def post(self, request):
+        model = self.get_model(request.POST['model'])
+        set = model.objects.get(pk=request.POST['set'])
+        subject = set.subjects.get(pk=request.POST['subject'])
+        verb = Verb.objects.get(pk=request.POST['verb'])
+
+        player = request.user.player
+        action = set.create_subject(player, verb, set, subject)
+        action.save()
+

@@ -3,41 +3,38 @@
 {% block body_class %}game{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+  <div class="container-fluid">
 
     <div class="row">
       <div class="col-sm-12">
         <h2>{{ set.name }}</h2>
       </div>
+    </div>
 
+    <div class="row game-area" data-set="{{ set.pk }}" data-model="{{ set.view_prefix }}" data-url="{% url 'app:api.action' %}">
       {% for subject in set.subjects.all %}
-      <div class="col-md-4 game-choice">
-        <h3>{{ subject.name }}</h3>
-        
-        <div class="game-card">
-          <img src="{{ subject.image.url }}" alt="">
+        <div class="col-md-4 game-choice">
+          <h3>{{ subject.name }}</h3>
 
-          <ul class="game-action list-unstyled">
-            {% for verb in verbs %}
-            <li>
-              <button class="verb-button {{ verb }}-verb-button">
-                {{ verb|title }}
-              </button>
-              <!--
-            <label>
-              <input type="radio" name="{{ verb }}" value="{{ subject.pk }}">
-              {{ verb|title }}
-            </label> -->
-          </li>
-          {% endfor %}
-        </ul>
+          <div class="game-card" data-subject="{{ subject.pk }}">
+            <img src="{{ subject.image.url }}" alt="">
+
+            <ul class="game-action list-unstyled">
+              {% for verb in verbs %}
+                <li>
+                  <button class="btn verb-button {{ verb }}-verb-button" data-verb="{{ verb.pk }}">
+                    {{ verb|title }}
+                  </button>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+
+      <div class="col-sm-12">
+        <a href="{{ set.get_next_url }}?prev={{ set.pk }}" class="btn btn-primary btn-lg">Next!</a>
       </div>
     </div>
-    {% endfor %}
-
-    <div class="col-sm-12">
-      <button class="btn btn-primary btn-lg">Next!</button>
-    </div>
   </div>
-</div>
 {% endblock %}

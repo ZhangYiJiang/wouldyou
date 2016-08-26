@@ -2690,82 +2690,63 @@ body.game .game-choice {
   text-align: center;
 }
 
-body.game .game-choice .game-card-selected img {
-  filter: brightness(70%);
-  -webkit-filter: brightness(70%);
-}
-
-body.game .game-choice .game-card:hover img {
-  filter: brightness(70%);
-  -webkit-filter: brightness(70%);
-}
-
-body.game .game-choice .game-card:hover .game-action {
-  visibility: visible;
-}
-
 body.game .game-choice .game-card {
   position: relative;
   width: 200px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+body.game .game-choice .game-card:hover .game-action {
+  top: 0;
 }
 
 body.game .game-choice .game-card img {
-  width: 200px;
-}
-
-body.game .game-choice .game-card .game-action {
-  visibility: hidden;
-  position: absolute;
-  display: block;
-  top: 25%;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  display: block;
 }
 
-body.game .game-choice .game-card .game-action .verb-button {
+body.game .game-choice .game-action {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px 0;
+  transition: .15s top;
+}
+
+body.game .game-choice .game-action li {
+  margin: 0;
+}
+
+body.game .game-choice .verb-button {
   height: 40px;
   width: 160px;
-  margin-bottom: 20px;
   border: 0;
   color: white;
   filter: brightness(70%);
   -webkit-filter: brightness(70%);
 }
 
-body.game .game-choice .game-card .game-action .verb-button:hover {
+body.game .game-choice .verb-button:hover {
   filter: brightness(100%);
   -webkit-filter: brightness(100%);
 }
 
-body.game .game-choice .game-card .game-action .kiss-verb-button {
+body.game .game-choice .kiss-verb-button {
   background-color: #cd244d;
 }
 
-body.game .game-choice .game-card .game-action .merry-verb-button {
+body.game .game-choice .merry-verb-button {
   background-color: #9f4db5;
 }
 
-body.game .game-choice .game-card .game-action .kill-verb-button {
+body.game .game-choice .kill-verb-button {
   background-color: #59a8c5;
-}
-
-body.game .game-choice label {
-  cursor: pointer;
-  padding: 5px;
-  display: block;
-  width: 200px;
-  margin: 0 auto;
-}
-
-body.game .game-choice label:hover {
-  background: rgba(51, 122, 183, 0.2);
-}
-
-body.game .game-choice label input {
-  vertical-align: middle;
 }
 
 /*# sourceMappingURL=app.css.map */

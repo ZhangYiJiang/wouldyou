@@ -23,4 +23,5 @@ urlpatterns = [
 
     # Ajax views
     url(r'^api/invite/$', views.InviteView.as_view(), name='api.invite'),
+    url(r'^api/action/$', views.ActionView.as_view(), name='api.action'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

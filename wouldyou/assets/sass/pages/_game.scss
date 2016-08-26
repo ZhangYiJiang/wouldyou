@@ -2,88 +2,68 @@ body.game {
   .game-choice {
     text-align: center;
 
-    .game-card-selected {
-      img {
-        filter: brightness(70%);
-        -webkit-filter: brightness(70%);
-      }
-    }
-
-    .game-card:hover {
-      img {
-        filter: brightness(70%);
-        -webkit-filter: brightness(70%);
-      }
-
-      .game-action {
-        visibility: visible;
-      }
-    }
-
     .game-card {
       position: relative;
       width: 200px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
+      overflow: hidden;
 
-      img {
-        width: 200px;
+      &:hover {
+        .game-action {
+          top: 0;
+        }
       }
 
-      .game-action {
-        visibility: hidden;
-        position: absolute;
-        display: block;
-        top: 25%;
+      img {
         width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-
-        .verb-button {
-          height: 40px;
-          width: 160px;
-          margin-bottom: 20px;
-          border: 0;
-          color: white;
-          filter: brightness(70%);
-          -webkit-filter: brightness(70%);
-        }
-
-        .verb-button:hover {
-          filter: brightness(100%);
-          -webkit-filter: brightness(100%);
-        }
-
-        .kiss-verb-button {
-          background-color: $kiss-colour;
-        }
-
-        .merry-verb-button {
-          background-color: $marry-colour;
-        }
-
-        .kill-verb-button {
-          background-color: $kill-colour;
-        }
+        display: block;
       }
     }
 
+    .game-action {
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(#000, .4);
 
-    // for now no use
-    label {
-      cursor: pointer;
-      padding: 5px;
-      display: block;
-      width: 200px;
-      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
 
-      &:hover {
-        background: rgba($brand-primary, .2);
+      padding: 20px 0;
+      transition: .15s top;
+
+      li {
+        margin: 0;
       }
+    }
 
-      input {
-        vertical-align: middle;
-      }
+    .verb-button {
+      height: 40px;
+      width: 160px;
+      border: 0;
+      color: white;
+
+      filter: brightness(70%);
+      -webkit-filter: brightness(70%);
+    }
+
+    .verb-button:hover {
+      filter: brightness(100%);
+      -webkit-filter: brightness(100%);
+    }
+
+    .kiss-verb-button {
+      background-color: $kiss-colour;
+    }
+
+    .merry-verb-button {
+      background-color: $marry-colour;
+    }
+
+    .kill-verb-button {
+      background-color: $kill-colour;
     }
   }
 }

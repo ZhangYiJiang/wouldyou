@@ -29,7 +29,7 @@ class Verb(BaseModel):
 
 
 class AbstractAction(BaseModel):
-    verb = models.ForeignKey(Verb)
+    verb = models.ForeignKey(Verb, blank=True, null=True)
     player = models.ForeignKey('Player')
 
     @property
@@ -41,14 +41,17 @@ class AbstractAction(BaseModel):
         raise NotImplementedError
 
     def __str__(self):
-        return '{} {} {}'.format(self.player, self.verb, self.subject)
+        if self.subject is None:
+            return '{} skipped set {}'.format(self.player, self.set)
+        else:
+            return '{} {} {}'.format(self.player, self.verb, self.subject)
 
     class Meta:
         abstract = True
 
 
 class ProfileAction(AbstractAction):
-    profile = models.ForeignKey('Profile')
+    profile = models.ForeignKey('Profile', blank=True, null=True)
     profileset = models.ForeignKey('ProfileSet')
 
     @property
@@ -61,7 +64,7 @@ class ProfileAction(AbstractAction):
 
 
 class PlayerAction(AbstractAction):
-    friend = models.ForeignKey('Player', related_name='friend')
+    friend = models.ForeignKey('Player', related_name='friend', blank=True, null=True)
     friendset = models.ForeignKey('PlayerSet')
 
     @property
@@ -81,17 +84,24 @@ class AbstractSet(BaseModel):
     def subjects(self):
         raise NotImplementedError
 
-    def _create_subject(self, player, verb, set, subject):
+    def create_subject(self, player, verb, set, subject):
+        raise NotImplementedError
+
+    def player_actions(self, player):
         raise NotImplementedError
 
     def create_action(self, player, verbs):
-        # TODO: Create an action representing 'skipped' even if verbs is empty
         actions = []
         for verb, subject_id in verbs:
             subject = self.subjects.filter(pk=subject_id).first()
             if subject:
-                actions.append(self._create_subject(player, verb, self, subject))
+                actions.append(self.create_subject(player, verb, self, subject))
         self.action_class.objects.bulk_create(actions)
+
+    def skip_set(self, player):
+        if not self.player_actions(player):
+            action = self.create_subject(player, None, self, None)
+            action.save()
 
     def get_absolute_url(self):
         return reverse('app:{}.play'.format(self.view_prefix), args=[str(self.pk)])
@@ -107,14 +117,17 @@ class ProfileSet(AbstractSet):
     action_class = ProfileAction
     view_prefix = 'profile'
 
-    name = models.CharField(max_length=40, default='')
+    name = models.CharField(max_length=40, default='', blank=True)
     profiles = models.ManyToManyField('Profile')
 
     @property
     def subjects(self):
-        return self.profiles
+        return self.profiles.filter()
 
-    def _create_subject(self, player, verb, set, subject):
+    def player_actions(self, player):
+        return player.profileaction_set.filter(profileset=self).all()
+
+    def create_subject(self, player, verb, set, subject):
         return ProfileAction(player=player, verb=verb, profileset=set, profile=subject)
 
     def __str__(self):
@@ -134,7 +147,10 @@ class PlayerSet(AbstractSet):
     def subjects(self):
         return self.players
 
-    def _create_subject(self, player, verb, set, subject):
+    def player_actions(self, player):
+        return player.playeraction_set.filter(playerset=self).all()
+
+    def create_subject(self, player, verb, set, subject):
         return PlayerAction(player=player, verb=verb, friendset=set, friend=subject)
 
     def __str__(self):

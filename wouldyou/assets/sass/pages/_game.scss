@@ -2,6 +2,13 @@ body.game {
   .game-choice {
     text-align: center;
 
+    .game-card-unselected {
+      .game-action {
+        top: 100%;
+        transition: .15s top;
+      }
+    }
+
     .game-card {
       position: relative;
       width: 200px;
@@ -22,7 +29,7 @@ body.game {
 
     .game-action {
       position: absolute;
-      top: 100%;
+      top: 0;
       width: 100%;
       height: 100%;
       background: rgba(#000, .4);
@@ -31,11 +38,14 @@ body.game {
       flex-direction: column;
       justify-content: space-around;
 
-      padding: 20px 0;
-      transition: .15s top;
+      padding: 50px 0px;
+
+      ul {
+        margin: 0;
+      }
 
       li {
-        margin: 0;
+        height: 40px;
       }
     }
 

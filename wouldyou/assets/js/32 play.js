@@ -26,6 +26,10 @@
       .find('button')
       .remove();
 
+    // Mark the game card as selected
+    $t.closest('.game-card-unselected')
+      .removeClass('game-card-unselected');
+
     // Save action using Ajax
     var subject = $t.closest('.game-card')
       .data('subject');

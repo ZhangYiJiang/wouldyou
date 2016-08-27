@@ -50,8 +50,8 @@ gulp.task('sass', () => {
       includePaths: ['node_modules/bootstrap-sass/assets/stylesheets/',],
       sourceMapContents: true,
     }).on('error', sass.logError))
-    .pipe(gulpIf(env.sourcemap, sourcemap.write('.')))
     .pipe(rename(filename(config.out.sass.name, 'css')))
+    .pipe(sourcemap.write('.'))
     .pipe(gulp.dest(out(config.out.sass.path)))
     .pipe(browsersync.stream({ match: '**/*.css' }));
 });

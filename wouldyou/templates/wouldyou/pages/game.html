@@ -4,7 +4,6 @@
 
 {% block content %}
   <div class="container-fluid">
-
     <div class="row">
       <div class="col-sm-12">
         <h2>{{ set.name }}</h2>
@@ -28,11 +27,15 @@
                 </li>
               {% endfor %}
             </ul>
+
+            <div class="game-result hidden">
+            123
+            </div>
           </div>
         </div>
       {% endfor %}
 
-      <div class="col-sm-12">
+      <div class="col-xl-12 pull-right">
         <a href="{{ set.get_next_url }}?prev={{ set.pk }}" class="btn btn-primary btn-lg">Next!</a>
       </div>
     </div>

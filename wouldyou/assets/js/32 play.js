@@ -4,6 +4,7 @@
   var url = gameArea.data('url'),
       setId = gameArea.data('set'),
       model = gameArea.data('model');
+  var count = 0;
 
   verbBtn.click(function(evt){
     evt.preventDefault();
@@ -13,6 +14,7 @@
     if ($t.data('clicked'))
       return;
     $t.data('clicked', true);
+    count++;
 
     // Remove the same option from all other profile
     var verb = $t.data('verb');
@@ -41,6 +43,11 @@
     }).fail(function () {
       // TODO: Figure out what to do in case of failures
     });
+
+    if (count == 3) {
+      $('body.game .game-result')
+        .removeClass('hidden');
+    }
   });
 
 })(jQuery);

@@ -2699,6 +2699,11 @@ body.onboard .friend-selector img {
   height: 70px;
 }
 
+body.game {
+  background-color: #e0e0e0;
+  color: #572c4f;
+}
+
 body.game .game-choice {
   text-align: center;
 }
@@ -2706,6 +2711,11 @@ body.game .game-choice {
 body.game .game-choice .game-card-unselected .game-action {
   top: 100%;
   transition: .15s top;
+}
+
+body.game .game-choice .game-card-unselected .verb-button {
+  filter: brightness(70%);
+  -webkit-filter: brightness(70%);
 }
 
 body.game .game-choice .game-card {
@@ -2749,8 +2759,6 @@ body.game .game-choice .verb-button {
   width: 160px;
   border: 0;
   color: white;
-  filter: brightness(70%);
-  -webkit-filter: brightness(70%);
 }
 
 body.game .game-choice .verb-button:hover {
@@ -2762,12 +2770,17 @@ body.game .game-choice .kiss-verb-button {
   background-color: #cd244d;
 }
 
-body.game .game-choice .merry-verb-button {
+body.game .game-choice .marry-verb-button {
   background-color: #9f4db5;
 }
 
 body.game .game-choice .kill-verb-button {
   background-color: #59a8c5;
+}
+
+body.game .game-choice .game-result {
+  position: absolute;
+  bottom: 20px;
 }
 
 /*# sourceMappingURL=app.css.map */

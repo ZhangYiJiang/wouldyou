@@ -1,4 +1,7 @@
 body.game {
+  background-color: $background-gray;
+  color: $highlight-purple;
+
   .game-choice {
     text-align: center;
 
@@ -6,6 +9,11 @@ body.game {
       .game-action {
         top: 100%;
         transition: .15s top;
+      }
+
+      .verb-button {
+        filter: brightness(70%);
+        -webkit-filter: brightness(70%);
       }
     }
 
@@ -54,9 +62,6 @@ body.game {
       width: 160px;
       border: 0;
       color: white;
-
-      filter: brightness(70%);
-      -webkit-filter: brightness(70%);
     }
 
     .verb-button:hover {
@@ -68,12 +73,17 @@ body.game {
       background-color: $kiss-colour;
     }
 
-    .merry-verb-button {
+    .marry-verb-button {
       background-color: $marry-colour;
     }
 
     .kill-verb-button {
       background-color: $kill-colour;
+    }
+
+    .game-result {
+      position: absolute;
+      bottom: 20px;
     }
   }
 }

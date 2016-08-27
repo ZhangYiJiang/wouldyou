@@ -123,8 +123,9 @@ class Facebook:
             ]
         return self._user_request(user_id, 'friends', data={'fields': fields})
 
-    def picture(self, user_id='me', width=300, height=600):
-        return '{}/{}/{}/picture?width={}&height={}'.format(self.url_prefix, self.version, user_id, width, height)
+    @classmethod
+    def picture(cls, user_id, width=300, height=600):
+        return '{}/{}/{}/picture?width={}&height={}'.format(cls.url_prefix, cls.version, user_id, width, height)
 
 
 class FacebookResponse:

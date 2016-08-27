@@ -17,7 +17,7 @@
           <h3>{{ subject.name }}</h3>
 
           <div class="game-card game-card-unselected" data-subject="{{ subject.pk }}">
-            <img src="{{ subject.image.url }}" alt="">
+            <img src="{{ subject.portrait }}" alt="">
 
             <ul class="game-action list-unstyled">
               {% for verb in verbs %}

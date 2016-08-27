@@ -142,13 +142,29 @@ class PlayerSet(AbstractSet):
     view_prefix = 'player'
 
     players = models.ManyToManyField('Player')
+    player_id_set = models.CharField(max_length=100)
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            id_list = self.players.values_list('uid', flat=True)
+            self.player_id_set = '{},{},{}'.format(*sorted(id_list))
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def make(cls, player_uids):
+        if isinstance(player_uids, str):
+            player_uids = player_uids.split(',')
+        new_set = cls.objects.create()
+        new_set.players = Player.objects.filter(uid__in=player_uids)
+        new_set.save()
+        return new_set
 
     @property
     def subjects(self):
         return self.players
 
     def player_actions(self, player):
-        return player.playeraction_set.filter(playerset=self).all()
+        return player.playeraction_set.filter(friendset=self).all()
 
     def create_subject(self, player, verb, set, subject):
         return PlayerAction(player=player, verb=verb, friendset=set, friend=subject)
@@ -184,7 +200,7 @@ class Player(AbstractProfile):
 
     @property
     def portrait(self):
-        return self.facebook.picture()
+        return Facebook.picture(self.uid)
 
     @property
     def facebook(self):
@@ -205,9 +221,33 @@ class Player(AbstractProfile):
     def next_playerset(self):
         """Generates a random set of friends for the player to play against"""
         # TODO: Consider caching this list locally instead
-        friends_id = [f['id'] for f in self.facebook.friends()]
+        friends_id = set(f['id'] for f in self.facebook.friends())
         played_sets = PlayerSet.objects.filter(playeraction__player=self)
+        not_played_with = set(Player.objects.filter(uid__in=friends_id)\
+            .exclude(playerset__in=played_sets)\
+            .values_list('uid', flat=True))
 
+        # If we have more than three friends not played with, simply generate
+        # a new set using those unplayed friends
+        if len(not_played_with) >= 3:
+            sample = random.sample(not_played_with, 3)
+            return PlayerSet.make(sample)
+
+        # Otherwise we randomly generate a few sets and try to use that
+        id_str = set()
+        played_with = friends_id - not_played_with
+        sample_size = 3 - len(not_played_with)
+        for i in range(10):
+            players = not_played_with | set(random.sample(played_with, sample_size))
+            id_str |= {'{},{},{}'.format(*sorted(players))}
+
+        existing_sets = set(played_sets.filter(player_id_set__in=id_str)\
+            .values_list('player_id_set', flat=True))
+        try:
+            return PlayerSet.make((id_str - existing_sets).pop())
+        except KeyError:
+            # TODO: Decide on what to do when there aren't any more sets
+            pass
         return
 
     def next_profileset(self):
@@ -233,7 +273,7 @@ class Profile(AbstractProfile):
 
     @property
     def portrait(self):
-        return self.image
+        return self.image.url
 
     def image_tag(self):
         return format_html('<img src="{}" alt="" style="max-width: 100px">', self.image.url)

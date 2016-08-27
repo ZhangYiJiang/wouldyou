@@ -40,7 +40,7 @@ class PlayerInline(AbstractProfileInline):
 @admin.register(models.PlayerSet)
 class PlayerSetAdmin(admin.ModelAdmin):
     inlines = [PlayerInline, ]
-    exclude = ('players', )
+    exclude = ('players', 'player_id_set', )
 
 
 admin.site.register(models.Verb)

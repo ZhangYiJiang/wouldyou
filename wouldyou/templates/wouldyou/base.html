@@ -8,7 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf_token" content="{{ csrf_token }}">
 
-  <link href="{% static "wouldyou/css/app.css" %}" rel="stylesheet">
+  {% if debug %}
+    <link href="{% static "wouldyou/css/app.css" %}" rel="stylesheet">
+  {% else %}
+    <link href="{% static "wouldyou/css/app.min.css" %}" rel="stylesheet">
+  {% endif %}
+
   {% block styles %}{% endblock %}
   <script src="https://use.fontawesome.com/d41c01d904.js"></script>
 </head>
@@ -31,7 +36,11 @@
 {% endblock %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+{% if debug %}
 <script src="{% static "wouldyou/js/app.js" %}"></script>
+{% else %}
+<script src="{% static "wouldyou/js/app.min.js" %}"></script>
+{% endif %}
 {% block scripts %}{% endblock %}
 
 {% if not debug %}

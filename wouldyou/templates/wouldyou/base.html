@@ -15,22 +15,7 @@
 <body class="{% block body_class %}{% endblock %}">
 {% include 'wouldyou/components/fb.html' %}
 {% block header %}
-<header class="global">
-  <h1><a href="{% url 'app:index' %}">Would You ____?</a></h1>
-
-  <div class="profile">
-    {% if player %}
-      <img class="profile-image" src="{{ player.image }}" alt="">
-      <div class="profile-detail">
-        <p>{{ player.name }}</p>
-        <p class="text-muted">Not {{ player.name }}?
-          <a href="{% url 'app:logout' %}">Logout</a></p>
-      </div>
-    {% else %}
-      <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-    {% endif %}
-  </div>
-</header>
+  {% include 'wouldyou/layout/header.html' %}
 {% endblock %}
 
 {% block main %}

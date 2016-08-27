@@ -1,0 +1,8 @@
+.container-fluid, .container-wrapper {
+  max-width: $screen-lg;
+}
+
+.container-wrapper {
+  margin: 0 auto;
+  padding: 0 $grid-gutter-width / 2;
+}

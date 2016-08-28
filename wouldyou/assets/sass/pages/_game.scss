@@ -112,6 +112,13 @@ body.game {
       flex-direction: column;
       justify-content: flex-end;
 
+      .percent-text {
+        position: relative;
+        bottom: 15px;
+        color: white;
+        font-size: .8em;
+      }
+
       .verb-bar {
         bottom: 20px;
       }

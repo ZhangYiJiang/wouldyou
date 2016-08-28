@@ -15,4 +15,4 @@ def get_total(context, subject):
 
 @register.simple_tag(takes_context=True)
 def get_percentage(context, subject, verb):
-    return get_count(context, subject, verb) / get_total(context, subject) * 100
+    return round(get_count(context, subject, verb) / get_total(context, subject) * 100)

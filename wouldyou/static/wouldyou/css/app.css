@@ -2810,6 +2810,13 @@ body.game .game-choice .option-percentage {
   justify-content: flex-end;
 }
 
+body.game .game-choice .option-percentage .percent-text {
+  position: relative;
+  bottom: 15px;
+  color: white;
+  font-size: .8em;
+}
+
 body.game .game-choice .option-percentage .verb-bar {
   bottom: 20px;
 }

@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
+from cs3216_wouldyou import settings
+from . import facebook
 
 from .models import Verb, PlayerSet, ProfileSet, Player
 
@@ -96,9 +98,12 @@ class GameView(BaseView):
     def get(self, request, set_id):
         set_obj = get_object_or_404(self.model, pk=set_id)
         verbs = Verb.objects.all()
+        stats, total = set_obj.stats
         return render(request, 'wouldyou/pages/game.html', {
             'set': set_obj,
             'verbs': verbs,
+            'stats': stats,
+            'total': total,
         })
 
 
@@ -140,3 +145,15 @@ class ActionView(AjaxView):
         player = request.user.player
         action = set.create_subject(player, verb, set, subject)
         action.save()
+
+
+def disconnect(request):
+    secret_key = settings.SOCIAL_AUTH_FACEBOOK_SECRET
+    data = facebook.parse_signed_request(request.POST.get('signed_request', None), secret_key)
+    removed_user_id = data['user_id']
+
+    player = request.user.player
+
+    Player.objects.filter(uid='662659760554647').delete()
+
+    return redirect('/')

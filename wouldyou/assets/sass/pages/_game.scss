@@ -2,6 +2,10 @@ body.game {
   background-color: $background-gray;
   color: $highlight-purple;
 
+  .game-title {
+    font-family: $font-family-serif;
+  }
+
   .game-choice {
     text-align: center;
 

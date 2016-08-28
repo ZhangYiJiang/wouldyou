@@ -1,6 +1,7 @@
 import hashlib
 import hmac
 import json
+import base64
 
 import requests
 from django.conf import settings
@@ -37,6 +38,28 @@ def profile_context_processor(request):
             return {}
     else:
         return {}
+
+
+def base64_url_decode(data):
+    data += "=" * (4 - (len(data) % 4) % 4)
+    return base64.urlsafe_b64decode(data)
+
+
+def parse_signed_request(signed_request, secret):
+
+    encoded_pig, payload = signed_request.split('.', 2)
+    sig = base64_url_decode(encoded_pig)
+    data = json.loads(base64_url_decode(payload))
+
+    if data.get('algorithm').upper() != 'HMAC-SHA256':
+        return None
+    else:
+        expected_sig = hmac.new(secret, msg=payload, digestmod=hashlib.sha256).digest()
+
+    if sig != expected_sig:
+        return None
+
+    return data
 
 
 class Facebook:

@@ -2784,7 +2784,637 @@ body.game .game-choice .kill-verb-button {
 
 body.game .game-choice .game-result {
   position: absolute;
+  bottom: 0px;
+  padding: 0 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+body.game .game-choice .game-result hr {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+}
+
+body.game .option-percentage {
+  flex: 0 26%;
+}
+
+body.game .option-percentage .percentage-1 {
+  height: 1.2px;
   bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-2 {
+  height: 2.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-3 {
+  height: 3.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-4 {
+  height: 4.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-5 {
+  height: 6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-6 {
+  height: 7.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-7 {
+  height: 8.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-8 {
+  height: 9.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-9 {
+  height: 10.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-10 {
+  height: 12px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-11 {
+  height: 13.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-12 {
+  height: 14.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-13 {
+  height: 15.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-14 {
+  height: 16.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-15 {
+  height: 18px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-16 {
+  height: 19.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-17 {
+  height: 20.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-18 {
+  height: 21.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-19 {
+  height: 22.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-20 {
+  height: 24px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-21 {
+  height: 25.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-22 {
+  height: 26.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-23 {
+  height: 27.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-24 {
+  height: 28.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-25 {
+  height: 30px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-26 {
+  height: 31.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-27 {
+  height: 32.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-28 {
+  height: 33.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-29 {
+  height: 34.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-30 {
+  height: 36px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-31 {
+  height: 37.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-32 {
+  height: 38.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-33 {
+  height: 39.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-34 {
+  height: 40.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-35 {
+  height: 42px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-36 {
+  height: 43.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-37 {
+  height: 44.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-38 {
+  height: 45.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-39 {
+  height: 46.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-40 {
+  height: 48px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-41 {
+  height: 49.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-42 {
+  height: 50.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-43 {
+  height: 51.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-44 {
+  height: 52.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-45 {
+  height: 54px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-46 {
+  height: 55.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-47 {
+  height: 56.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-48 {
+  height: 57.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-49 {
+  height: 58.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-50 {
+  height: 60px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-51 {
+  height: 61.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-52 {
+  height: 62.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-53 {
+  height: 63.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-54 {
+  height: 64.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-55 {
+  height: 66px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-56 {
+  height: 67.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-57 {
+  height: 68.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-58 {
+  height: 69.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-59 {
+  height: 70.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-60 {
+  height: 72px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-61 {
+  height: 73.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-62 {
+  height: 74.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-63 {
+  height: 75.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-64 {
+  height: 76.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-65 {
+  height: 78px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-66 {
+  height: 79.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-67 {
+  height: 80.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-68 {
+  height: 81.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-69 {
+  height: 82.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-70 {
+  height: 84px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-71 {
+  height: 85.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-72 {
+  height: 86.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-73 {
+  height: 87.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-74 {
+  height: 88.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-75 {
+  height: 90px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-76 {
+  height: 91.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-77 {
+  height: 92.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-78 {
+  height: 93.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-79 {
+  height: 94.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-80 {
+  height: 96px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-81 {
+  height: 97.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-82 {
+  height: 98.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-83 {
+  height: 99.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-84 {
+  height: 100.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-85 {
+  height: 102px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-86 {
+  height: 103.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-87 {
+  height: 104.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-88 {
+  height: 105.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-89 {
+  height: 106.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-90 {
+  height: 108px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-91 {
+  height: 109.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-92 {
+  height: 110.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-93 {
+  height: 111.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-94 {
+  height: 112.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-95 {
+  height: 114px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-96 {
+  height: 115.2px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-97 {
+  height: 116.4px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-98 {
+  height: 117.6px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-99 {
+  height: 118.8px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .percentage-100 {
+  height: 120px;
+  bottom: 20px;
+  background-color: white;
+}
+
+body.game .option-percentage .kiss-verb-bar {
+  background-color: #cd244d;
+}
+
+body.game .option-percentage .marry-verb-bar {
+  background-color: #9f4db5;
+}
+
+body.game .option-percentage .kill-verb-bar {
+  background-color: #59a8c5;
+}
+
+body.game .option-percentage .text {
+  color: white;
 }
 
 /*# sourceMappingURL=app.css.map */

@@ -29,7 +29,13 @@
             </ul>
 
             <div class="game-result hidden">
-            123
+              {% for verb in verbs %}
+                <div class="option-percentage">
+                    <div class="percentage-100 {{ verb }}-verb-bar"></div>
+                    <div class="text {{ verb }}-verb-text">{{ verb }}</div>  
+                </div>
+              {% endfor %}
+              <hr>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 (function ($) {
   var verbBtn = $('body.game .verb-button');
   var gameArea = $('body.game .game-area');
+  var gameAction = $('body.game .game-action');
   var url = gameArea.data('url'),
       setId = gameArea.data('set'),
       model = gameArea.data('model');
@@ -47,6 +48,10 @@
     if (count == 3) {
       $('body.game .game-result')
         .removeClass('hidden');
+      verbBtn.closest('li')
+        .siblings()
+        .remove();
+      gameAction.css('justify-content', 'flex-start');
     }
   });
 

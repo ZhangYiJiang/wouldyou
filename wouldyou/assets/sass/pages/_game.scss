@@ -87,7 +87,47 @@ body.game {
 
     .game-result {
       position: absolute;
-      bottom: 20px;
+      bottom: 0px;
+      padding: 0 20px;
+      width: 100%;
+      
+      display: flex;
+      justify-content: space-around;
+
+      hr {
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+      }
+    }
+  }
+
+  .option-percentage {
+    flex: 0 26%;
+
+    @for $i from 1 through 100 {
+      .percentage-#{$i} {
+        $value: ($i * 0.01 * 120px);
+        height: $value;
+        bottom: 20px;
+        background-color: white;
+      }
+    }
+
+    .kiss-verb-bar {
+      background-color: $kiss-colour;
+    }
+
+    .marry-verb-bar {
+      background-color: $marry-colour;
+    }
+
+    .kill-verb-bar {
+      background-color: $kill-colour;
+    }
+
+    .text {
+      color: white;
     }
   }
 }

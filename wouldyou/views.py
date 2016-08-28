@@ -98,9 +98,12 @@ class GameView(BaseView):
     def get(self, request, set_id):
         set_obj = get_object_or_404(self.model, pk=set_id)
         verbs = Verb.objects.all()
+        stats, total = set_obj.stats
         return render(request, 'wouldyou/pages/game.html', {
             'set': set_obj,
             'verbs': verbs,
+            'stats': stats,
+            'total': total,
         })
 
 

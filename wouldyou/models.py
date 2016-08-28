@@ -2,6 +2,7 @@ import random
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Count, F
 from django.urls import reverse
 from django.utils.html import format_html
 
@@ -84,10 +85,22 @@ class AbstractSet(BaseModel):
     def subjects(self):
         raise NotImplementedError
 
-    def create_subject(self, player, verb, set, subject):
+    @property
+    def actions(self):
         raise NotImplementedError
 
-    def player_actions(self, player):
+    @property
+    def stats(self):
+        values = self.actions.values('subject', 'verb')\
+            .annotate(count=Count('verb'))
+        stats = {}
+        total = {}
+        for value in values:
+            stats[(value['subject'], value['verb'])] = value['count']
+            total[value['subject']] = total.get(value['subject'], 0) + value['count']
+        return stats, total
+
+    def create_subject(self, player, verb, set, subject):
         raise NotImplementedError
 
     def create_action(self, player, verbs):
@@ -99,7 +112,7 @@ class AbstractSet(BaseModel):
         self.action_class.objects.bulk_create(actions)
 
     def skip_set(self, player):
-        if not self.player_actions(player):
+        if not self.actions.filter(player=player).exists():
             action = self.create_subject(player, None, self, None)
             action.save()
 
@@ -122,10 +135,11 @@ class ProfileSet(AbstractSet):
 
     @property
     def subjects(self):
-        return self.profiles.filter()
+        return self.profiles
 
-    def player_actions(self, player):
-        return player.profileaction_set.filter(profileset=self).all()
+    @property
+    def actions(self):
+        return self.profileaction_set.annotate(subject=F('profile'))
 
     def create_subject(self, player, verb, set, subject):
         return ProfileAction(player=player, verb=verb, profileset=set, profile=subject)
@@ -163,8 +177,9 @@ class PlayerSet(AbstractSet):
     def subjects(self):
         return self.players
 
-    def player_actions(self, player):
-        return player.playeraction_set.filter(friendset=self).all()
+    @property
+    def actions(self):
+        return self.playeraction_set.annotate(subject=F('player'))
 
     def create_subject(self, player, verb, set, subject):
         return PlayerAction(player=player, verb=verb, friendset=set, friend=subject)

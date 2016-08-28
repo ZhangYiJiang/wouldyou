@@ -1,5 +1,7 @@
 {% extends "wouldyou/base.html" %}
 
+{% load game_extra %}
+
 {% block body_class %}game{% endblock %}
 
 {% block content %}
@@ -29,7 +31,10 @@
             </ul>
 
             <div class="game-result hidden">
-            123
+              {% for verb in verbs %}
+                <div>{{ verb }}: {% get_count subject verb %}</div>
+              {% endfor %}
+              <div>Total: {% get_total subject %}</div>
             </div>
           </div>
         </div>

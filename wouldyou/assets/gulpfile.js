@@ -9,6 +9,7 @@ const gulpIf = require('gulp-if');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const sourcemap = require('gulp-sourcemaps');
+const postcss = require('gulp-postcss');
 
 // Import other dependencies 
 const _ = require("lodash");
@@ -43,6 +44,11 @@ gulp.task('img', () => {
 });
 
 gulp.task('sass', () => {
+  const processors = [
+    require('autoprefixer'),
+    require('postcss-flexbugs-fixes'),
+  ];
+
   gulp.src(config.in.sass.file)
     .pipe(sourcemap.init())
     .pipe(sass({
@@ -51,6 +57,7 @@ gulp.task('sass', () => {
       sourceMapContents: true,
     }).on('error', sass.logError))
     .pipe(rename(filename(config.out.sass.name, 'css')))
+    .pipe(postcss(processors))
     .pipe(sourcemap.write('.'))
     .pipe(gulp.dest(out(config.out.sass.path)))
     .pipe(browsersync.stream({ match: '**/*.css' }));

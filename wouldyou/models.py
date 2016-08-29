@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Count, F
 from django.urls import reverse
-from django.utils.functional import cached_property
 from django.utils.html import format_html
 
 from .facebook import Facebook
@@ -42,7 +41,6 @@ class AbstractAction(BaseModel):
     def set(self):
         raise NotImplementedError
 
-    @cached_property
     def __str__(self):
         if self.subject is None:
             return '{} skipped set {}'.format(self.player, self.set)
@@ -124,6 +122,9 @@ class AbstractSet(BaseModel):
     def get_next_url(self):
         return reverse('app:{}.next'.format(self.view_prefix))
 
+    def __str__(self):
+        return ' / '.join(str(x) for x in self.subjects.all())
+
     class Meta:
         abstract = True
 
@@ -146,10 +147,11 @@ class ProfileSet(AbstractSet):
     def create_subject(self, player, verb, set, subject):
         return ProfileAction(player=player, verb=verb, profileset=set, profile=subject)
 
-    @cached_property
     def __str__(self):
         if self.name:
             return self.name
+        else:
+            return super().__str__()
 
 
 class PlayerSet(AbstractSet):

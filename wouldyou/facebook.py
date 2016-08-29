@@ -88,6 +88,9 @@ def parse_signed_request(signed_request, secret):
 
     expected_sig = hmac.new(secret, msg=payload, digestmod=hashlib.sha256).digest()
 
+    sig = sig.decode(encoding='UTF-8')
+    expected_sig = expected_sig.decode(encoding='UTF-8')
+
     if sig != expected_sig:
         return None
 

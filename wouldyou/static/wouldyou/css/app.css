@@ -2717,9 +2717,16 @@ body.game .game-choice .game-card-unselected .game-action {
   transition: .15s top;
 }
 
-body.game .game-choice .game-card-unselected .verb-button {
-  filter: brightness(70%);
-  -webkit-filter: brightness(70%);
+body.game .game-choice .game-card-unselected .kiss-verb-button {
+  background-color: #9a1b3a;
+}
+
+body.game .game-choice .game-card-unselected .marry-verb-button {
+  background-color: #773a88;
+}
+
+body.game .game-choice .game-card-unselected .kill-verb-button {
+  background-color: #437e94;
 }
 
 body.game .game-choice .game-card {
@@ -2744,8 +2751,11 @@ body.game .game-choice .game-action {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-justify-content: space-around;
   justify-content: space-around;
   padding: 50px 0px;
 }
@@ -2765,12 +2775,11 @@ body.game .game-choice .verb-button {
   color: white;
 }
 
-body.game .game-choice .verb-button:hover {
-  filter: brightness(100%);
-  -webkit-filter: brightness(100%);
+body.game .game-choice .kiss-verb-button {
+  background-color: #cd244d;
 }
 
-body.game .game-choice .kiss-verb-button {
+body.game .game-choice .kiss-verb-button:hover {
   background-color: #cd244d;
 }
 
@@ -2778,7 +2787,15 @@ body.game .game-choice .marry-verb-button {
   background-color: #9f4db5;
 }
 
+body.game .game-choice .marry-verb-button:hover {
+  background-color: #9f4db5;
+}
+
 body.game .game-choice .kill-verb-button {
+  background-color: #59a8c5;
+}
+
+body.game .game-choice .kill-verb-button:hover {
   background-color: #59a8c5;
 }
 
@@ -2792,7 +2809,9 @@ body.game .game-choice .bar-chart {
   padding: 0 20px;
   width: 100%;
   height: 150px;
+  display: -webkit-flex;
   display: flex;
+  -webkit-justify-content: space-around;
   justify-content: space-around;
 }
 
@@ -2804,9 +2823,13 @@ body.game .game-choice hr {
 
 body.game .game-choice .option-percentage {
   height: 100%;
+  -webkit-flex: 0 26%;
   flex: 0 26%;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-justify-content: flex-end;
   justify-content: flex-end;
 }
 
@@ -2817,8 +2840,47 @@ body.game .game-choice .option-percentage .percent-text {
   font-size: .8em;
 }
 
+@-webkit-keyframes bar-animation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: visible;
+  }
+}
+
+@-moz-keyframes bar-animation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: visible;
+  }
+}
+
+@-o-keyframes bar-animation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: visible;
+  }
+}
+
+@keyframes bar-animation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: visible;
+  }
+}
+
 body.game .game-choice .option-percentage .verb-bar {
   bottom: 20px;
+  -webkit-animation: bar-animation 1.5s;
+  -o-animation: bar-animation 1.5s;
+  animation: bar-animation 1.5s;
 }
 
 body.game .game-choice .option-percentage .kiss-verb-bar {

@@ -7,7 +7,7 @@
 /// @param {Number} $percentage - percentage of `$color` in returned color
 /// @return {Color}
 @function tint($color, $percentage) {
-  @return mix(white, $color, $percentage);
+	@return mix(white, $color, $percentage);
 }
 
 /// Slightly darken a color
@@ -16,5 +16,83 @@
 /// @param {Number} $percentage - percentage of `$color` in returned color
 /// @return {Color}
 @function shade($color, $percentage) {
-  @return mix(black, $color, $percentage);
+	@return mix(black, $color, $percentage);
+}
+
+
+
+// Keyframes and Animation mixins
+// Taken from http://codepen.io/mavame/pen/tJfLI
+
+/// Define a keyframe
+/// @param {AnimationName} $animation-name - the name of animation
+/// @param {Content} $content - the content of animation
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@-o-keyframes #{$animation-name} {
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+
+/// Use an animation
+/// @param {Str} $str - the name of animation
+@mixin animation($animation-name, $duration) {
+	-webkit-animation: $animation-name $duration;
+}
+
+
+
+// Flexbox realted mixins
+
+@mixin display-flex {
+	display: -webkit-flex;
+	display: flex;
+}
+
+@mixin flex-direction($value) {
+	-webkit-flex-direction: $value;
+	flex-direction: $value;
+}
+
+@mixin flex-wrap($value) {
+	-webkit-flex-wrap: $value;
+	flex-wrap: $value;
+}
+
+@mixin flex-grow($value) {
+	-webkit-flex-grow: $value;
+	flex-grow: $value;
+}
+
+@mixin flex-shrink($value) {
+	-webkit-flex-shrink: $value;
+	flex-shrink: $value;
+}
+
+@mixin flex-basis($value) {
+	-webkit-flex-basis: $value;
+	flex-basis: $value;
+}
+
+@mixin flex($value) {
+	-webkit-flex: $value;
+	flex: $value;
+}
+
+@mixin justify-content($value) {
+	-webkit-justify-content: $value;
+	justify-content: $value;
+}
+
+@mixin align-items($value) {
+	-webkit-align-content: $value;
+	align-content: $value;
 }

@@ -57,7 +57,7 @@ class BaseView(LoginRequiredMixin, View):
 class OnboardView(BaseView):
     def get(self, request):
         player = request.user.player
-        return render(request, 'wouldyou/pages/onboard.html', {
+        return render(request, 'wouldyou/game/onboard.html', {
             'invitable': player.facebook.invitable_friends(),
             'friends': player.friends.all(),
         })
@@ -95,6 +95,7 @@ class NextProfile(BaseView):
 
 class GameView(BaseView):
     model = None
+    template = None
 
     def validate(self, request, set_id):
         return get_object_or_404(self.model, pk=set_id)
@@ -103,7 +104,7 @@ class GameView(BaseView):
         set_obj = self.validate(request, set_id)
         verbs = Verb.objects.all()
         stats, total = set_obj.stats
-        return render(request, 'wouldyou/pages/game.html', {
+        return render(request, self.template, {
             'set': set_obj,
             'verbs': verbs,
             'stats': stats,
@@ -113,6 +114,7 @@ class GameView(BaseView):
 
 class PlayerGame(GameView):
     model = PlayerSet
+    template = 'wouldyou/game/player.html'
 
     def validate(self, request, set_id):
         if not request.user.player.owned_sets.filter(pk=set_id).exists():
@@ -122,6 +124,7 @@ class PlayerGame(GameView):
 
 class CelebrityGame(GameView):
     model = ProfileSet
+    template = 'wouldyou/game/profile.html'
 
 
 class InviteView(AjaxView):

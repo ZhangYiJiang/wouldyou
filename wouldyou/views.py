@@ -2,12 +2,14 @@ import logging
 
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import settings
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
+from . import  facebook
 
-from .models import Verb, PlayerSet, ProfileSet
+from .models import Verb, PlayerSet, ProfileSet, Player
 
 logger = logging.getLogger(__name__)
 
@@ -141,7 +143,11 @@ class ActionView(AjaxView):
 
 
 def disconnect(request):
-    logger.info(request.POST.items())
-    logger.info(request.user)
-    request.user.player.delete()
+
+    secret_key = settings.SOCIAL_AUTH_FACEBOOK_KEY
+    data = facebook.parse_signed_request(request.POST['signed_request'], secret_key)
+    removed_user_id = data['user_id']
+
+    Player.objects.filter(uid=removed_user_id).delete()
+
     return redirect('app:index')

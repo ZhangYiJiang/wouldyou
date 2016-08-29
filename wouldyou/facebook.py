@@ -57,7 +57,7 @@ def profile_context_processor(request):
 
 def base64_url_decode(data):
     data += "=" * (4 - (len(data) % 4) % 4)
-    return base64.urlsafe_b64decode(data)
+    return base64.urlsafe_b64decode(data.encode('utf-8'))
 
 
 def parse_signed_request(signed_request, secret):

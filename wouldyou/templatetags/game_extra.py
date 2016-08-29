@@ -10,7 +10,8 @@ def get_count(context, subject, verb):
 
 @register.simple_tag(takes_context=True)
 def get_total(context, subject):
-    return context['total'].get(subject.pk, 0)
+    # Return one instead of zero to avoid divide by zero error
+    return context['total'].get(subject.pk, 1)
 
 
 @register.simple_tag(takes_context=True)

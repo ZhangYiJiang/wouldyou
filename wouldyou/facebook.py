@@ -63,9 +63,11 @@ def base64_url_decode(data):
 def parse_signed_request(signed_request, secret):
 
     try:
-        l = signed_request.split('.', 2)
-        encoded_sig = str(l[0])
-        payload = str(l[1])
+        request_data = signed_request.split('.', 2)
+        encoded_sig = str(request_data[0])
+        payload = str(request_data[1])
+
+        # decode url with base 64, return the bytes
         sig = base64_url_decode(encoded_sig)
         data = base64_url_decode(payload)
 
@@ -74,19 +76,20 @@ def parse_signed_request(signed_request, secret):
     except TypeError:
         return None
 
+    # json only can load string, decode data to string
     data = json.loads(data.decode(encoding='UTF-8'))
 
     if data.get('algorithm', '').upper() != 'HMAC-SHA256':
         return None
 
-    # HAC: both key and msg must be arraybytes
+    # HAC: both key and msg must be array bytes, encode string payload and secret to array bytes
     payload = payload.encode(encoding='UTF-8')
     secret = secret.encode(encoding='UTF-8')
 
     expected_sig = hmac.new(secret, msg=payload, digestmod=hashlib.sha256).digest()
 
-    # if sig != expected_sig:
-    #     return None
+    if sig != expected_sig:
+        return None
 
     return data
 

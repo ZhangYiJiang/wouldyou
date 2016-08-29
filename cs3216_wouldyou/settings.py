@@ -203,10 +203,14 @@ LOGGING = {
             'maxBytes': 5 * 1024 * 1024,
             'backupCount': 20,
         },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console', ],
             'level': 'DEBUG',
             'propagate': True,
         },

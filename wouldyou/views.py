@@ -141,5 +141,7 @@ class ActionView(AjaxView):
 
 
 def disconnect(request):
+    logger.info(request.POST.items())
+    logger.info(request.user)
     request.user.player.delete()
     return redirect('app:index')

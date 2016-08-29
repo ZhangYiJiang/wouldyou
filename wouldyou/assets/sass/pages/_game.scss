@@ -53,9 +53,9 @@ body.game {
       height: 100%;
       background: rgba(#000, .4);
 
-      @include display-flex();
-      @include flex-direction(column);
-      @include justify-content(space-around);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
 
       padding: 50px 0px;
 
@@ -109,8 +109,8 @@ body.game {
       padding: 0 20px;
       width: 100%;
       height: 150px;
-      @include display-flex();
-      @include justify-content(space-around);
+      display: flex;
+      justify-content: space-around;
     }
 
     hr {
@@ -121,10 +121,10 @@ body.game {
 
     .option-percentage {
       height: 100%;
-      @include flex(0 26%);
-      @include display-flex();
-      @include flex-direction(column);
-      @include justify-content(flex-end);
+      flex: 0 26%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
 
       .percent-text {
         position: relative;
@@ -133,14 +133,14 @@ body.game {
         font-size: .8em;
       }
 
-      @include keyframes(bar-animation) {
-        0%   { height: 0; }
-        100% { height: visible; }
-      }
-
       .verb-bar {
         bottom: 20px;
-        @include animation(bar-animation 1.5s);
+        animation: bar-animation 1.5s; 
+      }
+
+      @keyframes bar-animation {
+        0%   { height: 0; }
+        100% { height: visible; }
       }
 
       .kiss-verb-bar {

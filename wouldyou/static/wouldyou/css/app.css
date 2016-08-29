@@ -2751,11 +2751,8 @@ body.game .game-choice .game-action {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-direction: column;
   flex-direction: column;
-  -webkit-justify-content: space-around;
   justify-content: space-around;
   padding: 50px 0px;
 }
@@ -2809,9 +2806,7 @@ body.game .game-choice .bar-chart {
   padding: 0 20px;
   width: 100%;
   height: 150px;
-  display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: space-around;
   justify-content: space-around;
 }
 
@@ -2823,13 +2818,9 @@ body.game .game-choice hr {
 
 body.game .game-choice .option-percentage {
   height: 100%;
-  -webkit-flex: 0 26%;
   flex: 0 26%;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-direction: column;
   flex-direction: column;
-  -webkit-justify-content: flex-end;
   justify-content: flex-end;
 }
 
@@ -2840,31 +2831,9 @@ body.game .game-choice .option-percentage .percent-text {
   font-size: .8em;
 }
 
-@-webkit-keyframes bar-animation {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: visible;
-  }
-}
-
-@-moz-keyframes bar-animation {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: visible;
-  }
-}
-
-@-o-keyframes bar-animation {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: visible;
-  }
+body.game .game-choice .option-percentage .verb-bar {
+  bottom: 20px;
+  animation: bar-animation 1.5s;
 }
 
 @keyframes bar-animation {
@@ -2874,13 +2843,6 @@ body.game .game-choice .option-percentage .percent-text {
   100% {
     height: visible;
   }
-}
-
-body.game .game-choice .option-percentage .verb-bar {
-  bottom: 20px;
-  -webkit-animation: bar-animation 1.5s;
-  -o-animation: bar-animation 1.5s;
-  animation: bar-animation 1.5s;
 }
 
 body.game .game-choice .option-percentage .kiss-verb-bar {

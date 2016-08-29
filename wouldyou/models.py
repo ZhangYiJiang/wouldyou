@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Count, F
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 
 from .facebook import Facebook
@@ -41,6 +42,7 @@ class AbstractAction(BaseModel):
     def set(self):
         raise NotImplementedError
 
+    @cached_property
     def __str__(self):
         if self.subject is None:
             return '{} skipped set {}'.format(self.player, self.set)
@@ -144,11 +146,10 @@ class ProfileSet(AbstractSet):
     def create_subject(self, player, verb, set, subject):
         return ProfileAction(player=player, verb=verb, profileset=set, profile=subject)
 
+    @cached_property
     def __str__(self):
         if self.name:
             return self.name
-        else:
-            return ' / '.join([str(x) for x in self.profiles.all()])
 
 
 class PlayerSet(AbstractSet):
@@ -157,6 +158,7 @@ class PlayerSet(AbstractSet):
 
     players = models.ManyToManyField('Player')
     player_id_set = models.CharField(max_length=100)
+    owner = models.ForeignKey('Player', related_name='owned_sets')
 
     def save(self, *args, **kwargs):
         if self.pk:
@@ -165,10 +167,10 @@ class PlayerSet(AbstractSet):
         super().save(*args, **kwargs)
 
     @classmethod
-    def make(cls, player_uids):
+    def make(cls, player, player_uids):
         if isinstance(player_uids, str):
             player_uids = player_uids.split(',')
-        new_set = cls()
+        new_set = cls.objects.create(owner=player)
         new_set.players = Player.objects.filter(uid__in=player_uids)
         new_set.save()
         return new_set
@@ -183,9 +185,6 @@ class PlayerSet(AbstractSet):
 
     def create_subject(self, player, verb, set, subject):
         return PlayerAction(player=player, verb=verb, friendset=set, friend=subject)
-
-    def __str__(self):
-        return ' / '.join([str(x) for x in self.players.all()])
 
 
 class AbstractProfile(BaseModel):
@@ -238,17 +237,16 @@ class Player(AbstractProfile):
     def next_playerset(self):
         """Generates a random set of friends for the player to play against"""
         # TODO: Consider caching this list locally instead
-        friends_id = set(f['id'] for f in self.facebook.friends())
-        played_sets = PlayerSet.objects.filter(playeraction__player=self)
-        not_played_with = set(Player.objects.filter(uid__in=friends_id)\
-            .exclude(playerset__in=played_sets)\
+        friends_id = self.friends.values_list('uid', flat=True)
+        played_sets = self.owned_sets.all()
+        not_played_with = set(self.friends.exclude(playerset__in=played_sets)\
             .values_list('uid', flat=True))
 
         # If we have more than three friends not played with, simply generate
         # a new set using those unplayed friends
         if len(not_played_with) >= 3:
             sample = random.sample(not_played_with, 3)
-            return PlayerSet.make(sample)
+            return PlayerSet.make(self, sample)
 
         # Otherwise we randomly generate a few sets and try to use that
         id_str = set()
@@ -261,7 +259,7 @@ class Player(AbstractProfile):
         existing_sets = set(played_sets.filter(player_id_set__in=id_str)\
             .values_list('player_id_set', flat=True))
         try:
-            return PlayerSet.make((id_str - existing_sets).pop())
+            return PlayerSet.make(self, (id_str - existing_sets).pop())
         except KeyError:
             # TODO: Decide on what to do when there aren't any more sets
             pass

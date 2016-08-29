@@ -1,14 +1,15 @@
 import logging
 
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
-from . import  facebook
 
+from . import facebook
 from .models import Verb, PlayerSet, ProfileSet, Player
 
 logger = logging.getLogger(__name__)
@@ -95,8 +96,11 @@ class NextProfile(BaseView):
 class GameView(BaseView):
     model = None
 
+    def validate(self, request, set_id):
+        return get_object_or_404(self.model, pk=set_id)
+
     def get(self, request, set_id):
-        set_obj = get_object_or_404(self.model, pk=set_id)
+        set_obj = self.validate(request, set_id)
         verbs = Verb.objects.all()
         stats, total = set_obj.stats
         return render(request, 'wouldyou/pages/game.html', {
@@ -109,6 +113,11 @@ class GameView(BaseView):
 
 class PlayerGame(GameView):
     model = PlayerSet
+
+    def validate(self, request, set_id):
+        if not request.user.player.owned_sets.filter(pk=set_id).exists():
+            raise PermissionDenied
+        return super().validate(request, set_id)
 
 
 class CelebrityGame(GameView):

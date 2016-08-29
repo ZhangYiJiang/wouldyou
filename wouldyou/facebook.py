@@ -63,7 +63,9 @@ def base64_url_decode(data):
 def parse_signed_request(signed_request, secret):
 
     try:
-        encoded_sig, payload = list(map(str, signed_request.split('.', 1)))
+        l = signed_request.split('.', 2)
+        encoded_sig = str(l[0])
+        payload = str(l[1])
         sig = base64_url_decode(encoded_sig)
         data = base64_url_decode(payload)
 
@@ -77,10 +79,6 @@ def parse_signed_request(signed_request, secret):
     if data.get('algorithm').upper() != 'HMAC-SHA256':
         return None
 
-    # HMAC can only handle ascii (byte) strings
-    # http://bugs.python.org/issue5285
-    secret = secret.encode('ascii')
-    payload = payload.encode('ascii')
     expected_sig = hmac.new(secret, msg=payload, digestmod=hashlib.sha256).digest()
 
     if sig != expected_sig:

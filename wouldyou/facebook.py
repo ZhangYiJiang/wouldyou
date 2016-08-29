@@ -64,8 +64,8 @@ def parse_signed_request(signed_request, secret):
 
     try:
         request_data = signed_request.split('.', 2)
-        encoded_sig = str(request_data[0])
-        payload = str(request_data[1])
+        encoded_sig = request_data[0]
+        payload = request_data[1]
 
         # decode url with base 64, return the bytes
         sig = base64_url_decode(encoded_sig)
@@ -88,9 +88,9 @@ def parse_signed_request(signed_request, secret):
 
     expected_sig = hmac.new(secret, msg=payload, digestmod=hashlib.sha256).digest()
 
-    if sig != expected_sig.encode(encoding='UTF-8'):
-        raise TypeError(sig.decode(encoding='UTF-8') + "DIFF" + expected_sig)
-        # return None
+    # check the signature
+    if sig != expected_sig:
+        return None
 
     return data
 

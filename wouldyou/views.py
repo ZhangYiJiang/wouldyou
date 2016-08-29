@@ -144,7 +144,7 @@ class ActionView(AjaxView):
 
 def disconnect(request):
 
-    secret_key = settings.SOCIAL_AUTH_FACEBOOK_KEY
+    secret_key = settings.SOCIAL_AUTH_FACEBOOK_SECRET
     data = facebook.parse_signed_request(request.POST['signed_request'], secret_key)
     removed_user_id = data['user_id']
 

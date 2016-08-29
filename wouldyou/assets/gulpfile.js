@@ -46,7 +46,6 @@ gulp.task('img', () => {
 gulp.task('sass', () => {
   const processors = [
     require('autoprefixer'),
-    require('postcss-flexbugs-fixes'),
   ];
 
   gulp.src(config.in.sass.file)

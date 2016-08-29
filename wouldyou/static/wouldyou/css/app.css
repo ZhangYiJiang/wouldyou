@@ -2667,7 +2667,7 @@ body.onboard .friend-invite header {
 body.onboard .friend-invite header h3 {
   -webkit-box-flex: 1;
       -ms-flex: 1 auto;
-          flex: 1 auto 0%;
+          flex: 1 auto;
   margin: 0;
 }
 
@@ -2683,7 +2683,7 @@ body.onboard .friend-selector label, body.onboard .friend-selector .empty-label,
   width: 80px;
   -webkit-box-flex: 1;
       -ms-flex: 1 auto;
-          flex: 1 auto 0%;
+          flex: 1 auto;
 }
 
 body.onboard .friend-selector label {
@@ -2859,7 +2859,7 @@ body.game .game-choice .option-percentage {
   height: 100%;
   -webkit-box-flex: 0;
       -ms-flex: 0 26%;
-          flex: 0 26% 0%;
+          flex: 0 26%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

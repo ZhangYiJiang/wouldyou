@@ -1,7 +1,7 @@
+import base64
 import hashlib
 import hmac
 import json
-import base64
 
 import requests
 from django.conf import settings
@@ -20,6 +20,7 @@ def create_profile(backend, user, response, *args, **kwargs):
         fb = Facebook(user)
         fb_user = fb.user()
 
+        # Create matching Player instance
         try:
             player = models.Player.objects.get(uid=fb_user['id'])
         except models.Player.DoesNotExist:
@@ -28,6 +29,18 @@ def create_profile(backend, user, response, *args, **kwargs):
         player.user = user
         player.from_fb_user(fb_user)
         player.save()
+
+        # Create player instances for friends
+        friends = fb.friends()
+        friends_uid = set(f['id'] for f in friends)
+        existing_friends = set(models.Player.objects.filter(uid__in=friends_uid).values_list('uid', flat=True))
+        new_friends = []
+        for friend in friends_uid - existing_friends:
+            new_player = models.Player.from_fb_user(models.Player(), friend)
+            new_friends.append(new_player)
+
+        models.Player.objects.bulk_create(new_friends)
+        player.friends.add(*models.Player.objects.filter(uid__in=friends_uid))
 
 
 def profile_context_processor(request):
@@ -120,9 +133,14 @@ class Facebook:
         )
         return h.hexdigest()
 
-    def user(self, user_id='me', fields=None):
+    def user(self, user_id='me', fields=None, picture_width=70):
         if fields is None:
-            fields = ['id', 'name', 'picture', 'gender', ]
+            fields = [
+                'id',
+                'name',
+                'gender',
+                self.format_picture(picture_width),
+            ]
 
         return self._user_request(user_id, data={'fields': fields})
 
@@ -131,20 +149,24 @@ class Facebook:
         return self._user_request(user_id, 'invitable_friends', data={
             # TODO: Figure out how Facebook's image width work
             'fields': [
-                'name',
                 'id',
-                'picture.width({}).height({})'.format(picture_width, picture_width),
+                'name',
+                self.format_picture(picture_width),
             ],
         })
 
     def friends(self, user_id='me', fields=None, picture_width=70):
         if fields is None:
             fields = [
-                'name',
                 'id',
-                'picture.width({}).height({})'.format(picture_width, picture_width),
+                'name',
+                'gender',
+                self.format_picture(picture_width),
             ]
         return self._user_request(user_id, 'friends', data={'fields': fields})
+
+    def format_picture(self, size):
+        return 'picture.width({}).height({})'.format(size, size)
 
     @classmethod
     def picture(cls, user_id, width=300, height=600):

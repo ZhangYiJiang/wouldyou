@@ -18,7 +18,7 @@
       <h3>Play with friends</h3>
       <div>
         {% for friend in friends %}
-        <img src="{{ friend.picture.data.url }}" alt="{{ friend.name }}">
+        <img src="{{ friend.image }}" alt="{{ friend.name }}">
         {% endfor %}
       </div>
       {% endif %}

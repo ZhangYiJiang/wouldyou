@@ -168,7 +168,7 @@ class PlayerSet(AbstractSet):
     def make(cls, player_uids):
         if isinstance(player_uids, str):
             player_uids = player_uids.split(',')
-        new_set = cls.objects.create()
+        new_set = cls()
         new_set.players = Player.objects.filter(uid__in=player_uids)
         new_set.save()
         return new_set
@@ -212,6 +212,8 @@ class Player(AbstractProfile):
     image = models.URLField()
     uid = models.CharField(max_length=255)
     request = models.CharField(max_length=255, default='')
+
+    friends = models.ManyToManyField('Player')
 
     @property
     def portrait(self):
@@ -269,6 +271,14 @@ class Player(AbstractProfile):
         """Selects a random profile set from all unplayed profile sets"""
         not_played = ProfileSet.objects.exclude(profileaction__player=self).values_list('pk', flat=True)
         return ProfileSet.objects.get(pk=random.choice(not_played))
+
+    def invite(self, friends, request_id):
+        new_players = []
+        cls = type(self)
+        for friend in self.facebook.user(friends).values():
+            new_players.append(cls.from_fb_user(cls(request=request_id), friend))
+        cls.objects.bulk_create(new_players)
+        self.friends.add(*cls.objects.filter(uid__in=friends))
 
     def from_fb_user(self, fb_user):
         self.name = fb_user['name']

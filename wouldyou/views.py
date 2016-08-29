@@ -6,9 +6,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
+
 from cs3216_wouldyou import settings
 from . import facebook
-
 from .models import Verb, PlayerSet, ProfileSet, Player
 
 logger = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ class OnboardView(BaseView):
         player = request.user.player
         return render(request, 'wouldyou/pages/onboard.html', {
             'invitable': player.facebook.invitable_friends(),
-            'friends': player.facebook.friends(),
+            'friends': player.friends.all(),
         })
 
 
@@ -117,14 +117,9 @@ class CelebrityGame(GameView):
 
 class InviteView(AjaxView):
     def post(self, request):
-        player = request.user.player
         request_id = request.POST.get('response[request]')
         to_list = request.POST.getlist('response[to][]')
-
-        players = []
-        for friend in player.facebook.user(to_list).values():
-            players.append(Player.from_fb_user(Player(request=request_id), friend))
-        Player.objects.bulk_create(players)
+        request.user.player.invite(to_list, request_id)
 
 
 class ActionView(AjaxView):

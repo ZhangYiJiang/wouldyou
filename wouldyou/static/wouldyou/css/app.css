@@ -222,15 +222,11 @@ th {
 }
 
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 *:before,
 *:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -296,7 +292,6 @@ img {
   border: 1px solid #ddd;
   border-radius: 0;
   -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
   max-width: 100%;
@@ -1496,7 +1491,8 @@ address {
   font-weight: normal;
   text-align: center;
   vertical-align: middle;
-  touch-action: manipulation;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
   cursor: pointer;
   background-image: none;
   border: 1px solid transparent;
@@ -1524,7 +1520,6 @@ address {
 .btn:active, .btn.active {
   outline: 0;
   background-image: none;
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
@@ -1533,7 +1528,6 @@ fieldset[disabled] .btn {
   cursor: not-allowed;
   opacity: 0.65;
   filter: alpha(opacity=65);
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -1863,7 +1857,6 @@ fieldset[disabled] .btn-danger.focus {
 .btn-link, .btn-link:active, .btn-link.active, .btn-link[disabled],
 fieldset[disabled] .btn-link {
   background-color: transparent;
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -1923,7 +1916,6 @@ input[type="button"].btn-block {
 .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
-  -o-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
 }
 
@@ -2554,8 +2546,12 @@ header.global {
 }
 
 header.global > .container-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -2566,7 +2562,9 @@ header.global h1 {
   padding-left: 5px;
   font-size: 20px;
   font-weight: bold;
-  flex: 0 0 auto;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
 
 header.global h1 a {
@@ -2575,7 +2573,11 @@ header.global h1 a {
 }
 
 header.global .profile {
-  flex: 0 0 auto;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -2615,23 +2617,39 @@ header.global .profile .profile-image {
   background-color: #337ab7;
   border-radius: 100%;
   display: inline-block;
-  animation: sk-bounce-delay 1.4s infinite ease-in-out both;
+  -webkit-animation: sk-bounce-delay 1.4s infinite ease-in-out both;
+          animation: sk-bounce-delay 1.4s infinite ease-in-out both;
 }
 
 .spinner .bounce1 {
-  animation-delay: -0.32s;
+  -webkit-animation-delay: -0.32s;
+          animation-delay: -0.32s;
 }
 
 .spinner .bounce2 {
-  animation-delay: -0.16s;
+  -webkit-animation-delay: -0.16s;
+          animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bounce-delay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }
 
 @keyframes sk-bounce-delay {
   0%, 80%, 100% {
-    transform: scale(0);
+    -webkit-transform: scale(0);
+            transform: scale(0);
   }
   40% {
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 
@@ -2641,22 +2659,31 @@ body.onboard .friend-invite {
 
 body.onboard .friend-invite header {
   margin: 10px 0 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 body.onboard .friend-invite header h3 {
-  flex: 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto 0%;
   margin: 0;
 }
 
 body.onboard .friend-selector {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 body.onboard .friend-selector label, body.onboard .friend-selector .empty-label, body.onboard .friend-selector .load-more {
   width: 80px;
-  flex: 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto 0%;
 }
 
 body.onboard .friend-selector label {
@@ -2673,6 +2700,7 @@ body.onboard .friend-selector label:hover input[type='checkbox'] {
 
 body.onboard .friend-selector input[type='checkbox'] + div {
   padding: 5px 0;
+  -webkit-transition: background .3s;
   transition: background .3s;
 }
 
@@ -2681,6 +2709,7 @@ body.onboard .friend-selector input[type='checkbox'] {
   right: 5px;
   top: 5px;
   opacity: 0;
+  -webkit-transition: opacity .3s;
   transition: opacity .3s;
 }
 
@@ -2714,6 +2743,7 @@ body.game .game-choice {
 
 body.game .game-choice .game-card-unselected .game-action {
   top: 100%;
+  -webkit-transition: .15s top;
   transition: .15s top;
 }
 
@@ -2751,9 +2781,15 @@ body.game .game-choice .game-action {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   padding: 50px 0px;
 }
 
@@ -2806,8 +2842,11 @@ body.game .game-choice .bar-chart {
   padding: 0 20px;
   width: 100%;
   height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 body.game .game-choice hr {
@@ -2818,10 +2857,19 @@ body.game .game-choice hr {
 
 body.game .game-choice .option-percentage {
   height: 100%;
-  flex: 0 26%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 26%;
+          flex: 0 26% 0%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 body.game .game-choice .option-percentage .percent-text {
@@ -2833,7 +2881,17 @@ body.game .game-choice .option-percentage .percent-text {
 
 body.game .game-choice .option-percentage .verb-bar {
   bottom: 20px;
-  animation: bar-animation 1.5s;
+  -webkit-animation: bar-animation 1.5s;
+          animation: bar-animation 1.5s;
+}
+
+@-webkit-keyframes bar-animation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: visible;
+  }
 }
 
 @keyframes bar-animation {

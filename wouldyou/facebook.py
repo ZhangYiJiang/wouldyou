@@ -56,7 +56,7 @@ def profile_context_processor(request):
 
 
 def base64_url_decode(data):
-    data += "=" * (4 - (len(data) % 4) % 4)
+    data += "=" * ((4 - len(data) % 4) % 4)
     return base64.urlsafe_b64decode(data)
 
 
@@ -70,19 +70,19 @@ def parse_signed_request(signed_request, secret):
         data = base64_url_decode(payload)
 
     except IndexError:
-        return None
+        return False
     except TypeError:
-        return None
+        return False
 
-    data = json.loads(str(data))
+    data = json.loads(data)
 
-    if data.get('algorithm').upper() != 'HMAC-SHA256':
-        return None
+    if data.get('algorithm', '').upper() != 'HMAC-SHA256':
+        return False
 
     expected_sig = hmac.new(secret, msg=payload, digestmod=hashlib.sha256).digest()
 
     if sig != expected_sig:
-        return None
+        return False
 
     return data
 

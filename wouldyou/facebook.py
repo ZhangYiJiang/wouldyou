@@ -74,7 +74,7 @@ def parse_signed_request(signed_request, secret):
     except TypeError:
         return False
 
-    data = json.loads(data)
+    data = json.loads(data.decode(encoding='UTF-8'))
 
     if data.get('algorithm', '').upper() != 'HMAC-SHA256':
         return False

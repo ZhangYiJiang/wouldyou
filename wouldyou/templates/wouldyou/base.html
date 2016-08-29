@@ -3,11 +3,15 @@
 {% load static %}
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}{% endblock %}</title>
+  <title>{% block title %}Would You __?{% endblock %}</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf_token" content="{{ csrf_token }}">
 
+  <meta property="og:url"           content="http://wouldyou.space/" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="Would You __?" />
+  <meta property="og:description"   content="Click to like our website" />
   {% if debug %}
     <link href="{% static "wouldyou/css/app.css" %}" rel="stylesheet">
   {% else %}
@@ -21,6 +25,17 @@
   <script src="https://use.fontawesome.com/d41c01d904.js"></script>
 </head>
 <body class="{% block body_class %}{% endblock %}">
+
+{#facebook like and share buttons#}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7&appId=172806839808198";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 {% include 'wouldyou/components/fb.html' %}
 {% block header %}
   {% include 'wouldyou/layout/header.html' %}
@@ -34,6 +49,9 @@
 
 {% block footer %}
 <footer class="global">
+
+    <div class="fb-like" data-href="https://wouldyou.space/" data-layout="standard"
+         data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 
 </footer>
 {% endblock %}

@@ -82,17 +82,14 @@ def parse_signed_request(signed_request, secret):
     if data.get('algorithm', '').upper() != 'HMAC-SHA256':
         return None
 
-    # HAC: both key and msg must be array bytes, encode string payload and secret to array bytes
+    # HMAC: both key and msg must be array bytes, encode string payload and secret to array bytes
     payload = payload.encode(encoding='UTF-8')
     secret = secret.encode(encoding='UTF-8')
 
     expected_sig = hmac.new(secret, msg=payload, digestmod=hashlib.sha256).digest()
 
-    sig = sig.decode(encoding='UTF-8')
-    expected_sig = expected_sig.decode(encoding='UTF-8')
-
-    if sig != expected_sig:
-        raise TypeError(sig + "DIFF" + expected_sig)
+    if sig.decode(encoding='UTF-8') != expected_sig:
+        raise TypeError(sig.decode(encoding='UTF-8') + "DIFF" + expected_sig)
         # return None
 
     return data

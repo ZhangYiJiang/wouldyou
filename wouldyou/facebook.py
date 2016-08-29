@@ -92,7 +92,8 @@ def parse_signed_request(signed_request, secret):
     expected_sig = expected_sig.decode(encoding='UTF-8')
 
     if sig != expected_sig:
-        return None
+        raise TypeError(sig + "DIFF" + expected_sig)
+        # return None
 
     return data
 

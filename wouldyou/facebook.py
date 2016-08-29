@@ -35,7 +35,9 @@ def create_profile(backend, user, response, *args, **kwargs):
         friends_uid = set(f['id'] for f in friends)
         existing_friends = set(models.Player.objects.filter(uid__in=friends_uid).values_list('uid', flat=True))
         new_friends = []
-        for friend in friends_uid - existing_friends:
+        for friend in friends:
+            if friend['id'] in existing_friends:
+                continue
             new_player = models.Player.from_fb_user(models.Player(), friend)
             new_friends.append(new_player)
 

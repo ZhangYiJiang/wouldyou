@@ -1,18 +1,3 @@
-html, body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1 auto;
-  display: flex;
-  flex-direction: column;
-}
-
 .container-fluid, .bg-container {
   max-width: $screen-lg;
 }
@@ -30,7 +15,8 @@ main {
   background: $background-gray;
   flex: 1 auto;
   width: 100%;
-  box-shadow: 0 12px 24px rgba(#000, .6);
+  box-shadow: 0 14px 30px rgba(#000, .3);
+  padding-bottom: 24px;
 
   @include clearfix;
 }

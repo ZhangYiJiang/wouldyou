@@ -79,6 +79,70 @@ $('body.onboard .friends button').click(function(){
 
 
 (function ($) {
+  var verbCount = 3;
+
+  var widget = function (gameArea) {
+    var me = this;
+
+    this.gameArea = $(gameArea);
+    this.buttons = this.gameArea.find('.verb-btn');
+    this.selected = [];
+
+    // Event binding
+    this.gameArea.on('click', '.verb-btn', function () {
+      me.select($(this));
+    });
+
+  };
+
+  widget.prototype = {
+    undo: function () {
+
+    },
+
+    select: function (btn) {
+      var verb = btn.data('verb');
+      // Make sure the button can't be clicked again
+      if (this.selected.indexOf(verb) !== -1)
+        return;
+      this.selected.push(verb);
+
+      // Disable the button of the same verb on other cards
+      this.otherButtons(btn).addClass('disabled');
+
+      // Switch current card class
+      btn.closest('.game-card')
+        .removeClass('card-unselected')
+        .addClass('card-selected');
+
+      // TODO: Fade in action image
+
+      // Check if the game is finished
+      if (this.selected.length === verbCount)
+        this.complete();
+    },
+
+    otherButtons: function (btn) {
+      var verb = btn.data('verb');
+      return this.buttons.not(btn).filter(function () {
+        return $(this).data('verb') === verb;
+      });
+    },
+
+    complete: function () {
+
+    },
+  };
+
+  window.Game = widget;
+})(jQuery);
+
+if ($('body').hasClass('game')) {
+  var game = new Game($('.game-area'));
+}
+/*
+
+(function ($) {
   var verbBtn = $('body.game .verb-button');
   var gameArea = $('body.game .game-area');
   var gameAction = $('body.game .game-action');
@@ -113,18 +177,6 @@ $('body.onboard .friends button').click(function(){
     $t.closest('.game-card-unselected')
       .removeClass('game-card-unselected');
 
-    // Save action using Ajax
-    var subject = $t.closest('.game-card')
-      .data('subject');
-    $.post(url, {
-      set: setId,
-      model: model,
-      verb: verb,
-      subject: subject
-    }).fail(function () {
-      // TODO: Figure out what to do in case of failures
-    });
-
     if (count == 3) {
       $('body.game .game-result')
         .removeClass('hidden');
@@ -135,5 +187,5 @@ $('body.onboard .friends button').click(function(){
     }
   });
 
-})(jQuery);
+})(jQuery);*/
 //# sourceMappingURL=app.js.map

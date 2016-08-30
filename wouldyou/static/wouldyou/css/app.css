@@ -3060,8 +3060,8 @@ body.game .card-overlay {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  -webkit-transition: opacity .3s;
-  transition: opacity .3s;
+  -webkit-transition: opacity .2s;
+  transition: opacity .2s;
   opacity: 0;
 }
 
@@ -3084,64 +3084,67 @@ body.game .verb-btn {
   padding: 12px 0;
   color: white;
   font-size: 18px;
-  -webkit-transition: all .15s;
-  transition: all .15s;
+  -webkit-transition: all .15s, opacity .5s;
+  transition: all .15s, opacity .5s;
 }
 
-body.game .card-unselected .kiss-btn {
+body.game .kiss-btn {
   background: #901936;
 }
 
-body.game .card-unselected .kiss-btn:hover {
+body.game .kiss-btn:hover {
   background: #b92045;
 }
 
-body.game .card-unselected .kiss-btn:active {
+body.game .kiss-btn:active {
   background: #cd244d;
 }
 
-body.game .card-selected .kiss-btn {
-  background: #cd244d;
+body.game .kiss-btn.disabled {
+  background: rgba(205, 36, 77, 0.8);
+  opacity: .3;
 }
 
 body.game .kiss-bar {
   background: #cd244d;
 }
 
-body.game .card-unselected .marry-btn {
+body.game .marry-btn {
   background: #6f367f;
 }
 
-body.game .card-unselected .marry-btn:hover {
+body.game .marry-btn:hover {
   background: #8f45a3;
 }
 
-body.game .card-unselected .marry-btn:active {
+body.game .marry-btn:active {
   background: #9f4db5;
 }
 
-body.game .card-selected .marry-btn {
-  background: #9f4db5;
+body.game .marry-btn.disabled {
+  background: rgba(159, 77, 181, 0.8);
+  opacity: .3;
 }
 
 body.game .marry-bar {
   background: #9f4db5;
 }
 
-body.game .card-unselected .kill-btn {
+body.game .kill-btn {
   background: #3e768a;
 }
 
-body.game .card-unselected .kill-btn:hover {
+body.game .kill-btn:hover {
   background: #5097b1;
 }
 
-body.game .card-unselected .kill-btn:active {
+body.game .kill-btn:active {
   background: #59a8c5;
 }
 
-body.game .card-selected .kill-btn {
-  background: #59a8c5;
+body.game .kill-btn.disabled {
+  background: rgba(89, 168, 197, 0.8);
+  opacity: .3;
 }
 
 body.game .kill-bar {
@@ -3150,6 +3153,11 @@ body.game .kill-bar {
 
 body.game .card-selected .card-overlay, body.game .game-card:hover .card-overlay {
   opacity: 1;
+}
+
+body.game .card-selected .verb-btn {
+  opacity: 0;
+  cursor: default;
 }
 
 body.game .game-result {

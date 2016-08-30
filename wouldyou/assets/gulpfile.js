@@ -37,12 +37,6 @@ gulp.task('js', () => {
     .pipe(gulp.dest(out(config.out.js.path))); 
 });
 
-gulp.task('img', () => {
-  gulp.src(config.in.img)
-    .pipe(newer(config.in.img))
-    .pipe(gulp.dest(out(config.out.img)));
-});
-
 gulp.task('sass', () => {
   const processors = [
     require('autoprefixer'),
@@ -62,10 +56,9 @@ gulp.task('sass', () => {
     .pipe(browsersync.stream({ match: '**/*.css' }));
 });
 
-gulp.task('build', ['img', 'js', 'sass',]);
+gulp.task('build', ['js', 'sass',]);
 
 gulp.task('watch', ['build',], () => {
-  gulp.watch(config.in.img, ['img']);
   gulp.watch(config.in.js, ['js']);
   gulp.watch(config.in.sass.path, ['sass']);
 });

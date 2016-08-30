@@ -125,6 +125,10 @@ $('body.onboard .friends button').click(function(){
       // Clear all hidden inputs
       this.gameArea.find('.game-card input')
         .prop('checked', false);
+
+      // Hide all action image
+      this.gameArea.find('.overlay-image')
+        .children().hide();
     },
 
     select: function (btn) {
@@ -139,14 +143,17 @@ $('body.onboard .friends button').click(function(){
         .addClass('disabled');
 
       // Switch current card class
-      btn.closest('.game-card')
+      var card = btn.closest('.game-card')
         .removeClass('card-unselected')
         .addClass('card-selected');
 
       // Fill in hidden input
       btn.next('input').prop('checked', true);
 
-      // TODO: Fade in action image
+      // Fade in action image
+      card.find('.overlay-image').children().filter(function () {
+        return $(this).data('verb') == verb;
+      }).fadeIn();
 
       // Check if the game is finished
       if (this.selected.length === verbCount)
@@ -161,11 +168,21 @@ $('body.onboard .friends button').click(function(){
     },
 
     complete: function () {
+      var me = this;
+
       this.completed = true;
+
+      // Hide reset button
+      this.gameArea.find('.undo-btn').fadeOut();
 
       // Switch 'Skip' button with 'Next'
       this.gameArea.find('.skip-btn').hide();
       this.gameArea.find('.next-btn').removeClass('hidden');
+
+      setTimeout(function () {
+        me.gameArea.find('.game-result').fadeIn();
+        me.gameArea.addClass('game-complete');
+      }, 600);
     },
   };
 

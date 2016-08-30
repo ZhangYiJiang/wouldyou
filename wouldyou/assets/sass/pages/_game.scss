@@ -27,7 +27,6 @@ body.game {
     margin-bottom: 40px;
 
     .btn {
-      transition: .3s all;
       background: none;
       padding: 12px 28px;
       color: rgba(#fff, .8);
@@ -99,7 +98,6 @@ body.game {
     padding: 12px 0;
     color: white;
     font-size: 18px;
-    transition: all .15s, opacity .5s;
   }
 
   @include verb('kiss', $kiss-colour);
@@ -119,8 +117,27 @@ body.game {
     }
   }
 
+  .overlay-image {
+    transition: .3s opacity;
+
+    > div {
+      display: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+  }
+
   .game-result {
-    width: 100%;
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(#000, .6);
   }
 
   .bar-chart {
@@ -149,22 +166,13 @@ body.game {
     .percent-text {
       position: relative;
       bottom: 15px;
-      color: white;
+      color: rgba(#fff, .8);
       font-size: .8em;
     }
 
     .verb-bar {
       bottom: 20px;
       animation: bar-animation 1.5s;
-    }
-
-    @keyframes bar-animation {
-      0% {
-        height: 0;
-      }
-      100% {
-        height: visible;
-      }
     }
 
     .text {

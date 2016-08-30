@@ -2798,6 +2798,7 @@ main {
       -ms-flex: 1 auto;
           flex: 1 auto;
   width: 100%;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
 }
 
 .bg-container:before, .bg-container:after {
@@ -2807,6 +2808,11 @@ main {
 
 .bg-container:after {
   clear: both;
+}
+
+.btn {
+  -webkit-transition: .2s all;
+  transition: .2s all;
 }
 
 header.global {
@@ -3049,8 +3055,6 @@ body.game .game-switcher {
 }
 
 body.game .game-switcher .btn {
-  -webkit-transition: .3s all;
-  transition: .3s all;
   background: none;
   padding: 12px 28px;
   color: rgba(255, 255, 255, 0.8);
@@ -3131,8 +3135,6 @@ body.game .verb-btn {
   padding: 12px 0;
   color: white;
   font-size: 18px;
-  -webkit-transition: all .15s, opacity .5s;
-  transition: all .15s, opacity .5s;
 }
 
 body.game .kiss-btn {
@@ -3207,8 +3209,28 @@ body.game .card-selected .verb-btn {
   cursor: default;
 }
 
+body.game .overlay-image {
+  -webkit-transition: .3s opacity;
+  transition: .3s opacity;
+}
+
+body.game .overlay-image > div {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
 body.game .game-result {
-  width: 100%;
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
 }
 
 body.game .bar-chart {
@@ -3250,7 +3272,7 @@ body.game .option-percentage {
 body.game .option-percentage .percent-text {
   position: relative;
   bottom: 15px;
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   font-size: .8em;
 }
 
@@ -3258,24 +3280,6 @@ body.game .option-percentage .verb-bar {
   bottom: 20px;
   -webkit-animation: bar-animation 1.5s;
           animation: bar-animation 1.5s;
-}
-
-@-webkit-keyframes bar-animation {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: visible;
-  }
-}
-
-@keyframes bar-animation {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: visible;
-  }
 }
 
 body.game .option-percentage .text {

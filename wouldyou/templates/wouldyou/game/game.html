@@ -1,5 +1,7 @@
 {% extends "wouldyou/game/base.html" %}
 
+{% load static %}
+
 {% block game_area %}
 <form method="post" action="{{ set.get_next_url }}">
   {% csrf_token %}
@@ -32,9 +34,17 @@
               {% endfor %}
             </div>
 
-            <div class=""></div>
+            <div class="overlay-image">
+              {% for verb in verbs %}
+                <div class="overlay-{{ verb }}" data-verb="{{ verb.pk }}">
+                  {% with 'wouldyou/img/'|add:verb.verb|add:'.png' as src %}
+                    <img src="{% static src %}" alt="">
+                  {% endwith %}
+                </div>
+              {% endfor %}
+            </div>
 
-            <div class="game-result hidden">
+            <div class="game-result">
               {% block result %}{% endblock %}
             </div>
           </div>
@@ -43,10 +53,16 @@
     {% endfor %}
     </div>
 
-    <button type="button" class="btn btn-danger btn-lg undo-btn">Undo</button>
+    <button type="button" class="btn btn-danger btn-lg undo-btn">
+      <i class="fa fa-undo"></i> Undo</button>
 
-    <a class="btn btn-primary btn-lg pull-right skip-btn" href="{{ set.get_next_url }}?prev={{ set.pk }}">Skip</a>
-    <button type="submit" class="btn btn-primary btn-lg pull-right next-btn hidden">Next!</button>
+    <div class="pull-right game-btn">
+      <a class="btn btn-warning btn-lg skip-btn"
+         href="{{ set.get_next_url }}?prev={{ set.pk }}">
+        Skip <i class="fa fa-forward"></i></a>
+      <button type="submit" class="btn btn-primary btn-lg next-btn hidden">
+        Next! <i class="fa fa-chevron-right"></i></button>
+    </div>
   </div>
 </form>
 {% endblock %}

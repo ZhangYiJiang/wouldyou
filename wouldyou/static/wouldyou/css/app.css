@@ -2542,7 +2542,6 @@ button.list-group-item-danger.active:focus {
 
 header.global {
   color: white;
-  background-color: #321d2f;
 }
 
 header.global > .container-wrapper {
@@ -2728,17 +2727,35 @@ body.onboard .friend-selector img {
   height: 70px;
 }
 
-body.game {
-  background-color: #e0e0e0;
-  color: #572c4f;
-}
-
 body.game .game-title {
   font-family: "Lora", serif;
 }
 
 body.game .game-choice {
   text-align: center;
+}
+
+body.game .game-choice .game-card {
+  position: relative;
+  width: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+body.game .game-choice .game-card:hover .game-action {
+  top: 0;
+}
+
+body.game .game-choice .game-card img {
+  width: 100%;
+  display: block;
+}
+
+body.game .game-choice .verb-button {
+  height: 40px;
+  width: 160px;
+  border: 0;
+  color: white;
 }
 
 body.game .game-choice .game-card-unselected .game-action {
@@ -2757,22 +2774,6 @@ body.game .game-choice .game-card-unselected .marry-verb-button {
 
 body.game .game-choice .game-card-unselected .kill-verb-button {
   background-color: #437e94;
-}
-
-body.game .game-choice .game-card {
-  position: relative;
-  width: 200px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-body.game .game-choice .game-card:hover .game-action {
-  top: 0;
-}
-
-body.game .game-choice .game-card img {
-  width: 100%;
-  display: block;
 }
 
 body.game .game-choice .game-action {
@@ -2799,13 +2800,6 @@ body.game .game-choice .game-action ul {
 
 body.game .game-choice .game-action li {
   height: 40px;
-}
-
-body.game .game-choice .verb-button {
-  height: 40px;
-  width: 160px;
-  border: 0;
-  color: white;
 }
 
 body.game .game-choice .kiss-verb-button {
@@ -2838,7 +2832,7 @@ body.game .game-choice .game-result {
 
 body.game .game-choice .bar-chart {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   padding: 0 20px;
   width: 100%;
   height: 150px;

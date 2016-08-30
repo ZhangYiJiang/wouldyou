@@ -77,6 +77,9 @@ class NextProfile(BaseView):
                 set_obj.skip_set(request.user.player)
 
         next_obj = request.user.player.next_set(self.model)
+        if next_obj is None:
+            return redirect('app:player.invite')
+
         return redirect(next_obj, set_id=next_obj.pk)
 
     def post(self, request):
@@ -130,6 +133,11 @@ class PlayerGame(GameView):
 class CelebrityGame(GameView):
     model = ProfileSet
     template = 'wouldyou/game/profile.html'
+
+
+class NeedMoreFriends(BaseView):
+    def get(self, request):
+        return render(request, 'wouldyou/game/invite.html')
 
 
 class InviteView(AjaxView):

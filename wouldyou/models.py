@@ -263,14 +263,13 @@ class Player(AbstractProfile):
         try:
             return PlayerSet.make(self, (id_str - existing_sets).pop())
         except KeyError:
-            # TODO: Decide on what to do when there aren't any more sets
             pass
-        return
+        return None
 
     def next_profileset(self):
         """Selects a random profile set from all unplayed profile sets"""
         not_played = ProfileSet.objects.exclude(profileaction__player=self).values_list('pk', flat=True)
-        return ProfileSet.objects.get(pk=random.choice(not_played))
+        return ProfileSet.objects.filter(pk=random.choice(not_played)).first()
 
     def invite(self, friends, request_id):
         new_players = []

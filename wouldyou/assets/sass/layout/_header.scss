@@ -1,6 +1,7 @@
 header.global {
   color: white;
-  margin-bottom: 40px;
+  background-color: $navbar-color;
+  //margin-bottom: 40px;
 
   > .wrapper-container {
     display: flex;

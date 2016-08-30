@@ -3,16 +3,21 @@
 {% block body_class %}index{% endblock %}
 
 {% block content %}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12 text-center">
-        <h1>Would You____?</h1>
-        <p>
-          <a class="btn btn-default btn-lg" href="{% url 'social:begin' 'facebook' %}">
-            Begin
-          </a>
-        </p>
-      </div>
+<div>
+  <div class="row">
+    <div class="col-xs-4 kiss-background bg-col">
+      <img class="action-bg-img" src="static/wouldyou/img/background_kiss.png">
+    </div>
+    <div class="col-xs-4 marry-background bg-col">
+      <img class="action-bg-img" src="static/wouldyou/img/background_marry.png">
+    </div>
+    <div class="col-xs-4 kill-background bg-col">
+      <img class="action-bg-img" src="static/wouldyou/img/background_kill.png">
     </div>
   </div>
+</div>
+<div class="btn-grp">
+  <a class="btn btn-primary choice-btn play-btn btn-lg" href="{% url 'social:begin' 'facebook' %}"> Login to play! </a>
+  <a class="btn btn-primary choice-btn rule-btn btn-lg"> How to play? </a>
+</div>
 {% endblock %}

@@ -1,0 +1,41 @@
+body.index {
+	.bg-col {
+		padding: 0px;
+		overflow: hidden;
+	}
+
+	.action-bg-img {
+		min-width: 100%;
+		height: 80vh;
+		object-fit: cover;
+	}
+
+	@media screen and (max-width: $screen-md) {
+		.action-bg-img {
+			max-height: 100vw;
+		}
+	}
+
+	.btn-grp {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		width: 100%;
+		padding: 0 40px;
+		margin-top: 20px;
+	}
+
+	.choice-btn {
+		margin: 0px 40px;
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+
+	.play-btn {
+		background-color: $kiss-colour;
+	}
+
+	.rule-btn {
+		background-color: $kill-colour;
+	}
+}

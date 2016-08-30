@@ -2809,6 +2809,11 @@ main {
   clear: both;
 }
 
+.btn {
+  -webkit-transition: .2s all;
+  transition: .2s all;
+}
+
 header.global {
   color: white;
   margin-bottom: 40px;
@@ -3003,8 +3008,6 @@ body.game .game-switcher {
 }
 
 body.game .game-switcher .btn {
-  -webkit-transition: .3s all;
-  transition: .3s all;
   background: none;
   padding: 12px 28px;
   color: rgba(255, 255, 255, 0.8);
@@ -3085,8 +3088,6 @@ body.game .verb-btn {
   padding: 12px 0;
   color: white;
   font-size: 18px;
-  -webkit-transition: all .15s, opacity .5s;
-  transition: all .15s, opacity .5s;
 }
 
 body.game .kiss-btn {

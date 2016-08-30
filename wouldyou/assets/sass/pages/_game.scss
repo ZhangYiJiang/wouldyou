@@ -27,7 +27,6 @@ body.game {
     margin-bottom: 40px;
 
     .btn {
-      transition: .3s all;
       background: none;
       padding: 12px 28px;
       color: rgba(#fff, .8);
@@ -99,7 +98,6 @@ body.game {
     padding: 12px 0;
     color: white;
     font-size: 18px;
-    transition: all .15s, opacity .5s;
   }
 
   @include verb('kiss', $kiss-colour);

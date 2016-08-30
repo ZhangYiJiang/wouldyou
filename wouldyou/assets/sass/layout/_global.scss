@@ -32,3 +32,7 @@ main {
   width: 100%;
   @include clearfix;
 }
+
+.btn {
+  transition: .2s all;
+}

@@ -2798,7 +2798,7 @@ main {
       -ms-flex: 1 auto;
           flex: 1 auto;
   width: 100%;
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
 }
 
 .bg-container:before, .bg-container:after {

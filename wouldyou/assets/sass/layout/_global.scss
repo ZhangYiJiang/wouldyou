@@ -18,7 +18,7 @@ main {
 }
 
 .wrapper-container {
-    max-width: $screen-lg + $grid-gutter-width;
+  max-width: $screen-lg + $grid-gutter-width;
 }
 
 .wrapper-container, .bg-container {
@@ -30,6 +30,8 @@ main {
   background: $background-gray;
   flex: 1 auto;
   width: 100%;
+  box-shadow: 0 12px 24px rgba(#000, .6);
+
   @include clearfix;
 }
 

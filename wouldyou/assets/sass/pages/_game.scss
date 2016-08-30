@@ -1,163 +1,174 @@
-body.game {
-  background-color: $background-gray;
-  color: $highlight-purple;
+@mixin verb($verb, $color) {
+  .#{$verb}-btn {
+    background: shade($color, 30);
 
-  .game-title {
-    font-family: $font-family-serif;
+    &:hover {
+      background: shade($color, 10);
+    }
+
+    &:active {
+      background: $color;
+    }
+
+    &.disabled {
+      background: rgba($color, .8);
+      opacity: .3;
+    }
+  }
+
+  .#{$verb}-bar {
+    background: $color;
+  }
+}
+
+body.game {
+  .game-switcher {
+    text-align: center;
+    margin-bottom: 40px;
+
+    .btn {
+      transition: .3s all;
+      background: none;
+      padding: 12px 28px;
+      color: rgba(#fff, .8);
+
+      &:hover {
+        color: #fff;
+        border-color: #fff;
+      }
+    }
+  }
+
+  .game-area {
+    max-width: 860px;
+    margin: 0 auto;
+
+    h2 {
+      font-family: $font-family-serif;
+    }
+  }
+
+  .game-choices {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
   }
 
   .game-choice {
     text-align: center;
+    padding-right: 20px;
 
-    .game-card-unselected {
-      .game-action {
-        top: 100%;
-        transition: .15s top;
-      }
-
-      .kiss-verb-button {
-        background-color: shade($kiss-colour, 25%);
-      }
-
-      .marry-verb-button {
-        background-color: shade($marry-colour, 25%);
-      }
-
-      .kill-verb-button {
-        background-color: shade($kill-colour, 25%);
-      }
+    &:last-child {
+      padding-right: 0;
     }
+  }
 
-    .game-card {
+  .game-card {
+    position: relative;
+    overflow: hidden;
+    max-width: 260px;
+
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(#000, .6);
+    transition: opacity .2s;
+    opacity: 0;
+  }
+
+  .game-action {
+    padding: 40px 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .verb-btn {
+    margin: 0 40px;
+    padding: 12px 0;
+    color: white;
+    font-size: 18px;
+    transition: all .15s, opacity .5s;
+  }
+
+  @include verb('kiss', $kiss-colour);
+  @include verb('marry', $marry-colour);
+  @include verb('kill', $kill-colour);
+
+  .card-selected, .game-card:hover {
+    .card-overlay {
+      opacity: 1;
+    }
+  }
+
+  .card-selected {
+    .verb-btn {
+      opacity: 0;
+      cursor: default;
+    }
+  }
+
+  .game-result {
+    width: 100%;
+  }
+
+  .bar-chart {
+    position: absolute;
+    bottom: 0;
+    padding: 0 20px;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  hr {
+    position: absolute;
+    width: 100%;
+    bottom: -1px;
+  }
+
+  .option-percentage {
+    height: 100%;
+    flex: 0 26%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .percent-text {
       position: relative;
-      width: 200px;
-      margin: 0 auto;
-      overflow: hidden;
-
-      &:hover {
-        .game-action {
-          top: 0;
-        }
-      }
-
-      img {
-        width: 100%;
-        display: block;
-      }
-    }
-
-    .game-action {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(#000, .4);
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-
-      padding: 50px 0px;
-
-      ul {
-        margin: 0;
-      }
-
-      li {
-        height: 40px;
-      }
-    }
-
-    .verb-button {
-      height: 40px;
-      width: 160px;
-      border: 0;
+      bottom: 15px;
       color: white;
+      font-size: .8em;
     }
 
-    .kiss-verb-button {
-      background-color: $kiss-colour;
+    .verb-bar {
+      bottom: 20px;
+      animation: bar-animation 1.5s;
+    }
 
-      &:hover {
-        background-color: $kiss-colour;
+    @keyframes bar-animation {
+      0% {
+        height: 0;
       }
-    }
-
-    .marry-verb-button {
-      background-color: $marry-colour;
-
-      &:hover {
-        background-color: $marry-colour;
-      }
-    }
-
-    .kill-verb-button {
-      background-color: $kill-colour;
-
-      &:hover {
-        background-color: $kill-colour;
+      100% {
+        height: visible;
       }
     }
 
-    .game-result {
-      width: 100%;
-    }
-
-    .bar-chart {
-      position: absolute;
-      bottom: 0px;
-      padding: 0 20px;
-      width: 100%;
-      height: 150px;
-      display: flex;
-      justify-content: space-around;
-    }
-
-    hr {
-      position: absolute;
-      width: 100%;
-      bottom: -1px;
-    }
-
-    .option-percentage {
-      height: 100%;
-      flex: 0 26%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-
-      .percent-text {
-        position: relative;
-        bottom: 15px;
-        color: white;
-        font-size: .8em;
-      }
-
-      .verb-bar {
-        bottom: 20px;
-        animation: bar-animation 1.5s; 
-      }
-
-      @keyframes bar-animation {
-        0%   { height: 0; }
-        100% { height: visible; }
-      }
-
-      .kiss-verb-bar {
-        background-color: $kiss-colour;
-      }
-
-      .marry-verb-bar {
-        background-color: $marry-colour;
-      }
-
-      .kill-verb-bar {
-        background-color: $kill-colour;
-      }
-
-      .text {
-        color: white;
-      }
+    .text {
+      color: white;
     }
   }
 }

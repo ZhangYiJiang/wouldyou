@@ -1,8 +1,34 @@
-.container-fluid, .container-wrapper {
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-fluid, .bg-container {
   max-width: $screen-lg;
 }
 
-.container-wrapper {
+.wrapper-container {
+    max-width: $screen-lg + $grid-gutter-width;
+}
+
+.wrapper-container, .bg-container {
   margin: 0 auto;
   padding: 0 $grid-gutter-width / 2;
+}
+
+.bg-container {
+  background: $background-gray;
+  flex: 1 auto;
+  width: 100%;
+  @include clearfix;
 }

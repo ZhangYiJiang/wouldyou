@@ -5,42 +5,62 @@
 {% block body_class %}game{% endblock %}
 
 {% block content %}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2 class="game-title">{{ set.name }}</h2>
-      </div>
+  <div class="wrapper-container game-switcher">
+    <div class="btn-group btn-group-lg">
+      <a href="" class="btn btn-default">Friends</a>
+      <a href="" class="btn btn-default">Celebrities</a>
     </div>
+  </div>
 
-    <div class="row game-area" data-set="{{ set.pk }}" data-model="{{ set.view_prefix }}" data-url="{% url 'app:api.action' %}">
+  <div class="bg-container">
+    <form method="post" action="{{ set.get_next_url }}">
+    {% csrf_token %}
+    <input type="hidden" name="set_id" value="{{ set.pk }}">
+
+    <div class="game-area" data-set="{{ set.pk }}"
+         data-model="{{ set.view_prefix }}"
+         data-url="{% url 'app:api.action' %}">
+
+      <h2>{{ set.name }}</h2>
+
+      <div class="game-choices">
       {% for subject in set.subjects.all %}
-        <div class="col-md-4 game-choice">
+        <div class="game-choice">
           <h3>{{ subject.name }}</h3>
 
-          <div class="game-card game-card-unselected" data-subject="{{ subject.pk }}">
+          <div class="game-card card-unselected"
+               data-subject="{{ subject.pk }}">
             <img src="{{ subject.portrait }}" alt="">
 
-            <ul class="game-action list-unstyled">
-              {% for verb in verbs %}
-                <li>
-                  <button class="btn verb-button {{ verb }}-verb-button"
+            <div class="card-overlay">
+              <div class="game-action">
+                {% for verb in verbs %}
+                  <button class="btn verb-btn {{ verb }}-btn"
                           data-verb="{{ verb.pk }}">
                     {{ verb|title }}
                   </button>
-                </li>
-              {% endfor %}
-            </ul>
+                  <input type="radio" name="{{ verb }}" value="{{ subject.pk }}"
+                         class="hidden">
+                {% endfor %}
+              </div>
 
-            <div class="game-result hidden">
-              {% block result %}{% endblock %}
+              <div class=""></div>
+
+              <div class="game-result hidden">
+                {% block result %}{% endblock %}
+              </div>
             </div>
           </div>
         </div>
       {% endfor %}
-
-      <div class="col-xl-12 pull-right">
-        <a href="{{ set.get_next_url }}?prev={{ set.pk }}" class="btn btn-primary btn-lg">Next!</a>
       </div>
+
+      <button type="button" class="btn btn-danger btn-lg undo-btn">Undo</button>
+
+      <a class="btn btn-primary btn-lg pull-right skip-btn" href="{{ set.get_next_url }}?prev={{ set.pk }}">Skip</a>
+      <button type="submit" class="btn btn-primary btn-lg pull-right next-btn hidden">Next!</button>
     </div>
+
+    </form>
   </div>
 {% endblock %}

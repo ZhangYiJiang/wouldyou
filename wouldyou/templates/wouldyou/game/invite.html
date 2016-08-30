@@ -1,12 +1,15 @@
 {% extends 'wouldyou/game/base.html' %}
 
+{% load static %}
+
 {% block game_area %}
-<div class="game-area notice-area">
-	<div><h3> Eh oh, you don't seem to have enough friends to play... </h3></div>
-	<div><img src="../../static/wouldyou/img/no_friend_icon.png"></div>
-	<div><a class="btn btn-primary invite-btn btn-lg"> Invite more Friends! </a></div>
-	<div> or </div>
-	<div><a class="celeb-btn">Continue playing with celebrities</a></div>
+<div class="game-area invite-area">
+  <h3> Uh oh, you don't seem to have enough friends to play... </h3>
+	<img src="{% static "wouldyou/img/no_friend_icon.png" %}" alt="">
+
+	<p><a class="btn btn-primary invite-btn btn-lg"> Invite more Friends! </a></p>
+	<p> or </p>
+	<p><a class="btn btn-link">Continue playing with celebrities</a></p>
 </div>
 
 {% endblock %}

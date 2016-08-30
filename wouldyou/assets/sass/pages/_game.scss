@@ -185,29 +185,4 @@ body.game {
     padding-left: 34px;
     padding-right: 34px;
   }
-
-  .notice-area {
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 1.2em;
-    color: $highlight-purple;
-
-    * {
-      margin-top: 15px;
-    }
-
-    img {
-      margin-bottom: 15px;
-    }
-
-    .invite-btn {
-      font-size: 1.3em;
-      padding-left: 40px;
-      padding-right: 40px;
-      background-color: $facebook-color;
-    }
-
-  }
 }

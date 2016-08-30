@@ -1,0 +1,27 @@
+body.game {
+  .invite-area {
+    padding-top: 20px;
+    font-size: 20px;
+    text-align: center;
+    color: $highlight-purple;
+
+    img {
+      margin-bottom: 30px;
+    }
+
+    h3 {
+      margin-bottom: 24px;
+    }
+
+    .invite-btn {
+      font-size: 24px;
+      padding-left: 40px;
+      padding-right: 40px;
+      background-color: $facebook-color;
+    }
+
+    .btn-link {
+      font-size: 18px;
+    }
+  }
+}

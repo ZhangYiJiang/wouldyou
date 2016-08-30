@@ -78,6 +78,10 @@ $('body.onboard .friends button').click(function(){
 })(jQuery);
 
 
+/**
+ * Created by zhang on 31/8/16.
+ */
+
 (function ($) {
   var verbCount = 3;
 

@@ -253,13 +253,13 @@ textarea {
 }
 
 a {
-  color: #337ab7;
+  color: #572c4f;
   text-decoration: none;
 }
 
 a:hover, a:focus {
-  color: #23527c;
-  text-decoration: underline;
+  color: #241221;
+  text-decoration: none;
 }
 
 a:focus {
@@ -487,12 +487,12 @@ mark,
 }
 
 .text-primary {
-  color: #337ab7;
+  color: #572c4f;
 }
 
 a.text-primary:hover,
 a.text-primary:focus {
-  color: #286090;
+  color: #351b30;
 }
 
 .text-success {
@@ -536,12 +536,12 @@ a.text-danger:focus {
 }
 
 .bg-primary {
-  background-color: #337ab7;
+  background-color: #572c4f;
 }
 
 a.bg-primary:hover,
 a.bg-primary:focus {
-  background-color: #286090;
+  background-color: #351b30;
 }
 
 .bg-success {
@@ -1590,27 +1590,27 @@ fieldset[disabled] .btn-default.focus {
 
 .btn-primary {
   color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
+  background-color: #572c4f;
+  border-color: #462340;
 }
 
 .btn-primary:focus, .btn-primary.focus {
   color: #fff;
-  background-color: #286090;
-  border-color: #122b40;
+  background-color: #351b30;
+  border-color: black;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #286090;
-  border-color: #204d74;
+  background-color: #351b30;
+  border-color: #1d0f1b;
 }
 
 .btn-primary:active, .btn-primary.active,
 .open > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #286090;
-  border-color: #204d74;
+  background-color: #351b30;
+  border-color: #1d0f1b;
 }
 
 .btn-primary:active:hover, .btn-primary:active:focus, .btn-primary:active.focus, .btn-primary.active:hover, .btn-primary.active:focus, .btn-primary.active.focus,
@@ -1618,8 +1618,8 @@ fieldset[disabled] .btn-default.focus {
 .open > .btn-primary.dropdown-toggle:focus,
 .open > .btn-primary.dropdown-toggle.focus {
   color: #fff;
-  background-color: #204d74;
-  border-color: #122b40;
+  background-color: #1d0f1b;
+  border-color: black;
 }
 
 .btn-primary:active, .btn-primary.active,
@@ -1631,12 +1631,12 @@ fieldset[disabled] .btn-default.focus {
 fieldset[disabled] .btn-primary:hover,
 fieldset[disabled] .btn-primary:focus,
 fieldset[disabled] .btn-primary.focus {
-  background-color: #337ab7;
-  border-color: #2e6da4;
+  background-color: #572c4f;
+  border-color: #462340;
 }
 
 .btn-primary .badge {
-  color: #337ab7;
+  color: #572c4f;
   background-color: #fff;
 }
 
@@ -1849,7 +1849,7 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 .btn-link {
-  color: #337ab7;
+  color: #572c4f;
   font-weight: normal;
   border-radius: 0;
 }
@@ -1865,8 +1865,8 @@ fieldset[disabled] .btn-link {
 }
 
 .btn-link:hover, .btn-link:focus {
-  color: #23527c;
-  text-decoration: underline;
+  color: #241221;
+  text-decoration: none;
   background-color: transparent;
 }
 
@@ -2298,8 +2298,8 @@ button.list-group-item {
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   z-index: 2;
   color: #fff;
-  background-color: #337ab7;
-  border-color: #337ab7;
+  background-color: #572c4f;
+  border-color: #572c4f;
 }
 
 .list-group-item.active .list-group-item-heading,
@@ -2313,7 +2313,7 @@ button.list-group-item {
 }
 
 .list-group-item.active .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text {
-  color: #c7ddef;
+  color: #c48bba;
 }
 
 .list-group-item-success {
@@ -2863,7 +2863,7 @@ header.global .profile .profile-image {
 .spinner > div {
   width: 18px;
   height: 18px;
-  background-color: #337ab7;
+  background-color: #572c4f;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bounce-delay 1.4s infinite ease-in-out both;
@@ -3014,7 +3014,7 @@ body.onboard .friend-selector input[type='checkbox']:checked {
 
 body.onboard .friend-selector input[type='checkbox']:checked + div,
 body.onboard .friend-selector input[type='checkbox'] + div:hover {
-  background: rgba(51, 122, 183, 0.2);
+  background: rgba(87, 44, 79, 0.2);
 }
 
 body.onboard .friend-selector img {
@@ -3266,35 +3266,30 @@ body.game .game-btn .btn, body.game .undo-btn {
   padding-right: 34px;
 }
 
-body.game .notice-area {
+body.game .invite-area {
   padding-top: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 1.2em;
+  font-size: 20px;
+  text-align: center;
   color: #572c4f;
 }
 
-body.game .notice-area * {
-  margin-top: 15px;
+body.game .invite-area img {
+  margin-bottom: 30px;
 }
 
-body.game .notice-area img {
-  margin-bottom: 15px;
+body.game .invite-area h3 {
+  margin-bottom: 24px;
 }
 
-body.game .notice-area .invite-btn {
-  font-size: 1.3em;
+body.game .invite-area .invite-btn {
+  font-size: 24px;
   padding-left: 40px;
   padding-right: 40px;
   background-color: #3f57a6;
+}
+
+body.game .invite-area .btn-link {
+  font-size: 18px;
 }
 
 /*# sourceMappingURL=app.css.map */

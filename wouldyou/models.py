@@ -246,15 +246,15 @@ class Player(AbstractProfile):
 
         # If we have more than three friends not played with, simply generate
         # a new set using those unplayed friends
-        if len(not_played_with) >= 3:
-            sample = random.sample(not_played_with, 3)
+        if len(not_played_with) >= settings.VERB_COUNT:
+            sample = random.sample(not_played_with, settings.VERB_COUNT)
             return PlayerSet.make(self, sample)
 
         # Otherwise we randomly generate a few sets and try to use that
         id_str = set()
         played_with = friends_id - not_played_with
-        sample_size = 3 - len(not_played_with)
-        for i in range(10):
+        sample_size = settings.VERB_COUNT - len(not_played_with)
+        for i in range(settings.RANDOM_FRIEND_SET_ATTEMPTS):
             players = not_played_with | set(random.sample(played_with, sample_size))
             id_str |= {'{},{},{}'.format(*sorted(players))}
 

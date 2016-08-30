@@ -221,3 +221,11 @@ LOGGING = {
         },
     },
 }
+
+# Game settings
+
+RANDOM_FRIEND_SET_ATTEMPTS = 5
+
+MIN_FRIENDS_REQUIRED = 12
+
+VERB_COUNT = 3

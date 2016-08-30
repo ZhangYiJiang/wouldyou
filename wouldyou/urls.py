@@ -13,9 +13,12 @@ slash.
 urlpatterns = [
     # Static pages
     url(r'^$', views.index, name='index'),
-    url(r'^logout/$', views.logout, name='logout'),
     url(r'^welcome/$', views.OnboardView.as_view(), name='onboard'),
     url(r'^privacy/$', views.StaticView.as_view(page='privacy'), name='static.privacy'),
+
+    # Actions
+    url(r'^disconnect/$', views.disconnect, name='disconnect'),
+    url(r'^logout/$', views.logout, name='logout'),
 
     # Game pages
     url(r'^celebrities/next/$', views.NextProfile.as_view(model=models.Profile), name='profile.next'),
@@ -29,5 +32,4 @@ urlpatterns = [
     # Ajax views
     url(r'^api/invite/$', views.InviteView.as_view(), name='api.invite'),
     url(r'^api/action/$', views.ActionView.as_view(), name='api.action'),
-    url(r'^disconnect/$', views.disconnect, name='disconnect'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

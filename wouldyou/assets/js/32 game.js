@@ -88,13 +88,21 @@
     },
 
     complete: function () {
+      var me = this;
+
       this.completed = true;
+
+      // Hide reset button
+      this.gameArea.find('.undo-btn').fadeOut();
 
       // Switch 'Skip' button with 'Next'
       this.gameArea.find('.skip-btn').hide();
       this.gameArea.find('.next-btn').removeClass('hidden');
 
-      this.gameArea.addClass('game-complete');
+      setTimeout(function () {
+        me.gameArea.find('.game-result').fadeIn();
+        me.gameArea.addClass('game-complete');
+      }, 600);
     },
   };
 

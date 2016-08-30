@@ -117,17 +117,27 @@ body.game {
     }
   }
 
-  .overlay-image > div {
+  .overlay-image {
+    transition: .3s opacity;
+
+    > div {
+      display: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+  }
+
+  .game-result {
     display: none;
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 0;
     left: 0;
-  }
-
-  .game-result {
-    width: 100%;
+    right: 0;
+    background: rgba(#000, .6);
   }
 
   .bar-chart {
@@ -156,22 +166,13 @@ body.game {
     .percent-text {
       position: relative;
       bottom: 15px;
-      color: white;
+      color: rgba(#fff, .8);
       font-size: .8em;
     }
 
     .verb-bar {
       bottom: 20px;
       animation: bar-animation 1.5s;
-    }
-
-    @keyframes bar-animation {
-      0% {
-        height: 0;
-      }
-      100% {
-        height: visible;
-      }
     }
 
     .text {

@@ -44,7 +44,7 @@
               {% endfor %}
             </div>
 
-            <div class="game-result hidden">
+            <div class="game-result">
               {% block result %}{% endblock %}
             </div>
           </div>
@@ -56,7 +56,7 @@
     <button type="button" class="btn btn-danger btn-lg undo-btn">
       <i class="fa fa-undo"></i> Undo</button>
 
-    <div class="pull-right">
+    <div class="pull-right game-btn">
       <a class="btn btn-warning btn-lg skip-btn"
          href="{{ set.get_next_url }}?prev={{ set.pk }}">
         Skip <i class="fa fa-forward"></i></a>

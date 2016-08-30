@@ -1,0 +1,52 @@
+{% extends "wouldyou/game/base.html" %}
+
+{% block game_area %}
+<form method="post" action="{{ set.get_next_url }}">
+  {% csrf_token %}
+  <input type="hidden" name="set_id" value="{{ set.pk }}">
+
+  <div class="game-area" data-set="{{ set.pk }}"
+       data-model="{{ set.view_prefix }}"
+       data-url="{% url 'app:api.action' %}">
+
+    <h2>{{ set.name }}</h2>
+
+    <div class="game-choices">
+    {% for subject in set.subjects.all %}
+      <div class="game-choice">
+        <h3>{{ subject.name }}</h3>
+
+        <div class="game-card card-unselected"
+             data-subject="{{ subject.pk }}">
+          <img src="{{ subject.portrait }}" alt="">
+
+          <div class="card-overlay">
+            <div class="game-action">
+              {% for verb in verbs %}
+                <button class="btn verb-btn {{ verb }}-btn"
+                        data-verb="{{ verb.pk }}">
+                  {{ verb|title }}
+                </button>
+                <input type="radio" name="{{ verb }}" value="{{ subject.pk }}"
+                       class="hidden">
+              {% endfor %}
+            </div>
+
+            <div class=""></div>
+
+            <div class="game-result hidden">
+              {% block result %}{% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+
+    <button type="button" class="btn btn-danger btn-lg undo-btn">Undo</button>
+
+    <a class="btn btn-primary btn-lg pull-right skip-btn" href="{{ set.get_next_url }}?prev={{ set.pk }}">Skip</a>
+    <button type="submit" class="btn btn-primary btn-lg pull-right next-btn hidden">Next!</button>
+  </div>
+</form>
+{% endblock %}

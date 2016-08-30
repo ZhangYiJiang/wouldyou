@@ -302,3 +302,6 @@ class Profile(AbstractProfile):
 
     def image_tag(self):
         return format_html('<img src="{}" alt="" style="max-width: 100px">', self.image.url)
+
+    class Meta:
+        ordering = ['name', ]

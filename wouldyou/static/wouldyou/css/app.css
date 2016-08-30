@@ -2798,6 +2798,7 @@ main {
       -ms-flex: 1 auto;
           flex: 1 auto;
   width: 100%;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
 }
 
 .bg-container:before, .bg-container:after {
@@ -3160,6 +3161,15 @@ body.game .card-selected .card-overlay, body.game .game-card:hover .card-overlay
 body.game .card-selected .verb-btn {
   opacity: 0;
   cursor: default;
+}
+
+body.game .overlay-image > div {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 body.game .game-result {

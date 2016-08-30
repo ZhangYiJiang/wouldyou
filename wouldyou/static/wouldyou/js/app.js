@@ -139,14 +139,17 @@ $('body.onboard .friends button').click(function(){
         .addClass('disabled');
 
       // Switch current card class
-      btn.closest('.game-card')
+      var card = btn.closest('.game-card')
         .removeClass('card-unselected')
         .addClass('card-selected');
 
       // Fill in hidden input
       btn.next('input').prop('checked', true);
 
-      // TODO: Fade in action image
+      // Fade in action image
+      card.find('.overlay-image').children().filter(function () {
+        return $(this).data('verb') == verb;
+      }).fadeIn();
 
       // Check if the game is finished
       if (this.selected.length === verbCount)

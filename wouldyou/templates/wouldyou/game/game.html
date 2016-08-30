@@ -1,5 +1,7 @@
 {% extends "wouldyou/game/base.html" %}
 
+{% load static %}
+
 {% block game_area %}
 <form method="post" action="{{ set.get_next_url }}">
   {% csrf_token %}
@@ -32,7 +34,15 @@
               {% endfor %}
             </div>
 
-            <div class=""></div>
+            <div class="overlay-image">
+              {% for verb in verbs %}
+                <div class="overlay-{{ verb }}" data-verb="{{ verb.pk }}">
+                  {% with 'wouldyou/img/'|add:verb.verb|add:'.png' as src %}
+                    <img src="{% static src %}" alt="">
+                  {% endwith %}
+                </div>
+              {% endfor %}
+            </div>
 
             <div class="game-result hidden">
               {% block result %}{% endblock %}

@@ -57,10 +57,10 @@ class BaseView(LoginRequiredMixin, View):
 class OnboardView(BaseView):
     def get(self, request):
         player = request.user.player
-        return render(request, 'wouldyou/game/onboard.html', {
-            'invitable': player.facebook.invitable_friends(),
-            'friends': player.friends.all(),
-        })
+        if player.friends.count() > settings.MIN_FRIENDS_REQUIRED:
+            return redirect('app:player.next')
+        else:
+            return redirect('app:profile.next')
 
 
 class NextProfile(BaseView):
@@ -136,7 +136,10 @@ class CelebrityGame(GameView):
 
 class NeedMoreFriends(BaseView):
     def get(self, request):
-        return render(request, 'wouldyou/game/invite.html')
+        player = request.user.player
+        return render(request, 'wouldyou/game/invite.html', {
+            'friends': player.friends.all(),
+        })
 
 
 class InviteView(AjaxView):

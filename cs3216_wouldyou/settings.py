@@ -209,7 +209,7 @@ LOGGING = {
             'backupCount': 20,
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
         },
     },

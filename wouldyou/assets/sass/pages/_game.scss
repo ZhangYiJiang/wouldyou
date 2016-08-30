@@ -1,5 +1,5 @@
 @mixin verb($verb, $color) {
-  .card-unselected .#{$verb}-btn {
+  .#{$verb}-btn {
     background: shade($color, 30);
 
     &:hover {
@@ -9,10 +9,11 @@
     &:active {
       background: $color;
     }
-  }
 
-  .card-selected .#{$verb}-btn {
-    background: $color;
+    &.disabled {
+      background: rgba($color, .8);
+      opacity: .3;
+    }
   }
 
   .#{$verb}-bar {
@@ -50,6 +51,7 @@ body.game {
   .game-choices {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
   }
 
   .game-choice {
@@ -80,7 +82,7 @@ body.game {
     bottom: 0;
 
     background: rgba(#000, .6);
-    transition: opacity .3s;
+    transition: opacity .2s;
     opacity: 0;
   }
 
@@ -97,7 +99,7 @@ body.game {
     padding: 12px 0;
     color: white;
     font-size: 18px;
-    transition: all .15s;
+    transition: all .15s, opacity .5s;
   }
 
   @include verb('kiss', $kiss-colour);
@@ -107,6 +109,13 @@ body.game {
   .card-selected, .game-card:hover {
     .card-overlay {
       opacity: 1;
+    }
+  }
+
+  .card-selected {
+    .verb-btn {
+      opacity: 0;
+      cursor: default;
     }
   }
 

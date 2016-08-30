@@ -82,6 +82,7 @@ class NextProfile(BaseView):
     def post(self, request):
         set_id = request.POST.get('set_id', None)
         set_obj = self.set_model.objects.filter(pk=set_id).first()
+        player = request.user.player
 
         if set_obj:
             actions = []
@@ -89,7 +90,11 @@ class NextProfile(BaseView):
                 profile_id = request.POST.get(str(verb), None)
                 if profile_id is not None:
                     actions.append((verb, profile_id,))
-            set_obj.create_action(request.user.player, actions)
+                print(actions)
+            if actions:
+                set_obj.create_action(player, actions)
+            else:
+                set_obj.skip_set(player)
         return self.get(request)
 
 

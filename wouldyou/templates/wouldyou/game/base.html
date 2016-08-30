@@ -13,6 +13,10 @@
   </div>
 
   <div class="bg-container">
+    <form method="post" action="{{ set.get_next_url }}">
+    {% csrf_token %}
+    <input type="hidden" name="set_id" value="{{ set.pk }}">
+
     <div class="game-area" data-set="{{ set.pk }}"
          data-model="{{ set.view_prefix }}"
          data-url="{% url 'app:api.action' %}">
@@ -35,8 +39,12 @@
                           data-verb="{{ verb.pk }}">
                     {{ verb|title }}
                   </button>
+                  <input type="radio" name="{{ verb }}" value="{{ subject.pk }}"
+                         class="hidden">
                 {% endfor %}
               </div>
+
+              <div class=""></div>
 
               <div class="game-result hidden">
                 {% block result %}{% endblock %}
@@ -47,9 +55,12 @@
       {% endfor %}
       </div>
 
-      <div class="col-xl-12 pull-right">
-        <a href="{{ set.get_next_url }}?prev={{ set.pk }}" class="btn btn-primary btn-lg">Next!</a>
-      </div>
+      <button type="button" class="btn btn-danger btn-lg undo-btn">Undo</button>
+
+      <a class="btn btn-primary btn-lg pull-right skip-btn" href="{{ set.get_next_url }}?prev={{ set.pk }}">Skip</a>
+      <button type="submit" class="btn btn-primary btn-lg pull-right next-btn hidden">Next!</button>
     </div>
+
+    </form>
   </div>
 {% endblock %}

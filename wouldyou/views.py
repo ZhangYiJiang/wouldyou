@@ -93,7 +93,6 @@ class NextProfile(BaseView):
                 profile_id = request.POST.get(str(verb), None)
                 if profile_id is not None:
                     actions.append((verb, profile_id,))
-                print(actions)
             if actions:
                 set_obj.create_action(player, actions)
             else:
@@ -168,11 +167,9 @@ class ActionView(AjaxView):
 
 
 def disconnect(request):
-
     secret_key = settings.SOCIAL_AUTH_FACEBOOK_SECRET
     data = facebook.parse_signed_request(request.POST['signed_request'], secret_key)
     removed_user_id = data['user_id']
-
     Player.objects.filter(uid=removed_user_id).delete()
 
     return redirect('app:index')

@@ -238,7 +238,6 @@ class Player(AbstractProfile):
 
     def next_playerset(self):
         """Generates a random set of friends for the player to play against"""
-        # TODO: Consider caching this list locally instead
         friends_id = set(self.friends.values_list('uid', flat=True))
         played_sets = self.owned_sets.all()
         not_played_with = set(self.friends.exclude(playerset__in=played_sets)\
@@ -269,7 +268,11 @@ class Player(AbstractProfile):
     def next_profileset(self):
         """Selects a random profile set from all unplayed profile sets"""
         not_played = ProfileSet.objects.exclude(profileaction__player=self).values_list('pk', flat=True)
-        return ProfileSet.objects.filter(pk=random.choice(not_played)).first()
+        try:
+            return ProfileSet.objects.filter(pk=random.choice(not_played)).first()
+        except IndexError:
+            # TODO: Create special view for completing all profiles
+            return
 
     def invite(self, friends, request_id):
         new_players = []

@@ -100,7 +100,7 @@ class AbstractSet(BaseModel):
             total[value['subject']] = total.get(value['subject'], 0) + value['count']
         return stats, total
 
-    def create_subject(self, player, verb, set, subject):
+    def create_subject_action(self, player, verb, set, subject):
         raise NotImplementedError
 
     def create_action(self, player, verbs):
@@ -108,12 +108,12 @@ class AbstractSet(BaseModel):
         for verb, subject_id in verbs:
             subject = self.subjects.filter(pk=subject_id).first()
             if subject:
-                actions.append(self.create_subject(player, verb, self, subject))
+                actions.append(self.create_subject_action(player, verb, self, subject))
         self.action_class.objects.bulk_create(actions)
 
     def skip_set(self, player):
         if not self.actions.filter(player=player).exists():
-            action = self.create_subject(player, None, self, None)
+            action = self.create_subject_action(player, None, self, None)
             action.save()
 
     def get_absolute_url(self):
@@ -144,7 +144,7 @@ class ProfileSet(AbstractSet):
     def actions(self):
         return self.profileaction_set.annotate(subject=F('profile'))
 
-    def create_subject(self, player, verb, set, subject):
+    def create_subject_action(self, player, verb, set, subject):
         return ProfileAction(player=player, verb=verb, profileset=set, profile=subject)
 
     def __str__(self):
@@ -185,7 +185,7 @@ class PlayerSet(AbstractSet):
     def actions(self):
         return self.playeraction_set.annotate(subject=F('player'))
 
-    def create_subject(self, player, verb, set, subject):
+    def create_subject_action(self, player, verb, set, subject):
         return PlayerAction(player=player, verb=verb, friendset=set, friend=subject)
 
 

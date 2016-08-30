@@ -89,15 +89,28 @@ $('body.onboard .friends button').click(function(){
     this.selected = [];
 
     // Event binding
-    this.gameArea.on('click', '.verb-btn', function () {
+    this.gameArea.on('click', '.verb-btn', function (evt) {
+      evt.preventDefault();
       me.select($(this));
     });
+
+    this.gameArea.find('.undo-btn').click(function (evt) {
+      evt.preventDefault();
+      me.undo();
+    })
 
   };
 
   widget.prototype = {
     undo: function () {
+      // Clear selected verbs
+      this.selected = [];
 
+      this.gameArea.find('.game-card')
+        .removeClass('card-selected')
+        .addClass('card-selected');
+
+      this.buttons.removeClass('disabled');
     },
 
     select: function (btn) {
@@ -108,7 +121,8 @@ $('body.onboard .friends button').click(function(){
       this.selected.push(verb);
 
       // Disable the button of the same verb on other cards
-      this.otherButtons(btn).addClass('disabled');
+      this.otherButtons(btn)
+        .addClass('disabled');
 
       // Switch current card class
       btn.closest('.game-card')

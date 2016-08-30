@@ -150,7 +150,7 @@ class ActionView(AjaxView):
         verb = Verb.objects.get(pk=request.POST['verb'])
 
         player = request.user.player
-        action = set.create_subject(player, verb, set, subject)
+        action = set.create_subject_action(player, verb, set, subject)
         action.save()
 
 

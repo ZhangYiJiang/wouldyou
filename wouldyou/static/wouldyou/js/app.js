@@ -85,8 +85,10 @@ $('body.onboard .friends button').click(function(){
     var me = this;
 
     this.gameArea = $(gameArea);
+    this.gameForm = gameArea.find('form');
     this.buttons = this.gameArea.find('.verb-btn');
     this.selected = [];
+    this.completed = false;
 
     // Event binding
     this.gameArea.on('click', '.verb-btn', function (evt) {
@@ -97,7 +99,13 @@ $('body.onboard .friends button').click(function(){
     this.gameArea.find('.undo-btn').click(function (evt) {
       evt.preventDefault();
       me.undo();
-    })
+    });
+
+    this.gameForm.submit(function (evt) {
+      // Don't allow form submission unless game has been completed
+      if (!me.completed)
+        return false;
+    });
 
   };
 
@@ -106,11 +114,17 @@ $('body.onboard .friends button').click(function(){
       // Clear selected verbs
       this.selected = [];
 
+      // Unselect all cards
       this.gameArea.find('.game-card')
         .removeClass('card-selected')
-        .addClass('card-selected');
+        .addClass('card-unselected');
 
+      // Enable all buttons
       this.buttons.removeClass('disabled');
+
+      // Clear all hidden inputs
+      this.gameArea.find('.game-card input')
+        .prop('checked', false);
     },
 
     select: function (btn) {
@@ -129,6 +143,9 @@ $('body.onboard .friends button').click(function(){
         .removeClass('card-unselected')
         .addClass('card-selected');
 
+      // Fill in hidden input
+      btn.next('input').prop('checked', true);
+
       // TODO: Fade in action image
 
       // Check if the game is finished
@@ -144,7 +161,11 @@ $('body.onboard .friends button').click(function(){
     },
 
     complete: function () {
+      this.completed = true;
 
+      // Switch 'Skip' button with 'Next'
+      this.gameArea.find('.skip-btn').hide();
+      this.gameArea.find('.next-btn').removeClass('hidden');
     },
   };
 

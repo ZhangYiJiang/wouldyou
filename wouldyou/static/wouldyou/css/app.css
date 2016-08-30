@@ -2752,33 +2752,6 @@ button.list-group-item-danger.active:focus {
   }
 }
 
-html, body {
-  height: 100%;
-}
-
-body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-main {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 auto;
-          flex: 1 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
 .container-fluid, .bg-container {
   max-width: 960px;
 }
@@ -2798,7 +2771,8 @@ main {
       -ms-flex: 1 auto;
           flex: 1 auto;
   width: 100%;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
+  padding-bottom: 24px;
 }
 
 .bg-container:before, .bg-container:after {
@@ -3284,6 +3258,12 @@ body.game .option-percentage .verb-bar {
 
 body.game .option-percentage .text {
   color: white;
+}
+
+body.game .game-btn .btn, body.game .undo-btn {
+  font-size: 20px;
+  padding-left: 34px;
+  padding-right: 34px;
 }
 
 body.game .notice-area {

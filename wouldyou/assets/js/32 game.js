@@ -45,6 +45,10 @@
       // Clear all hidden inputs
       this.gameArea.find('.game-card input')
         .prop('checked', false);
+
+      // Hide all action image
+      this.gameArea.find('.overlay-image')
+        .children().hide();
     },
 
     select: function (btn) {
@@ -89,6 +93,8 @@
       // Switch 'Skip' button with 'Next'
       this.gameArea.find('.skip-btn').hide();
       this.gameArea.find('.next-btn').removeClass('hidden');
+
+      this.gameArea.addClass('game-complete');
     },
   };
 

@@ -32,17 +32,8 @@ def create_profile(backend, user, response, *args, **kwargs):
 
         # Create player instances for friends
         friends = fb.friends()
-        friends_uid = set(f['id'] for f in friends)
-        existing_friends = set(models.Player.objects.filter(uid__in=friends_uid).values_list('uid', flat=True))
-        new_friends = []
-        for friend in friends:
-            if friend['id'] in existing_friends:
-                continue
-            new_player = models.Player.from_fb_user(models.Player(), friend)
-            new_friends.append(new_player)
-
-        models.Player.objects.bulk_create(new_friends)
-        player.friends.add(*models.Player.objects.filter(uid__in=friends_uid))
+        new_friends = models.Player.bulk_create_fb_users(friends)
+        player.friends.add(*models.Player.objects.filter(uid__in=new_friends))
 
 
 def profile_context_processor(request):

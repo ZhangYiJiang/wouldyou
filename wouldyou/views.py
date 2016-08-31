@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
 
+from wouldyou.exceptions import OutOfGameSets
 from . import facebook
 from .models import Verb, PlayerSet, ProfileSet, Player
 
@@ -80,8 +81,9 @@ class NextProfile(BaseView):
             if set_obj:
                 set_obj.skip_set(request.user.player)
 
-        next_obj = request.user.player.next_set(self.model)
-        if next_obj is None:
+        try:
+            next_obj = request.user.player.next_set(self.model)
+        except OutOfGameSets:
             return redirect('app:player.invite')
 
         return redirect(next_obj, set_id=next_obj.pk)

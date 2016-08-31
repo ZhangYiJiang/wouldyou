@@ -1,10 +1,10 @@
-class OutOfGameSet(Exception):
+class OutOfGameSets(Exception):
     pass
 
 
-class OutOfProfileSet(OutOfGameSet):
+class OutOfProfileSets(OutOfGameSets):
     pass
 
 
-class OutOfPlayerSet(OutOfGameSet):
+class OutOfPlayerSets(OutOfGameSets):
     pass

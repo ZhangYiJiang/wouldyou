@@ -6,6 +6,7 @@ from django.db.models import Count, F
 from django.urls import reverse
 from django.utils.html import format_html
 
+from wouldyou.exceptions import OutOfPlayerSets, OutOfProfileSets
 from .facebook import Facebook
 
 GENDER_CHOICES = (
@@ -239,6 +240,12 @@ class Player(AbstractProfile):
     def next_playerset(self):
         """Generates a random set of friends for the player to play against"""
         friends_id = set(self.friends.values_list('uid', flat=True))
+
+        # Sanity check - if you have less than three friends, there's no way
+        # we can generate sets for you
+        if len(friends_id) < settings.VERB_COUNT:
+            raise OutOfPlayerSets
+
         played_sets = self.owned_sets.all()
         not_played_with = set(self.friends.exclude(playerset__in=played_sets)\
             .values_list('uid', flat=True))
@@ -262,8 +269,7 @@ class Player(AbstractProfile):
         try:
             return PlayerSet.make(self, (id_str - existing_sets).pop())
         except KeyError:
-            pass
-        return None
+            raise OutOfPlayerSets
 
     def next_profileset(self):
         """Selects a random profile set from all unplayed profile sets"""
@@ -271,16 +277,12 @@ class Player(AbstractProfile):
         try:
             return ProfileSet.objects.filter(pk=random.choice(not_played)).first()
         except IndexError:
-            # TODO: Create special view for completing all profiles
-            return
+            raise OutOfProfileSets
 
     def invite(self, friends, request_id):
-        new_players = []
-        cls = type(self)
-        for friend in self.facebook.user(friends).values():
-            new_players.append(cls.from_fb_user(cls(request=request_id), friend))
-        cls.objects.bulk_create(new_players)
-        self.friends.add(*cls.objects.filter(uid__in=friends))
+        fb_users = self.facebook.user(friends).values()
+        new_users = self.bulk_create_fb_users(fb_users, request=request_id)
+        self.friends.add(*type(self).objects.filter(uid__in=new_users))
 
     def from_fb_user(self, fb_user):
         self.name = fb_user['name']
@@ -291,6 +293,20 @@ class Player(AbstractProfile):
         except KeyError:
             pass
         return self
+
+    @classmethod
+    def bulk_create_fb_users(cls, facebook_users, **attrs):
+        uids = set(f['id'] for f in facebook_users)
+        existing_uids = set(cls.objects.filter(uid__in=uids).values_list('uid', flat=True))
+        new_players = []
+        new_uids = []
+        for fb_user in facebook_users:
+            if fb_user['id'] in existing_uids:
+                continue
+            new_uids.append(fb_user['id'])
+            new_players.append(cls.from_fb_user(cls(**attrs), fb_user))
+        cls.objects.bulk_create(new_players)
+        return new_uids
 
 
 class Profile(AbstractProfile):

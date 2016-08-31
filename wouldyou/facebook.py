@@ -180,7 +180,7 @@ class Facebook:
         return 'picture.width({}).height({})'.format(size, size)
 
     @classmethod
-    def picture(cls, user_id, width=300, height=600):
+    def picture(cls, user_id, width=600, height=900):
         return '{}/{}/{}/picture?width={}&height={}'.format(cls.url_prefix, cls.version, user_id, width, height)
 
 

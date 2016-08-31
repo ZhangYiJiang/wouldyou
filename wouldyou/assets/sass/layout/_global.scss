@@ -25,6 +25,14 @@
   transition: .2s all;
 }
 
+.btn {
+  border: 0;
+}
+
+.btn-group .btn {
+  border: 1px solid;
+}
+
 .logo-font {
   text-transform: uppercase;
   font-family: CheapSign, Arial Narrow, Arial, sans-serif;

@@ -4,18 +4,28 @@
 
 {% block body_class %}index{% endblock %}
 
+{% block header %}{% endblock %}
+
 {% block content %}
 <div class="index-header">
-  <div class="header-content">
-
-
-    <div class="call-to-action">
-      <a class="btn facebook-btn btn-lg" href="{% url 'social:begin' 'facebook' %}">
-        <i class="fa fa-facebook-official fa-3x bounce"></i>Login to play!</a>
-      <a class="btn rule-btn btn-lg">
-        <i class="fa fa-question fa-3x"></i>
-        How to play?</a>
-    </div> {# /.call-to-action #}
+  <div class="header-content wrapper-container">
+    <p class="tagline">
+      Between
+      <span class="index-spinner">
+        <span>your three best friends</span>
+        <!--<span>Denzel Washington</span>,
+        <span>Morgan Freeman</span> and
+        <span>Samuel L. Jackson</span>--></span>, who...
+    </p>
+    <h1 class="logo-font">
+      Would You
+      <span class="logo-blank">
+        <span>
+        Kiss<br>
+        Marry<br>
+        Kill</span>
+      </span>?
+    </h1>
   </div>
 
   <div class="index-bg">
@@ -30,4 +40,19 @@
     </div>
   </div> {# /.index-bg #}
 </div> {# /.index-header #}
+
+<div class="wrapper-container">
+  <div class="call-to-action">
+    <a class="btn facebook-btn btn-lg" href="{% url 'social:begin' 'facebook' %}">
+      <i class="fa fa-facebook-official fa-3x bounce" aria-hidden="true"></i>
+      Login to play!</a>
+    <a class="btn rule-btn btn-lg">
+      <i class="fa fa-question fa-3x" aria-hidden="true"></i>
+      How to play?</a>
+  </div> {# /.call-to-action #}
+
+  <div class="secondary-links">
+    <a href="{% url 'app:static.privacy' %}">Privacy Policy</a>
+  </div>
+</div>
 {% endblock %}

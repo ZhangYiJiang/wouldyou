@@ -1,6 +1,15 @@
 <header class="global">
   <div class="wrapper-container">
-    <h1><a href="{% url 'app:index' %}">Would You ____?</a></h1>
+    <h1 class="logo-font">
+      <a href="{% url 'app:index' %}">Would You
+        <span class="logo-blank">
+          <span aria-hidden="true">
+            Kiss <br>
+            Marry <br>
+            Kill
+          </span>
+        </span>?</a>
+    </h1>
 
     <div class="profile">
       {% if player %}

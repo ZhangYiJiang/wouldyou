@@ -189,6 +189,20 @@ $.ajaxSetup({
   window.BlockUi = widget;
 })(jQuery);
 (function ($) {
+  $('body').on('click', '.share-btn', function (evt) {
+    evt.preventDefault();
+
+    var $t = $(this),
+        url = $t.data('href');
+
+    FB.ui({
+      method: 'share',
+      href: url,
+      mobile_iframe: true,
+    });
+  });
+})(jQuery);
+(function ($) {
 
 $('body.onboard .friends button').click(function(){
   var selector = $('.friend-invite');

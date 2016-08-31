@@ -102,6 +102,7 @@ body.game {
     padding: 12px 0;
     color: white;
     font-size: 18px;
+    box-shadow: inset 0 -4px rgba(#000, .3);
   }
 
   @include verb('kiss', $kiss-colour);
@@ -188,5 +189,16 @@ body.game {
     font-size: 20px;
     padding-left: 34px;
     padding-right: 34px;
+    padding-bottom: 14px;
+
+    box-shadow: inset 0 -4px rgba(#000, .3);
+  }
+
+  .game-btn i {
+    margin-left: 4px;
+  }
+
+  .undo-btn i {
+    margin-right: 4px;
   }
 }

@@ -25,6 +25,7 @@
     "yargs": "^4.8.1"
   },
   "dependencies": {
-    "bootstrap-sass": "^3.3.7"
+    "bootstrap-sass": "^3.3.7",
+    "js-cookie": "^2.1.2"
   }
 }

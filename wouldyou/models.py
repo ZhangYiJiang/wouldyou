@@ -239,15 +239,20 @@ class Player(AbstractProfile):
 
     def next_playerset(self):
         """Generates a random set of friends for the player to play against"""
-        friends_id = set(self.friends.values_list('uid', flat=True))
+        # Checks through unplayed sets first
+        my_sets = self.owned_sets.all()
+        played_sets = PlayerSet.objects.filter(playeraction__player=self).values_list('pk', flat=True)
+        for s in my_sets:
+            if s.pk not in played_sets:
+                return s
 
         # Sanity check - if you have less than three friends, there's no way
         # we can generate sets for you
+        friends_id = set(self.friends.values_list('uid', flat=True))
         if len(friends_id) < settings.VERB_COUNT:
             raise OutOfPlayerSets
 
-        played_sets = self.owned_sets.all()
-        not_played_with = set(self.friends.exclude(playerset__in=played_sets)\
+        not_played_with = set(self.friends.exclude(playerset__in=my_sets)\
             .values_list('uid', flat=True))
 
         # If we have more than three friends not played with, simply generate
@@ -264,7 +269,7 @@ class Player(AbstractProfile):
             players = not_played_with | set(random.sample(played_with, sample_size))
             id_str |= {'{},{},{}'.format(*sorted(players))}
 
-        existing_sets = set(played_sets.filter(player_id_set__in=id_str)\
+        existing_sets = set(my_sets.filter(player_id_set__in=id_str)\
             .values_list('player_id_set', flat=True))
         try:
             return PlayerSet.make(self, (id_str - existing_sets).pop())

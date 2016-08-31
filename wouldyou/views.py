@@ -16,6 +16,9 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
+    if request.user.is_authenticated:
+        return OnboardView.get(request)
+
     return render(request, 'wouldyou/pages/index.html')
 
 
@@ -55,7 +58,8 @@ class BaseView(LoginRequiredMixin, View):
 
 
 class OnboardView(BaseView):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         player = request.user.player
         if player.friends.count() > settings.MIN_FRIENDS_REQUIRED:
             return redirect('app:player.next')

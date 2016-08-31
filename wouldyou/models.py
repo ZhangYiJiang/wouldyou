@@ -212,7 +212,7 @@ class Player(AbstractProfile):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, blank=True, null=True)
     image = models.URLField()
-    uid = models.CharField(max_length=255)
+    uid = models.CharField(max_length=255, unique=True)
     request = models.CharField(max_length=255, default='')
 
     friends = models.ManyToManyField('Player')

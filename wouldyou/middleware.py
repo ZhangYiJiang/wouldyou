@@ -22,4 +22,4 @@ def show_toolbar(request):
     if request.is_ajax():
         return False
 
-    return bool(settings.DEBUG)
+    return settings.DEBUG == 'on'

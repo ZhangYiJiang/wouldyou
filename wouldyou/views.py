@@ -32,7 +32,7 @@ class StaticView(View):
     page = None
 
     def get(self, request):
-        return render(request, 'wouldyou/pages/{}.html'.format(self.page))
+        return render(request, 'wouldyou/pages/static/{}.html'.format(self.page))
 
     def post(self, request):
         return self.get(request)

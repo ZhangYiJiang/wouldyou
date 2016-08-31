@@ -16,7 +16,7 @@
     <div class="game-choices">
     {% for subject in set.subjects.all %}
       <div class="game-choice">
-        <h3>{{ subject.name }}</h3>
+        <h4>{{ subject.name }}</h4>
 
         <div class="game-card card-unselected"
              data-subject="{{ subject.pk }}">
@@ -57,10 +57,10 @@
       <i class="fa fa-undo"></i> Undo</button>
 
     <div class="pull-right game-btn">
-      <a class="btn btn-warning btn-lg skip-btn"
+      <a class="btn btn-warning btn-sm skip-btn"
          href="{{ set.get_next_url }}?prev={{ set.pk }}">
         Skip <i class="fa fa-forward"></i></a>
-      <button type="submit" class="btn btn-primary btn-lg next-btn hidden">
+      <button type="submit" class="btn btn-primary btn-sm next-btn hidden">
         Next! <i class="fa fa-chevron-right"></i></button>
     </div>
   </div>

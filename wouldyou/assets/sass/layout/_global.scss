@@ -17,6 +17,8 @@
   width: 100%;
   box-shadow: 0 14px 30px rgba(#000, .3);
   padding-bottom: 24px;
+  padding-left: 40px;
+  padding-right: 40px;
 
   @include clearfix;
 }

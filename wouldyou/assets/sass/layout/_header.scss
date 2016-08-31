@@ -30,13 +30,28 @@ header.global {
 
     p {
       margin: 0;
+      line-height: 1.4;
+
+      a {
+        color: rgba(#fff, .6);
+        text-decoration: underline;
+
+        &:hover {
+          color: rgba(#fff, 1);
+        }
+      }
+    }
+
+    .player-name {
+      font-weight: bold;
+      font-size: 15px;
     }
 
     .profile-image {
       display: block;
       margin-right: 8px;
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
     }
   }
 }

@@ -6,7 +6,7 @@
       {% if player %}
         <img class="profile-image" src="{{ player.image }}" alt="">
         <div class="profile-detail">
-          <p>{{ player.name }}</p>
+          <p class="player-name">{{ player.name }}</p>
           <p class="text-muted">Not {{ player.name }}?
             <a href="{% url 'app:logout' %}">Logout</a></p>
         </div>

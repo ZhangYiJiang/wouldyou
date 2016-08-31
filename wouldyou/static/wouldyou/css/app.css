@@ -1988,6 +1988,12 @@ header.global .profile .profile-image {
   height: 40px;
 }
 
+header.global .btn-menu {
+  background: none;
+  border: none;
+  color: #fff;
+}
+
 .block-ui {
   position: absolute;
   top: 0;

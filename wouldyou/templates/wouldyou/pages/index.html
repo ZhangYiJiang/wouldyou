@@ -4,6 +4,10 @@
 
 {% block body_class %}index{% endblock %}
 
+{% block styles %}
+<link href="https://fonts.googleapis.com/css?family=Just+Another+Hand" rel="stylesheet">
+{% endblock %}
+
 {% block header %}{% endblock %}
 
 {% block content %}
@@ -20,22 +24,23 @@
     <h1 class="logo-font">
       Would You
       <span class="logo-blank">
-        <span>
-        Kiss<br>
-        Marry<br>
-        Kill</span>
+        <span class="logo-words">
+          <span class="logo-kiss">Kiss</span><br>
+          <span class="logo-marry">Marry</span><br>
+          <span class="logo-kill">Kill</span>
+        </span>
       </span>?
     </h1>
   </div>
 
   <div class="index-bg">
-    <div class="kiss-background bg-col">
+    <div class="kiss-background bg-col" data-verb="kiss">
       <img src="{% static 'wouldyou/img/background_kiss.jpg' %}" alt="">
     </div>
-    <div class="marry-background bg-col">
+    <div class="marry-background bg-col" data-verb="marry">
       <img src="{% static 'wouldyou/img/background_marry.jpg' %}" alt="">
     </div>
-    <div class="kill-background bg-col">
+    <div class="kill-background bg-col" data-verb="kill">
       <img src="{% static 'wouldyou/img/background_kill.jpg' %}" alt="">
     </div>
   </div> {# /.index-bg #}

@@ -1692,7 +1692,7 @@ tbody.collapse.in {
   }
 }
 
-@media (min-width: 540px) and (max-width: 839px) {
+@media (min-width: 540px) and (max-width: 739px) {
   .visible-sm {
     display: block !important;
   }
@@ -1708,25 +1708,25 @@ tbody.collapse.in {
   }
 }
 
-@media (min-width: 540px) and (max-width: 839px) {
+@media (min-width: 540px) and (max-width: 739px) {
   .visible-sm-block {
     display: block !important;
   }
 }
 
-@media (min-width: 540px) and (max-width: 839px) {
+@media (min-width: 540px) and (max-width: 739px) {
   .visible-sm-inline {
     display: inline !important;
   }
 }
 
-@media (min-width: 540px) and (max-width: 839px) {
+@media (min-width: 540px) and (max-width: 739px) {
   .visible-sm-inline-block {
     display: inline-block !important;
   }
 }
 
-@media (min-width: 840px) and (max-width: 959px) {
+@media (min-width: 740px) and (max-width: 959px) {
   .visible-md {
     display: block !important;
   }
@@ -1742,19 +1742,19 @@ tbody.collapse.in {
   }
 }
 
-@media (min-width: 840px) and (max-width: 959px) {
+@media (min-width: 740px) and (max-width: 959px) {
   .visible-md-block {
     display: block !important;
   }
 }
 
-@media (min-width: 840px) and (max-width: 959px) {
+@media (min-width: 740px) and (max-width: 959px) {
   .visible-md-inline {
     display: inline !important;
   }
 }
 
-@media (min-width: 840px) and (max-width: 959px) {
+@media (min-width: 740px) and (max-width: 959px) {
   .visible-md-inline-block {
     display: inline-block !important;
   }
@@ -1800,13 +1800,13 @@ tbody.collapse.in {
   }
 }
 
-@media (min-width: 540px) and (max-width: 839px) {
+@media (min-width: 540px) and (max-width: 739px) {
   .hidden-sm {
     display: none !important;
   }
 }
 
-@media (min-width: 840px) and (max-width: 959px) {
+@media (min-width: 740px) and (max-width: 959px) {
   .hidden-md {
     display: none !important;
   }
@@ -2332,7 +2332,7 @@ body.index .bg-col img:hover {
           transform: scale(1.1);
 }
 
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 740px) {
   body.index .bg-col img {
     max-height: 100vw;
   }
@@ -2510,6 +2510,12 @@ body.game .kiss-btn {
   background: #901936;
 }
 
+@media (max-width: 739px) {
+  body.game .kiss-btn {
+    background: #cd244d;
+  }
+}
+
 body.game .kiss-btn:hover {
   background: #b92045;
 }
@@ -2531,6 +2537,12 @@ body.game .marry-btn {
   background: #6f367f;
 }
 
+@media (max-width: 739px) {
+  body.game .marry-btn {
+    background: #9f4db5;
+  }
+}
+
 body.game .marry-btn:hover {
   background: #8f45a3;
 }
@@ -2550,6 +2562,12 @@ body.game .marry-bar {
 
 body.game .kill-btn {
   background: #3e768a;
+}
+
+@media (max-width: 739px) {
+  body.game .kill-btn {
+    background: #59a8c5;
+  }
 }
 
 body.game .kill-btn:hover {
@@ -2669,6 +2687,79 @@ body.game .game-btn i {
 
 body.game .undo-btn i {
   margin-right: 4px;
+}
+
+@media (max-width: 739px) {
+  body.game .game-choices {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  body.game .game-choice {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    margin: 0 0 20px;
+    padding: 0;
+    position: relative;
+  }
+  body.game .game-choice h3 {
+    font-size: 30px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 auto;
+            flex: 1 auto;
+  }
+  body.game .game-card {
+    overflow: visible;
+    position: static;
+    max-width: 45%;
+  }
+  body.game .card-overlay {
+    opacity: 1;
+    background: none;
+  }
+  body.game .game-action {
+    position: absolute;
+    padding-top: 80px;
+    left: 45%;
+    width: 55%;
+  }
+  body.game .game-action .verb-btn {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  body.game .card-selected .verb-btn {
+    opacity: .2;
+    cursor: not-allowed;
+  }
+  body.game .overlay-image {
+    position: absolute;
+    width: 45%;
+    height: 100%;
+  }
+  body.game .overlay-image > div {
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (max-width: 539px) {
+  body.game .game-choice h3 {
+    font-size: 24px;
+    margin: 4px 0 0 0;
+  }
+  body.game .game-action {
+    padding: 40px 0 10px;
+  }
+  body.game .game-action .verb-btn {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0 10px;
+  }
 }
 
 body.game .invite-area {

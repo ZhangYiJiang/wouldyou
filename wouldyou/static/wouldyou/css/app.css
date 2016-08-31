@@ -2015,6 +2015,17 @@ header.global .profile .profile-image {
   height: 40px;
 }
 
+footer.global {
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer.global a {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .block-ui {
   position: absolute;
   top: 0;
@@ -2287,17 +2298,6 @@ body.index .call-to-action .rule-btn {
 
 body.index .call-to-action .rule-btn:hover {
   color: #fff;
-}
-
-body.index .secondary-links {
-  text-align: center;
-  margin-top: 40px;
-}
-
-body.index .secondary-links a {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: bold;
-  font-size: 15px;
 }
 
 body.index .index-bg {

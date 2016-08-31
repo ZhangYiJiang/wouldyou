@@ -5,7 +5,11 @@
 {% block body_class %}index{% endblock %}
 
 {% block styles %}
-<link href="https://fonts.googleapis.com/css?family=Just+Another+Hand" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Just+Another+Hand" rel="stylesheet">
+  <meta property="fb:app_id" content="{{ settings.SOCIAL_AUTH_FACEBOOK_KEY }}" />
+  <meta property="og:url"    content="{% url 'app:index' %}" />
+  <meta property="og:title"  content="Would You____?" />
+  <meta property="og:image"  content="{% static 'wouldyou/img/app.png' %}" />
 {% endblock %}
 
 {% block header %}{% endblock %}

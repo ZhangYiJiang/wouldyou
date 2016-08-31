@@ -1,0 +1,32 @@
+.facebook-btn {
+  border: 0;
+  color: #fff;
+  background: $facebook-color;
+  padding-left: .8em;
+  padding-right: 1.1em;
+
+  i {
+    margin: -.1em 0 -.12em;
+    vertical-align: .3em;
+    margin-right: .2em;
+
+    &.bounce {
+      animation: 4s bounce infinite;
+      transform-origin: center bottom;
+    }
+
+    &.bounce:hover {
+      animation: none;
+    }
+  }
+
+  &:hover, &:focus {
+    color: #fff;
+    background: tint($facebook-color, 20);
+  }
+
+  &:active {
+    color: #fff;
+    background: $facebook-color;
+  }
+}

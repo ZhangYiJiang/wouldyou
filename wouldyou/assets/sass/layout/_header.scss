@@ -1,7 +1,6 @@
 header.global {
   color: white;
   background-color: $navbar-color;
-  //margin-bottom: 40px;
 
   > .wrapper-container {
     display: flex;
@@ -21,6 +20,16 @@ header.global {
     a {
       padding: 12px 0 24px;
       color: white;
+    }
+  }
+
+  .facebook-btn {
+    font-size: 16px;
+
+    i {
+      margin: -3px 0 -4px;
+      vertical-align: -6px;
+      margin-right: 7px;
     }
   }
 

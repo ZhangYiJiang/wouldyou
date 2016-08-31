@@ -13,22 +13,11 @@ body.game {
       margin-bottom: 30px;
     }
 
-    .invite-btn {
+    .facebook-btn {
       font-size: 24px;
-      padding-left: 40px;
-      padding-right: 40px;
-      background: $facebook-color;
 
       i {
-        margin-right: 10px;
-      }
-
-      &:hover {
-        background: tint($facebook-color, 15);
-      }
-
-      &:active {
-        background: $facebook-color;
+        vertical-align: -.2em;
       }
     }
 

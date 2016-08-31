@@ -1,0 +1,27 @@
+// Source: https://daneden.github.io/animate.css/
+// All timings divided by four to mimic a 3s delay between cycles
+
+@keyframes bounce {
+  // 20, 53, 80, to
+  from, 5%, 13.25%, 20%, 25%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transform: translate3d(0,0,0);
+  }
+
+  // 40, 43
+  10%, 10.75% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -8px, 0);
+  }
+
+  // 70
+  17.5% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -4px, 0);
+  }
+
+  // 90
+  22.5% {
+    transform: translate3d(0,-1.5px,0);
+  }
+}

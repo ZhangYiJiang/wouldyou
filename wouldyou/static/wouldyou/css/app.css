@@ -1948,9 +1948,7 @@ header.global .facebook-btn {
 }
 
 header.global .facebook-btn i {
-  margin: -3px 0 -4px;
-  vertical-align: -6px;
-  margin-right: 7px;
+  margin: 0 .2em 0 0;
 }
 
 header.global .profile {
@@ -1992,6 +1990,7 @@ header.global .btn-menu {
   background: none;
   border: none;
   color: #fff;
+  font-size: 24px;
 }
 
 .block-ui {
@@ -2056,7 +2055,6 @@ header.global .btn-menu {
 }
 
 .facebook-btn {
-  border: 0;
   color: #fff;
   background: #3f57a6;
   padding-left: .8em;
@@ -2064,9 +2062,9 @@ header.global .btn-menu {
 }
 
 .facebook-btn i {
-  margin: -.1em 0 -.12em;
-  vertical-align: .3em;
-  margin-right: .2em;
+  margin: -.2em 0 -.12em;
+  vertical-align: -.2em;
+  margin-right: .25em;
 }
 
 .facebook-btn i.bounce {
@@ -2083,7 +2081,7 @@ header.global .btn-menu {
 
 .facebook-btn:hover, .facebook-btn:focus {
   color: #fff;
-  background: #6579b8;
+  background: #5268af;
 }
 
 .facebook-btn:active {
@@ -2154,33 +2152,35 @@ body.index .header-content {
 }
 
 body.index .call-to-action {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  text-align: center;
   width: 100%;
   margin-top: 20px;
-  font-size: 24px;
 }
 
 body.index .call-to-action > .btn {
-  margin: 0 40px;
+  margin: 0 20px;
+  padding: 12px 30px 8px 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
 }
 
 body.index .call-to-action > .btn i {
-  vertical-align: -.2em;
+  vertical-align: -.25em;
+  margin: -10px 18px -6px 0;
 }
 
-body.index .call-to-action .play-btn {
-  background: #3f57a6;
+body.index .call-to-action .facebook-btn {
+  box-shadow: inset 0 -4px rgba(0, 0, 0, 0.15);
 }
 
 body.index .call-to-action .rule-btn {
-  background: none;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid;
+}
+
+body.index .call-to-action .rule-btn:hover {
+  color: #fff;
 }
 
 body.index .index-bg {
@@ -2547,10 +2547,6 @@ body.game .invite-area img {
 
 body.game .invite-area .facebook-btn {
   font-size: 24px;
-}
-
-body.game .invite-area .facebook-btn i {
-  vertical-align: -.2em;
 }
 
 body.game .invite-area .invite-or {

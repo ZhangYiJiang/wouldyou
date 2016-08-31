@@ -1,14 +1,13 @@
 .facebook-btn {
-  border: 0;
   color: #fff;
   background: $facebook-color;
   padding-left: .8em;
   padding-right: 1.1em;
 
   i {
-    margin: -.1em 0 -.12em;
-    vertical-align: .3em;
-    margin-right: .2em;
+    margin: -.2em 0 -.12em;
+    vertical-align: -.2em;
+    margin-right: .25em;
 
     &.bounce {
       animation: 4s bounce infinite;
@@ -22,7 +21,7 @@
 
   &:hover, &:focus {
     color: #fff;
-    background: tint($facebook-color, 20);
+    background: tint($facebook-color, 10);
   }
 
   &:active {

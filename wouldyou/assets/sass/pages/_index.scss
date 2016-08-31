@@ -12,27 +12,34 @@ body.index {
   }
 
   .call-to-action {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    text-align: center;
     width: 100%;
     margin-top: 20px;
-    font-size: 24px;
 
     > .btn {
-      margin: 0 40px;
+      margin: 0 20px;
+      padding: 12px 30px 8px 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1;
 
       i {
-        vertical-align: -.2em;
+        vertical-align: -.25em;
+        margin: -10px 18px -6px 0;
       }
     }
 
-    .play-btn {
-      background: $facebook-color;
+    .facebook-btn {
+      box-shadow: inset 0 -4px rgba(#000, .15);
     }
 
     .rule-btn {
-      background: none;
+      color: rgba(#fff, .8);
+      border: 1px solid;
+
+      &:hover {
+        color: #fff;
+      }
     }
   }
 

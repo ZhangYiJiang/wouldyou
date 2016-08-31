@@ -2419,7 +2419,7 @@ body.game .bg-container {
 
 body.game .game-switcher {
   text-align: center;
-  margin: 40px 0;
+  margin: 40px auto;
 }
 
 body.game .game-switcher .btn {

@@ -1901,9 +1901,8 @@ tbody.collapse.in {
           flex: 1 auto;
   width: 100%;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
-  padding-bottom: 24px;
-  padding-left: 40px;
-  padding-right: 40px;
+  margin-top: 24px;
+  padding: 24px 40px;
 }
 
 .bg-container:before, .bg-container:after {
@@ -2027,7 +2026,7 @@ header.global .profile .profile-image {
 
 footer.global {
   text-align: center;
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
 footer.global a {

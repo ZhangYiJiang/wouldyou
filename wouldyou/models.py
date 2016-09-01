@@ -1,3 +1,4 @@
+import math
 import random
 
 from django.conf import settings
@@ -289,6 +290,19 @@ class Player(AbstractProfile):
         fb_users = self.facebook.user(friends).values()
         new_users = self.bulk_create_fb_users(fb_users, request=request_id)
         self.friends.add(*type(self).objects.filter(uid__in=new_users))
+
+    def sets_nearing_depletion(self):
+        """Checks if the user is running out of playable combinations of friends"""
+        friend_count = self.friends.count()
+        if friend_count < settings.MIN_FRIENDS_REQUIRED:
+            return True
+        set_count = self.owned_sets.count()
+
+        # friend_count Cr
+        f = math.factorial
+        combinations = f(friend_count) / f(settings.VERB_COUNT) / f(friend_count-settings.VERB_COUNT)
+        return set_count / combinations > settings.PLAYER_SET_DEPLETED_WARNING_RATIO
+
 
     def required_friend_count(self):
         return max(settings.MIN_FRIENDS_REQUIRED - self.friends.count(), settings.VERB_COUNT)

@@ -37,6 +37,10 @@ class Verb(BaseModel):
     verb = models.CharField(max_length=30)
     action = models.CharField(max_length=30, verbose_name='Facebook action name')
 
+    @property
+    def facebook_action(self):
+        return '{}:{}'.format(settings.SOCIAL_AUTH_FACEBOOK_NAMESPACE, self.action)
+
     @cached_property
     def description_pk(self):
         return self.verbdescription_set.values_list('pk', flat=True)

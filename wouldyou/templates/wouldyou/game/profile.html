@@ -12,6 +12,21 @@
 {% endblock %}
 
 {% block result %}
+  <div class="game-stories">
+    {% for verb in verbs %}
+    <div class="game-story hidden" data-verb="{{ verb.pk }}">
+      <p>{{ verb.random_description }}</p>
+
+      <button class="btn facebook-btn story-btn"
+              data-action="{{ verb.facebook_action }}"
+              data-celebrity="{% url 'app:facebook.profile' subject.pk %}">
+        <i class="fa fa-2x fa-facebook-official"></i>
+        Share on Facebook
+      </button>
+    </div>
+    {% endfor %}
+  </div>
+
   <div class="bar-chart">
     {% for verb in verbs %}
       <div class="option-percentage">

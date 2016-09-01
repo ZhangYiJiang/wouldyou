@@ -195,7 +195,7 @@ body.game {
     }
   }
 
-  .game-btn .btn, .undo-btn {
+  .game-controls .btn {
     font-size: 15px;
     padding-left: 25px;
     padding-right: 25px;
@@ -204,7 +204,12 @@ body.game {
     box-shadow: inset 0 -4px rgba(#000, .3);
   }
 
-  .game-btn i {
+  .facebook-btn i {
+    margin: 0 0 0 4px;
+    vertical-align: baseline;
+  }
+
+  .game-control-right i {
     margin-left: 4px;
   }
 

@@ -3,7 +3,7 @@
     evt.preventDefault();
 
     var $t = $(this),
-        url = $t.data('href');
+        url = $t.data('href') || window.location.toString();
 
     FB.ui({
       method: 'share',

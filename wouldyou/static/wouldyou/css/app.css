@@ -2689,7 +2689,7 @@ body.game .option-percentage .text {
   color: white;
 }
 
-body.game .game-btn .btn, body.game .undo-btn {
+body.game .game-controls .btn {
   font-size: 15px;
   padding-left: 25px;
   padding-right: 25px;
@@ -2697,7 +2697,12 @@ body.game .game-btn .btn, body.game .undo-btn {
   box-shadow: inset 0 -4px rgba(0, 0, 0, 0.3);
 }
 
-body.game .game-btn i {
+body.game .facebook-btn i {
+  margin: 0 0 0 4px;
+  vertical-align: baseline;
+}
+
+body.game .game-control-right i {
   margin-left: 4px;
 }
 

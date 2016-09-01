@@ -1,6 +1,7 @@
 {% extends "wouldyou/base.html" %}
 
 {% load static %}
+{% load url_extra %}
 
 {% block body_class %}index{% endblock %}
 
@@ -10,7 +11,7 @@
   <meta property="og:url"    content="{% url 'app:index' %}" />
   <meta property="og:title"  content="Would You____?" />
   <meta property="og:site_name" content="Would You____?">
-  <meta property="og:image"  content="{% static 'wouldyou/img/app.png' %}" />
+  <meta property="og:image"  content="{% static_absolute 'wouldyou/img/share_img.png' %}" />
 {% endblock %}
 
 {% block header %}{% endblock %}

@@ -55,7 +55,12 @@
   <div class="call-to-action">
     <a class="btn facebook-btn btn-lg" href="{% url 'social:begin' 'facebook' %}">
       <i class="fa fa-facebook-official fa-3x bounce" aria-hidden="true"></i>
-      Login to play!</a>
+        {% if user.is_authenticated %}
+          Start playing!
+        {% else %}
+          Login to play!
+        {% endif %}
+    </a>
     <a class="btn rule-btn btn-lg" href="{% url 'app:static.how-to-play' %}">
       <i class="fa fa-question fa-3x" aria-hidden="true"></i>
       How to play?</a>

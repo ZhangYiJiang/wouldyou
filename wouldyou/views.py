@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and 'noredirect' not in request.GET:
         return OnboardView.get(request)
 
     return render(request, 'wouldyou/pages/index.html')

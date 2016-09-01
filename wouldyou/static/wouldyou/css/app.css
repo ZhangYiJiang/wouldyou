@@ -2245,7 +2245,7 @@ footer.global a {
   background: #3f57a6;
   padding-left: .8em;
   padding-right: 1.1em;
-  box-shadow: inset 0 -0.2em rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 -0.2em rgba(0, 0, 0, 0.4);
 }
 
 .facebook-btn i {
@@ -2900,6 +2900,12 @@ body.game .option-percentage .verb-bar {
 
 body.game .option-percentage .text {
   color: white;
+}
+
+body.game .game-story p {
+  color: #fff;
+  margin: 15px 10px;
+  font-size: 15px;
 }
 
 body.game .game-controls .btn {

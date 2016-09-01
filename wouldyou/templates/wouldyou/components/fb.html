@@ -1,5 +1,7 @@
 
 <script>
+  window.userAccessToken = "{{ user.facebook.token }}";
+
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '{{ settings.SOCIAL_AUTH_FACEBOOK_KEY }}',

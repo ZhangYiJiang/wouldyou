@@ -256,14 +256,33 @@ $.ajaxSetup({
   $('body').on('click', '.share-btn', function (evt) {
     evt.preventDefault();
 
-    var $t = $(this),
-        url = $t.data('href') || window.location.toString();
+    var $t = $(this);
+    var url = $t.data('href') || window.location.toString();
 
     FB.ui({
       method: 'share',
       href: url,
       mobile_iframe: true,
     });
+  })
+  .on('click', '.story-btn', function (evt) {
+    evt.preventDefault();
+
+    var $t = $(this);
+    var action = $t.data('action');
+
+    FB.api(
+      'me/' + action,
+      'post',
+      {
+        'celebrity': '"http://samples.ogp.me/179233982498817"'
+      },
+     function(response) {
+        console.log(response);
+      }
+    );
+
+
   });
 })(jQuery);
 (function ($) {
@@ -471,7 +490,15 @@ $('.invite-btn').click(function (evt) {
       this.gameArea.find('.skip-btn').hide();
       this.gameArea.find('.next-btn').removeClass('hidden');
 
+      // Show the correct user story button
+      me.gameArea.find('.game-card').each(function(i){
+        var selected = me.selected[i];
+        $(this).find('.game-story[data-verb="' + selected + '"]')
+          .removeClass('hidden');
+      });
+
       setTimeout(function () {
+        // Show the game results
         me.gameArea.find('.game-result').fadeIn();
         me.gameArea.addClass('game-complete');
       }, 600);

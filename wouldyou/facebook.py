@@ -5,6 +5,7 @@ import json
 
 import requests
 from django.conf import settings
+from django.utils.functional import cached_property
 
 from . import models
 
@@ -90,6 +91,11 @@ class Facebook:
     version = 'v2.7'
     url_prefix = 'https://graph.facebook.com'
 
+    @cached_property
+    def token(self):
+        social = self._user.social_auth.get(provider='facebook')
+        return social.extra_data['access_token']
+
     def __init__(self, user):
         self._user = user
 
@@ -114,16 +120,9 @@ class Facebook:
 
     def _user_request(self, user_id, endpoint='', *args, **kwargs):
         """Injects access token into request data"""
-        try:
-            token = self._token
-        except AttributeError:
-            social = self._user.social_auth.get(provider='facebook')
-            token = social.extra_data['access_token']
-            self._token = token
-
         data = {
-            'access_token': token,
-            'appsecret_proof': self._app_secret_proof(token),
+            'access_token': self.token,
+            'appsecret_proof': self._app_secret_proof(self.token),
         }
 
         if not isinstance(user_id, str):

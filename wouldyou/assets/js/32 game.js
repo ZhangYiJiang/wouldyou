@@ -99,7 +99,15 @@
       this.gameArea.find('.skip-btn').hide();
       this.gameArea.find('.next-btn').removeClass('hidden');
 
+      // Show the correct user story button
+      me.gameArea.find('.game-card').each(function(i){
+        var selected = me.selected[i];
+        $(this).find('.game-story[data-verb="' + selected + '"]')
+          .removeClass('hidden');
+      });
+
       setTimeout(function () {
+        // Show the game results
         me.gameArea.find('.game-result').fadeIn();
         me.gameArea.addClass('game-complete');
       }, 600);

@@ -234,6 +234,14 @@ body.game {
     }
   }
 
+  .game-story {
+    p {
+      color: #fff;
+      margin: 15px 10px;
+      font-size: 15px;
+    }
+  }
+
   .game-controls .btn {
     font-size: 15px;
     padding-left: 25px;
@@ -247,7 +255,6 @@ body.game {
       vertical-align: baseline;
     }
   }
-
 
   .game-control-right i {
     margin-left: 4px;

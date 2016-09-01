@@ -144,6 +144,7 @@ class CelebrityGame(facebook.AllowCrawlerMixin, GameView):
         return render(request, 'wouldyou/meta/profile_game.html', {
             'set': set_obj,
             'subjects': set_obj.subjects.all(),
+            'url': request.build_absolute_uri(set_obj.get_absolute_url()),
         })
 
 

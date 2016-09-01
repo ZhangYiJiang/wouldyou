@@ -11,7 +11,7 @@
        data-model="{{ set.view_prefix }}"
        data-url="{% url 'app:api.action' %}">
 
-    <h2>{{ set.name }}</h2>
+    {% block game_title %}{% endblock %}
 
     <div class="game-choices">
     {% for subject in set.subjects.all %}
@@ -49,6 +49,9 @@
             </div>
           </div>{# /.card-overlay #}
         </div>{# /.game-card #}
+
+        {% block game_card_end %}{% endblock %}
+
       </div> {# /.game-choice #}
     {% endfor %}
     </div> {# /.game-choices #}

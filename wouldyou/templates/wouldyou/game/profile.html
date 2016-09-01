@@ -2,6 +2,15 @@
 
 {% load game_extra %}
 
+{% block game_title %}
+  {% if set.name %}
+    <h2>{{ set.name }}</h2>
+  {% endif %}
+  {% if set.subtitle %}
+    <p class="game-subtitle">{{ set.subtitle }}</p>
+  {% endif %}
+{% endblock %}
+
 {% block result %}
   <div class="bar-chart">
     {% for verb in verbs %}
@@ -15,6 +24,10 @@
     {% endfor %}
   </div>
   <hr>
+{% endblock %}
+
+{% block game_card_end %}
+  <p class="profile-subtitle">{{ subject.subtitle }}</p>
 {% endblock %}
 
 {% block game_action %}

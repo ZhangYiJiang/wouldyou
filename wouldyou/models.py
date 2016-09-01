@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Count, F
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 
 from wouldyou.exceptions import OutOfPlayerSets, OutOfProfileSets
@@ -24,8 +25,24 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class VerbDescription(BaseModel):
+    verb = models.ForeignKey('Verb')
+    description = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.description
+
+
 class Verb(BaseModel):
     verb = models.CharField(max_length=30)
+    action = models.CharField(max_length=30, verbose_name='Facebook action name')
+
+    @cached_property
+    def description_pk(self):
+        return self.verbdescription_set.values_list('pk', flat=True)
+
+    def random_description(self):
+        return VerbDescription.objects.get(pk=random.choice(self.description_pk))
 
     def __str__(self):
         return self.verb

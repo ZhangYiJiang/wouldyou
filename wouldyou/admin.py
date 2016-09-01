@@ -51,6 +51,12 @@ class PlayerAdmin(admin.ModelAdmin):
     search_fields = ['name', ]
 
 
+@admin.register(models.VerbDescription)
+class VerbDescriptionAdmin(admin.ModelAdmin):
+    list_filter = ['verb', ]
+    list_display = ('description', 'verb', )
+
+
 admin.site.register(models.Verb)
 admin.site.register(models.PlayerAction)
 admin.site.register(models.ProfileAction)

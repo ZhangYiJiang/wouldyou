@@ -62,10 +62,9 @@ class OnboardView(BaseView):
     @staticmethod
     def get(request):
         player = request.user.player
-        if player.friends.count() > settings.MIN_FRIENDS_REQUIRED:
+        if not player.sets_nearing_depletion():
             return redirect('app:player.next')
-        else:
-            return redirect('app:profile.next')
+        return redirect('app:profile.next')
 
 
 class NextProfile(BaseView):

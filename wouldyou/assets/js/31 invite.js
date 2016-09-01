@@ -31,7 +31,12 @@ $('.invite-btn').click(function (evt) {
 
       var data = json.data;
       if (data.hasOwnProperty('redirect')) {
-        window.location.href = data.redirect;
+        if (btn.data('no-redirect')) {
+          Alerts.clear();
+          Alerts.add('info', 'Your friends have been successfully added!', 'info-circle');
+        } else {
+          window.location.href = data.redirect;
+        }
       } else if (data.hasOwnProperty('required_count')) {
         var count = data.required_count;
 

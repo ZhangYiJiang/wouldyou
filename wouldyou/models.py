@@ -135,6 +135,7 @@ class ProfileSet(AbstractSet):
     view_prefix = 'profile'
 
     name = models.CharField(max_length=40, default='', blank=True)
+    subtitle = models.CharField(max_length=200, default='', blank=True)
     profiles = models.ManyToManyField('Profile')
 
     @property
@@ -317,6 +318,7 @@ class Player(AbstractProfile):
 class Profile(AbstractProfile):
     set_model = ProfileSet
 
+    subtitle = models.CharField(max_length=120, default='', blank=True)
     image = models.ImageField()
 
     @property

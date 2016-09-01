@@ -46,7 +46,11 @@ class Verb(BaseModel):
         return self.verbdescription_set.values_list('pk', flat=True)
 
     def random_description(self):
-        return VerbDescription.objects.get(pk=random.choice(self.description_pk))
+        try:
+            pk = random.choice(self.description_pk)
+        except IndexError:
+            return None
+        return VerbDescription.objects.get(pk=pk)
 
     def __str__(self):
         return self.verb

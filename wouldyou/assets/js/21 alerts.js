@@ -13,7 +13,7 @@
 
     if (icon) {
       $('<i>', {
-        'class': 'fa fa-' + icon,
+        'class': 'fa fa-2x fa-' + icon,
       }).prependTo(alert);
     }
 
@@ -35,10 +35,29 @@
   widget.prototype = {
     add: function (level, text, icon, dismissable) {
       var alert = makeAlert(level, text, icon, dismissable);
-      alert.hide().slideDown();
       this.alerts.push(alert);
       this.alertArea.append(alert);
+
+      alert.hide().slideDown();
     },
+
+    clear: function (level) {
+      var removedElements;
+
+      if (!level) {
+        removedElements = this.alertArea.children();
+        this.alerts = [];
+      } else {
+        removedElements = this.alertArea.find('.alert-' + level);
+        this.alerts = this.alerts.filter(function () {
+          return !$(this).hasClass('alert-' + level);
+        });
+      }
+
+      removedElements.slideUp(300, function () {
+        $(this).remove();
+      });
+    }
   };
 
   window.Alerts = new widget();

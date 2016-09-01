@@ -1,5 +1,19 @@
 {% extends "wouldyou/game/game.html" %}
 
+{% block alerts %}
+  {% if player.sets_nearing_depletion %}
+    <div class="alert alert-info">
+      <i class="fa fa-2x fa-info-circle"></i>
+      <p>Seeing the same friends over and over again?
+        <button type="button" class="btn facebook-btn invite-btn">
+          <i class="fa fa-2x fa-facebook-official"></i>
+          Invite More Friends
+        </button>
+        to help liven things up!</p>
+    </div>
+  {% endif %}
+{% endblock %}
+
 {% block result %}
 
 {% endblock %}

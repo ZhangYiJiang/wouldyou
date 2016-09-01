@@ -13,6 +13,10 @@
   </div>
 
   <div class="bg-container">
+    <div class="alert-container">
+      {% block alerts %}{% endblock %}
+    </div>
+
     {% block game_area %}{% endblock %}
   </div>
 {% endblock %}

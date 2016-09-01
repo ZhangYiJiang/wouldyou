@@ -5,9 +5,10 @@
   .alert {
     border-radius: 0;
     border: 0;
-    display: flex;
-    margin-bottom: 0;
+    margin-bottom: 1px;
     padding: 12px 20px;
+    display: flex;
+    align-items: center;
 
     i.fa {
       margin-right: 12px;

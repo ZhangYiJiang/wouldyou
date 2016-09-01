@@ -203,7 +203,7 @@ $.ajaxSetup({
 
     if (icon) {
       $('<i>', {
-        'class': 'fa fa-' + icon,
+        'class': 'fa fa-2x fa-' + icon,
       }).prependTo(alert);
     }
 
@@ -225,10 +225,29 @@ $.ajaxSetup({
   widget.prototype = {
     add: function (level, text, icon, dismissable) {
       var alert = makeAlert(level, text, icon, dismissable);
-      alert.hide().slideDown();
       this.alerts.push(alert);
       this.alertArea.append(alert);
+
+      alert.hide().slideDown();
     },
+
+    clear: function (level) {
+      var removedElements;
+
+      if (!level) {
+        removedElements = this.alertArea.children();
+        this.alerts = [];
+      } else {
+        removedElements = this.alertArea.find('.alert-' + level);
+        this.alerts = this.alerts.filter(function () {
+          return !$(this).hasClass('alert-' + level);
+        });
+      }
+
+      removedElements.slideUp(300, function () {
+        $(this).remove();
+      });
+    }
   };
 
   window.Alerts = new widget();
@@ -297,15 +316,16 @@ $('.invite-btn').click(function (evt) {
   var btn = $(this),
       url = btn.data('url'),
       message = btn.data('message');
-  var invitePage = $('.bg-container');
-  var block = new BlockUi(invitePage);
+
+  var invitePage = $('.bg-container'),
+      block = new BlockUi(invitePage);
+
 
   // See: https://developers.facebook.com/docs/games/services/gamerequests
   FB.ui({
     method: 'apprequests',
     message: message,
   }, function(response){
-    console.log(response);
     if (!response || 'error_code' in response ||
         (Array.isArray(response) && !response.length)) {
       block.hide();
@@ -325,21 +345,16 @@ $('.invite-btn').click(function (evt) {
       } else if (data.hasOwnProperty('required_count')) {
         var count = data.required_count;
 
-        // Update the
+        // Update the count in the help message below the button
         $('.invite-count').text(count);
 
         // Hide existing error messages
-        $('.invite-error').slideUp(300, function () {
-          $(this).remove();
-        });
+        Alerts.clear('danger');
 
-        // Construct new error message
-        $('<div>', {
-          'class': 'alert alert-danger invite-error',
-          text: "Sorry, you didn't invite enough friends. Please invite " +
-            count + " or more friends to continue playing.",
-        }).prependTo('.bg-container')
-          .hide().slideDown();
+        // And add the new one
+        var message = "Sorry, you didn't invite enough friends. Please invite " +
+            count + " or more friends to continue playing.";
+        Alerts.add('danger', message, 'exclamation-triangle');
       }
     }).fail(function () {
       // TODO: Figure out front end error handling strategy

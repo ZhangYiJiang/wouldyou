@@ -290,6 +290,9 @@ class Player(AbstractProfile):
         new_users = self.bulk_create_fb_users(fb_users, request=request_id)
         self.friends.add(*type(self).objects.filter(uid__in=new_users))
 
+    def required_friend_count(self):
+        return max(settings.MIN_FRIENDS_REQUIRED - self.friends.count(), settings.VERB_COUNT)
+
     def from_fb_user(self, fb_user):
         self.name = fb_user['name']
         self.uid = fb_user['id']

@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
 
-from wouldyou.exceptions import OutOfGameSets
+from wouldyou.exceptions import OutOfGameSets, OutOfPlayerSets
 from . import facebook
 from .models import Verb, PlayerSet, ProfileSet, Player
 
@@ -153,14 +153,22 @@ class NeedMoreFriends(BaseView):
         player = request.user.player
         return render(request, 'wouldyou/game/invite.html', {
             'friends': player.friends.all(),
+            'required_count': player.required_friend_count(),
         })
 
 
 class InviteView(AjaxView):
     def post(self, request):
+        player = request.user.player
         request_id = request.POST.get('response[request]')
         to_list = request.POST.getlist('response[to][]')
-        request.user.player.invite(to_list, request_id)
+        player.invite(to_list, request_id)
+
+        try:
+            set_obj = player.next_playerset()
+            return {'redirect': set_obj.get_absolute_url(), }
+        except OutOfPlayerSets:
+            return {'required_count': player.required_friend_count(), }
 
 
 class ActionView(AjaxView):

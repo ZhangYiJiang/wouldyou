@@ -14,7 +14,9 @@ $('.invite-btn').click(function (evt) {
     method: 'apprequests',
     message: message,
   }, function(response){
-    if (!response || 'error_code' in response) {
+    console.log(response);
+    if (!response || 'error_code' in response ||
+        (Array.isArray(response) && !response.length)) {
       block.hide();
       return;
     }
@@ -22,8 +24,32 @@ $('.invite-btn').click(function (evt) {
     // Fire off Ajax request
     $.post(url, {
       response: response
-    }).success({
-      // TODO: Behavior after inviting friends
+    }).done(function(json) {
+      // Sanity check - this shouldn't happen
+      if (!json.success) console.error(json);
+
+      var data = json.data;
+      if (data.hasOwnProperty('redirect')) {
+        window.location.href = data.redirect;
+      } else if (data.hasOwnProperty('required_count')) {
+        var count = data.required_count;
+
+        // Update the
+        $('.invite-count').text(count);
+
+        // Hide existing error messages
+        $('.invite-error').slideUp(300, function () {
+          $(this).remove();
+        });
+
+        // Construct new error message
+        $('<div>', {
+          'class': 'alert alert-danger invite-error',
+          text: "Sorry, you didn't invite enough friends. Please invite " +
+            count + " or more friends to continue playing.",
+        }).prependTo('.bg-container')
+          .hide().slideDown();
+      }
     }).fail(function () {
       // TODO: Figure out front end error handling strategy
     }).always(function () {

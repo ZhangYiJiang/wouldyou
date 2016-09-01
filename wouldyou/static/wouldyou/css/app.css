@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -1572,6 +1573,100 @@ tbody.collapse.in {
   pointer-events: none;
 }
 
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+
+.alert .alert-link {
+  font-weight: bold;
+}
+
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+
+.alert > p + p {
+  margin-top: 5px;
+}
+
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+
+.alert-success .alert-link {
+  color: #2b542c;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+
+.alert-info .alert-link {
+  color: #245269;
+}
+
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+
+.alert-warning .alert-link {
+  color: #66512c;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+
+.alert-danger .alert-link {
+  color: #843534;
+}
+
 .clearfix:before, .clearfix:after {
   content: " ";
   display: table;
@@ -2182,6 +2277,13 @@ footer.global a {
   }
 }
 
+.alert {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
 body.index .index-header {
   position: relative;
   margin-top: 20px;
@@ -2718,7 +2820,7 @@ body.game .game-controls .btn {
   box-shadow: inset 0 -4px rgba(0, 0, 0, 0.3);
 }
 
-body.game .facebook-btn i {
+body.game .game-controls .btn.facebook-btn i {
   margin: 0 0 0 4px;
   vertical-align: baseline;
 }
@@ -2832,9 +2934,28 @@ body.game .invite-area .facebook-btn {
   font-size: 24px;
 }
 
+body.game .invite-area .invite-prompt p {
+  margin: 12px 0 6px;
+  font-size: 16px;
+}
+
+body.game .invite-area .invite-prompt p strong {
+  color: #572c4f;
+  font-size: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 3px 12px;
+  background: rgba(87, 44, 79, 0.1);
+  border-radius: 12px;
+}
+
 body.game .invite-area .invite-or {
   margin-top: 20px;
   color: #999;
+}
+
+body.game .invite-area .invite-or:before, body.game .invite-area .invite-or:after {
+  content: ' — ';
 }
 
 body.game .invite-area .btn-link {

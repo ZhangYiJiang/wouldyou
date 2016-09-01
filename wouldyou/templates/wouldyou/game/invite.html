@@ -7,7 +7,7 @@
   <h3> Uh oh, you don't seem to have enough friends to play... </h3>
 	<img src="{% static "wouldyou/img/no_friend_icon.png" %}" alt="">
 
-	<p>
+	<div class="invite-prompt">
     <button type="button"
             data-url="{% url 'app:api.invite' %}"
             {# TODO: Add a proper message #}
@@ -15,7 +15,8 @@
             class="btn facebook-btn btn-lg invite-btn">
       <i class="fa fa-facebook-official fa-2x bounce"></i>
       Invite more Friends!</button>
-  </p>
+    <p class="invite-recommend text-muted">The more the <em>marry</em>-ier! We suggest inviting at least <strong class="invite-count">{{ required_count }}</strong> more friends for the best experience.</p>
+  </div>
 	<p class="invite-or">or</p>
 	<p><a class="btn btn-link" href="{% url 'app:profile.next' %}">
     Continue playing with celebrities</a></p>

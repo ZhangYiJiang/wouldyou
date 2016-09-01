@@ -38,24 +38,33 @@ body.game {
   }
 
   .game-switcher {
-    text-align: center;
-    margin:25px auto;
+    margin: 25px auto 0;
 
-    .btn {
-      background: none;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      width: 25vh;
-      color: rgba(#fff, .8);
+    color: rgba(#fff, .5);
+    font-size: 28px;
+    font-family: $font-family-serif;
+    font-style: italic;
+    text-align: center;
+
+    a, span.active {
+      color: #fff;
+      padding: 8px 12px;
+      font-style: normal;
+      background: tint($brand-primary, 10);
 
       &:hover {
-        color: #fff;
-        border-color: #fff;
+        text-decoration: none;
       }
     }
 
-    .btn-selected {
-      box-shadow: 0px 0px 5px #fff;
+    a:hover, span.active {
+      &.friend-next {
+        background: $facebook-color;
+      }
+
+      &.celebrity-next {
+        background: $alert-danger-bg;
+      }
     }
   }
 

@@ -2559,25 +2559,31 @@ body.game .bg-container {
 }
 
 body.game .game-switcher {
+  margin: 25px auto 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 28px;
+  font-family: Georgia, serif;
+  font-style: italic;
   text-align: center;
-  margin: 25px auto;
 }
 
-body.game .game-switcher .btn {
-  background: none;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 25vh;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-body.game .game-switcher .btn:hover {
+body.game .game-switcher a, body.game .game-switcher span.active {
   color: #fff;
-  border-color: #fff;
+  padding: 8px 12px;
+  font-style: normal;
+  background: #684161;
 }
 
-body.game .game-switcher .btn-selected {
-  box-shadow: 0px 0px 5px #fff;
+body.game .game-switcher a:hover, body.game .game-switcher span.active:hover {
+  text-decoration: none;
+}
+
+body.game .game-switcher a:hover.friend-next, body.game .game-switcher span.active.friend-next {
+  background: #3f57a6;
+}
+
+body.game .game-switcher a:hover.celebrity-next, body.game .game-switcher span.active.celebrity-next {
+  background: #b71c1c;
 }
 
 body.game .game-area {

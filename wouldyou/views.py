@@ -121,6 +121,7 @@ class GameView(BaseView):
             'verbs': verbs,
             'stats': stats,
             'total': total,
+            'type': self.model.__name__.lower(),
         })
 
 

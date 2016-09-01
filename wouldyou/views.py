@@ -4,6 +4,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.http import Http404
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, resolve_url
 from django.shortcuts import render, redirect
@@ -158,8 +159,11 @@ class NeedMoreFriends(BaseView):
 
 
 class CelebrityMeta(facebook.AllowCrawlerMixin, View):
+    def get(self, request, profile_id):
+        raise Http404
+
     def render_meta(self, request, *args, **kwargs):
-        profile = get_object_or_404(Profile, kwargs['profile_id'])
+        profile = get_object_or_404(Profile, pk=kwargs['profile_id'])
         url = request.build_absolute_uri(resolve_url('app:facebook.profile', profile_id=profile.pk))
         return render(request, 'wouldyou/meta/profile.html', {
             'profile': profile,

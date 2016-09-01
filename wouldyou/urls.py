@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'^friends/(?P<set_id>[0-9]+)/$', views.PlayerGame.as_view(), name='player.play'),
 
     # Facebook meta views
-    url(r'meta/celebrity/(?P<profile_id>[0-9]+)/$', views.CelebrityMeta.as_view(), name='facebook.profile'),
+    url(r'meta/celebrities/(?P<profile_id>[0-9]+)/$', views.CelebrityMeta.as_view(), name='facebook.profile'),
 
     # Ajax views
     url(r'^api/invite/$', views.InviteView.as_view(), name='api.invite'),

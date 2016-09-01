@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-<head>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# {{ settings.SOCIAL_AUTH_FACEBOOK_NAMESPACE }}: http://ogp.me/ns/fb/{{ settings.SOCIAL_AUTH_FACEBOOK_NAMESPACE }}#">
   <meta charset="UTF-8">
   <title></title>
   {% block meta %}{% endblock %}

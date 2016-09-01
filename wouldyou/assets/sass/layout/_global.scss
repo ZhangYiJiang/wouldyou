@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 .container-fluid, .bg-container {
   max-width: $screen-lg;
 }

@@ -18,7 +18,7 @@ header.global {
 
     a {
       display: block;
-      padding: 10px 0 0;
+      padding: 4px 0 0;
       margin-bottom: -5px;
       color: white;
 
@@ -77,6 +77,46 @@ header.global {
       margin-right: 8px;
       width: 40px;
       height: 40px;
+    }
+  }
+
+  @media (max-width: $screen-sm-max) {
+    width: 100%;
+
+    > .wrapper-container {
+      display: block;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 50px;
+    }
+
+    .profile {
+      $profile-image-size: 65px;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: $navbar-color;
+
+      transform: translateX(calc(100% - #{$profile-image-size}));
+      transition: transform .3s;
+
+      .profile-image {
+        height: $profile-image-size;
+        width: $profile-image-size;
+      }
+
+      &:hover {
+        transform: translateX(-10px);
+      }
+    }
+
+    .profile-detail {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
   }
 }

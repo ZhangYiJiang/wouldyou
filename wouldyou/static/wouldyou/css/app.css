@@ -1976,6 +1976,10 @@ tbody.collapse.in {
   font-style: normal;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .container-fluid, .bg-container {
   max-width: 960px;
 }
@@ -2054,7 +2058,7 @@ header.global h1 {
 
 header.global h1 a {
   display: block;
-  padding: 10px 0 0;
+  padding: 4px 0 0;
   margin-bottom: -5px;
   color: white;
 }
@@ -2117,6 +2121,51 @@ header.global .profile .profile-image {
   margin-right: 8px;
   width: 40px;
   height: 40px;
+}
+
+@media (max-width: 739px) {
+  header.global {
+    width: 100%;
+  }
+  header.global > .wrapper-container {
+    display: block;
+    overflow: hidden;
+  }
+  header.global h1 {
+    font-size: 50px;
+  }
+  header.global .profile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #321d2f;
+    -webkit-transform: translateX(calc(100% - 65px));
+            transform: translateX(calc(100% - 65px));
+    -webkit-transition: -webkit-transform .3s;
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+  }
+  header.global .profile .profile-image {
+    height: 65px;
+    width: 65px;
+  }
+  header.global .profile:hover {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  header.global .profile-detail {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
 }
 
 footer.global {
@@ -2558,12 +2607,20 @@ body.game .bg-container {
   }
 }
 
+@media (max-width: 739px) {
+  body.game .bg-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 body.game .game-switcher {
   margin: 25px auto 0;
   color: rgba(255, 255, 255, 0.5);
   font-size: 28px;
   font-family: Georgia, serif;
   font-style: italic;
+  line-height: 1.8;
   text-align: center;
 }
 
@@ -2584,6 +2641,12 @@ body.game .game-switcher a:hover.friend-next, body.game .game-switcher span.acti
 
 body.game .game-switcher a:hover.celebrity-next, body.game .game-switcher span.active.celebrity-next {
   background: #b71c1c;
+}
+
+@media (max-width: 739px) {
+  body.game .game-switcher {
+    margin-top: 12px;
+  }
 }
 
 body.game .game-area {

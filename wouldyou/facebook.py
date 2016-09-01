@@ -232,7 +232,8 @@ class AllowCrawlerMixin:
     meta_template = None
 
     def dispatch(self, request, *args, **kwargs):
-        if request.META['HTTP_USER_AGENT'] in self.crawler_user_agent or request.GET.get('fb_meta', None):
+        debug = settings.DEBUG and request.GET.get('fb_meta', False)
+        if request.META['HTTP_USER_AGENT'] in self.crawler_user_agent or debug:
             return self.render_meta(request, *args, **kwargs)
         else:
             return super().dispatch(request, *args, **kwargs)

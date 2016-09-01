@@ -177,6 +177,7 @@ MEDIA_ROOT = 'media'
 
 SETTINGS_EXPORT = [
     'SOCIAL_AUTH_FACEBOOK_KEY',
+    'SOCIAL_AUTH_FACEBOOK_NAMESPACE',
 ]
 
 # Debug toolbar options

@@ -30,6 +30,9 @@ urlpatterns = [
     url(r'^friends/next/$', views.NextProfile.as_view(model=models.Player), name='player.next'),
     url(r'^friends/(?P<set_id>[0-9]+)/$', views.PlayerGame.as_view(), name='player.play'),
 
+    # Facebook meta views
+    url(r'meta/celebrity/(?P<profile_id>[0-9]+)/$', views.CelebrityMeta.as_view(), name='facebook.profile'),
+
     # Ajax views
     url(r'^api/invite/$', views.InviteView.as_view(), name='api.invite'),
     url(r'^api/action/$', views.ActionView.as_view(), name='api.action'),

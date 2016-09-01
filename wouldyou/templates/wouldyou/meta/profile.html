@@ -1,0 +1,6 @@
+{% extends 'wouldyou/meta/base.html' %}
+
+{% block meta %}
+  <meta property="og:type" content="{{ settings.SOCIAL_AUTH_FACEBOOK_NAMESPACE }}:celebrity">
+  <meta property="og:title" content="{{ profile.name }}">
+{% endblock %}

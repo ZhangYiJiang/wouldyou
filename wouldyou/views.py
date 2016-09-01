@@ -5,13 +5,13 @@ from django.contrib.auth import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, resolve_url
 from django.shortcuts import render, redirect
 from django.views import View
 
 from wouldyou.exceptions import OutOfGameSets, OutOfPlayerSets
 from . import facebook
-from .models import Verb, PlayerSet, ProfileSet, Player
+from .models import Verb, PlayerSet, ProfileSet, Player, Profile
 
 logger = logging.getLogger(__name__)
 
@@ -154,6 +154,16 @@ class NeedMoreFriends(BaseView):
         return render(request, 'wouldyou/game/invite.html', {
             'friends': player.friends.all(),
             'required_count': player.required_friend_count(),
+        })
+
+
+class CelebrityMeta(facebook.AllowCrawlerMixin, View):
+    def render_meta(self, request, *args, **kwargs):
+        profile = get_object_or_404(Profile, kwargs['profile_id'])
+        url = request.build_absolute_uri(resolve_url('app:facebook.profile', profile_id=profile.pk))
+        return render(request, 'wouldyou/meta/profile.html', {
+            'profile': profile,
+            'url': url,
         })
 
 

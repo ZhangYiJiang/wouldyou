@@ -270,16 +270,13 @@ $.ajaxSetup({
 
     var $t = $(this);
     var action = $t.data('action');
-    var celebrity = JSON.stringify({
-      type: 'og:celebrity',
-
-    });
+    var celebrity = $t.data('celebrity');
 
     FB.api(
       'me/' + action,
       'post',
       {
-        celebrity: '"http://samples.ogp.me/179233982498817"',
+        celebrity: celebrity,
         access_token: userAccessToken,
       },
      function(response) {

@@ -16,6 +16,7 @@ class ProfileAdmin(admin.ModelAdmin):
     form = ProfileForm
     list_display = ('name', 'gender', 'image_tag', )
     list_filter = ('gender', )
+    search_fields = ['name', ]
 
 
 class AbstractProfileInline(admin.TabularInline):
@@ -43,7 +44,13 @@ class PlayerSetAdmin(admin.ModelAdmin):
     exclude = ('players', 'player_id_set', )
 
 
+@admin.register(models.Player)
+class PlayerAdmin(admin.ModelAdmin):
+    form = ProfileForm
+    list_filter = ('gender', )
+    search_fields = ['name', ]
+
+
 admin.site.register(models.Verb)
-admin.site.register(models.Player)
 admin.site.register(models.PlayerAction)
 admin.site.register(models.ProfileAction)

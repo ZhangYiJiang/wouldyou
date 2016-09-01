@@ -135,9 +135,16 @@ class PlayerGame(GameView):
         return super().validate(request, set_id)
 
 
-class CelebrityGame(GameView):
+class CelebrityGame(facebook.AllowCrawlerMixin, GameView):
     model = ProfileSet
     template = 'wouldyou/game/profile.html'
+
+    def render_meta(self, request, *args, **kwargs):
+        set_obj = self.validate(request, kwargs['set_id'])
+        return render(request, 'wouldyou/meta/profile_game.html', {
+            'set': set_obj,
+            'subjects': set_obj.subjects.all(),
+        })
 
 
 class NeedMoreFriends(BaseView):

@@ -222,3 +222,21 @@ class FacebookResponse:
 
     def __len__(self):
         return len(self.data)
+
+
+class AllowCrawlerMixin:
+    crawler_user_agent = [
+        'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+        'facebookexternalhit/1.1',
+    ]
+
+    meta_template = None
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.META['HTTP_USER_AGENT'] in self.crawler_user_agent or request.GET.get('fb_meta', None):
+            return self.render_meta(request, *args, **kwargs)
+        else:
+            return super().dispatch(request, *args, **kwargs)
+
+    def render_meta(self, request, *args, **kwargs):
+        raise NotImplementedError

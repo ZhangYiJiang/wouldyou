@@ -553,7 +553,7 @@ $('.invite-btn').click(function (evt) {
 
     undo: function () {
       // Clear selected verbs
-      this.selected = [];
+      this.selected = {};
 
       // Unselect all cards
       this.gameArea.find('.game-card')
@@ -574,10 +574,14 @@ $('.invite-btn').click(function (evt) {
 
     select: function (btn) {
       var verb = btn.data('verb');
+      var btnIndex = btn
+        .closest('.game-choice')
+        .prevAll('.game-choice').length;
+
       // Make sure the button can't be clicked again
-      if (this.selected.indexOf(verb) !== -1)
+      if (this.selected.hasOwnProperty(btnIndex))
         return;
-      this.selected.push(verb);
+      this.selected[btnIndex] = verb;
 
       // Disable the button of the same verb on other cards
       this.otherButtons(btn)
@@ -597,7 +601,7 @@ $('.invite-btn').click(function (evt) {
       }).fadeIn();
 
       // Check if the game is finished
-      if (this.selected.length === verbCount)
+      if (Object.keys(this.selected).length === verbCount)
         this.complete();
     },
 
@@ -630,13 +634,10 @@ $('.invite-btn').click(function (evt) {
           .removeClass('hidden');
 
         // Special match
-        console.log(story);
         if (!story.length) {
           specialMatches.push($t.find('.friend-stories').data('subject'));
         }
       });
-
-      console.log(specialMatches);
 
       // Wait a bit before showing the results, so that any
       // card animations can complete in time
@@ -665,7 +666,6 @@ $('.invite-btn').click(function (evt) {
       var modalContent = $('.match-modal');
 
       modalContent.find('.player-match').filter(function () {
-        console.log(this, matches, $(this).data('subject'));
         return matches.includes($(this).data('subject'));
       }).removeClass('hidden');
 

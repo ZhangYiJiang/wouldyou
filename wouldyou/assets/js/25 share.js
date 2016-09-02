@@ -1,35 +1,30 @@
 (function ($) {
-  $('body').on('click', '.share-btn', function (evt) {
-    evt.preventDefault();
+  function launchShareDialog(dataCallback) {
+    return function (evt) {
+      evt.preventDefault();
+      var $t = $(this);
+      var shareOptions = dataCallback($t);
 
-    var $t = $(this);
-    var url = $t.data('href') || window.location.toString();
+      // TODO: Add a spinner for this
+      FB.ui(shareOptions);
+    };
+  }
 
-    FB.ui({
+  $('body').on('click', '.share-btn', launchShareDialog(function(btn) {
+    return {
       method: 'share',
-      href: url,
+      href: btn.data('href') || window.location.toString(),
       mobile_iframe: true,
-    });
-  })
-  .on('click', '.story-btn', function (evt) {
-    evt.preventDefault();
-
-    var $t = $(this);
-    var action = $t.data('action');
-    var celebrity = $t.data('celebrity');
-
-    FB.api(
-      'me/' + action,
-      'post',
-      {
-        celebrity: celebrity,
-        access_token: userAccessToken,
-      },
-     function(response) {
-        console.log(response);
-      }
-    );
-
-
-  });
+    };
+  }))
+  .on('click', '.story-btn', launchShareDialog(function(btn) {
+    return {
+      method: 'share_open_graph',
+      mobile_iframe: true,
+      action_type: btn.data('action'),
+      action_properties: JSON.stringify({
+        object: btn.data('celebrity'),
+      }),
+    };
+  }));
 })(jQuery);

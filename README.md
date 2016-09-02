@@ -1,15 +1,16 @@
 
-CS3216 Assignment 1 - Life of a Facebook Application
+# CS3216 Assignment 1 - Life of a Facebook Application
 
-Group Name: Group 8
+### Group Name: Group 8
 
-App Name: Would You ___?
+App Name: Would You ___?  
 App URL: https://wouldyou.space
-Group Members:
 
-Le Xuan Manh (A0126501W)
-Piyush Varanjani (A0105178H)
-You Jing (A0133895U)
+#### Group Members:  
+
+Le Xuan Manh (A0126501W)  
+Piyush Varanjani (A0105178H)  
+You Jing (A0133895U)  
 Zhang YiJiang (A0135817B)
 
 

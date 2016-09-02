@@ -1,29 +1,53 @@
 (function ($) {
-  function launchShareDialog(dataCallback) {
-    return function (evt) {
-      evt.preventDefault();
-      var $t = $(this);
-      var shareOptions = dataCallback($t);
+  $('body').on('click', '.share-btn', function (evt) {
+    evt.preventDefault();
 
-      // TODO: Add a spinner for this
-      FB.ui(shareOptions);
-    };
-  }
+    var $t = $(this);
+    var url = $t.data('href') || window.location.toString();
 
-  $('body').on('click', '.share-btn', launchShareDialog(function(btn) {
-    return {
+    var button = new LoadingButton($t);
+
+    FB.ui({
       method: 'share',
-      href: btn.data('href') || window.location.toString(),
+      href: url,
       mobile_iframe: true,
-    };
-  }))
-  .on('click', '.story-btn', launchShareDialog(function(btn) {
-    return {
-      method: 'share_open_graph',
-      action_type: btn.data('action'),
-      action_properties: JSON.stringify({
-        celebrity: btn.data('celebrity'),
-      }),
-    };
-  }));
+    }, function (response) {
+      console.log(response);
+
+      if (response && !response.hasOwnProperty('error')) {
+        button.success();
+      } else {
+        button.reset();
+      }
+    });
+  })
+  .on('click', '.story-btn', function (evt) {
+    evt.preventDefault();
+
+    var $t = $(this);
+    var action = $t.data('action');
+    var celebrity = $t.data('celebrity');
+
+    var button = new LoadingButton($t);
+
+    FB.api(
+      'me/' + action,
+      'post',
+      {
+        celebrity: celebrity,
+        access_token: userAccessToken,
+      },
+     function(response) {
+        console.log(response);
+
+        if (response && !response.hasOwnProperty('error') && response.hasOwnProperty('id')) {
+          button.complete();
+        } else {
+          button.reset();
+        }
+      }
+    );
+
+
+  });
 })(jQuery);

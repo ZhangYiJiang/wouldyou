@@ -2201,7 +2201,7 @@ footer.global a {
 .spinner > div {
   width: 18px;
   height: 18px;
-  background-color: #572c4f;
+  background: #572c4f;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bounce-delay 1.4s infinite ease-in-out both;
@@ -2216,6 +2216,20 @@ footer.global a {
 .spinner .bounce2 {
   -webkit-animation-delay: -0.16s;
           animation-delay: -0.16s;
+}
+
+.btn .spinner {
+  position: static;
+  display: inline-block;
+  width: auto;
+  margin: 0;
+}
+
+.btn .spinner > div {
+  background: #fff;
+  width: 10px;
+  height: 10px;
+  margin-right: 1px;
 }
 
 @-webkit-keyframes sk-bounce-delay {

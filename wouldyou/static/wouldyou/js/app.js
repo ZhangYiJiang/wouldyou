@@ -253,33 +253,96 @@ $.ajaxSetup({
   window.Alerts = new widget();
 })(jQuery);
 (function ($) {
-  function launchShareDialog(dataCallback) {
-    return function (evt) {
-      evt.preventDefault();
-      var $t = $(this);
-      var shareOptions = dataCallback($t);
-
-      // TODO: Add a spinner for this
-      FB.ui(shareOptions);
-    };
+  function generateHtml(content, icon) {
+    return '<i class="fa fa-' + icon + '"></i> ' + content;
   }
 
-  $('body').on('click', '.share-btn', launchShareDialog(function(btn) {
-    return {
+  var widget = function (buttonElement, message, icon) {
+    this.button = $(buttonElement);
+    this.originalContent = this.button.html();
+    this.successMessage = message || 'Success!';
+    this.successIcon = icon || 'thumb-o-up';
+
+    // Fix button height and width before replacing content
+    this.button.height(this.button.height());
+    this.button.width(this.button.width());
+
+    // Replace with spinner
+    var html = this.defaultSpinner;
+    this.button.html(html);
+  };
+
+  widget.prototype = {
+    defaultSpinner: '<div class="spinner">' +
+      '<div class="bounce1"></div>' +
+      '<div class="bounce2"></div>' +
+      '<div class="bounce3"></div>' +
+    '</div>',
+
+    reset: function () {
+      this.button.html(this.originalContent);
+    },
+    success: function () {
+      var html = generateHtml(this.successIcon, this.successMessage);
+      this.button.html(html);
+    },
+  };
+
+  window.LoadingButton = widget;
+})(jQuery);
+
+(function ($) {
+  $('body').on('click', '.share-btn', function (evt) {
+    evt.preventDefault();
+
+    var $t = $(this);
+    var url = $t.data('href') || window.location.toString();
+
+    var button = new LoadingButton($t);
+
+    FB.ui({
       method: 'share',
-      href: btn.data('href') || window.location.toString(),
+      href: url,
       mobile_iframe: true,
-    };
-  }))
-  .on('click', '.story-btn', launchShareDialog(function(btn) {
-    return {
-      method: 'share_open_graph',
-      action_type: btn.data('action'),
-      action_properties: JSON.stringify({
-        celebrity: btn.data('celebrity'),
-      }),
-    };
-  }));
+    }, function (response) {
+      console.log(response);
+
+      if (response && !response.hasOwnProperty('error')) {
+        button.success();
+      } else {
+        button.reset();
+      }
+    });
+  })
+  .on('click', '.story-btn', function (evt) {
+    evt.preventDefault();
+
+    var $t = $(this);
+    var action = $t.data('action');
+    var celebrity = $t.data('celebrity');
+
+    var button = new LoadingButton($t);
+
+    FB.api(
+      'me/' + action,
+      'post',
+      {
+        celebrity: celebrity,
+        access_token: userAccessToken,
+      },
+     function(response) {
+        console.log(response);
+
+        if (response && !response.hasOwnProperty('error') && response.hasOwnProperty('id')) {
+          button.complete();
+        } else {
+          button.reset();
+        }
+      }
+    );
+
+
+  });
 })(jQuery);
 (function ($) {
 

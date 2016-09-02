@@ -21,7 +21,7 @@
   > div {
     width: 18px;
     height: 18px;
-    background-color: $brand-primary;
+    background: $brand-primary;
 
     border-radius: 100%;
     display: inline-block;
@@ -33,6 +33,20 @@
 
   .bounce2 {
     animation-delay: -0.16s;
+  }
+}
+
+.btn .spinner {
+  position: static;
+  display: inline-block;
+  width: auto;
+  margin: 0;
+
+  > div {
+    background: #fff;
+    width: 10px;
+    height: 10px;
+    margin-right: 1px;
   }
 }
 

@@ -8,8 +8,7 @@
   <input type="hidden" name="set_id" value="{{ set.pk }}">
 
   <div class="game-area" data-set="{{ set.pk }}"
-       data-model="{{ set.view_prefix }}"
-       data-url="{% url 'app:api.action' %}">
+       data-model="{{ set.view_prefix }}">
 
     {% block game_title %}{% endblock %}
 

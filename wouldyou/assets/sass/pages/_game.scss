@@ -136,6 +136,18 @@ body.game {
     background: rgba(#000, .6);
     transition: opacity .2s;
     opacity: 0;
+
+    &.transparent {
+      background: rgba(#000, 0);
+
+      .game-result {
+        background: rgba(#000, 0);
+      }
+
+      .overlay-image {
+        opacity: 0;
+      }
+    }
   }
 
   .game-action {
@@ -238,7 +250,24 @@ body.game {
     p {
       color: #fff;
       margin: 15px 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  .friend-stories .game-story {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    p.text-muted {
+      font-weight: normal;
       font-size: 15px;
+      font-style: italic;
+      opacity: .7;
     }
   }
 

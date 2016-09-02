@@ -14,7 +14,7 @@
     {% block game_title %}{% endblock %}
 
     <div class="game-choices">
-    {% for subject in set.subjects.all %}
+    {% for subject in subjects %}
       <div class="game-choice">
         <h4>{{ subject.name }}</h4>
 
@@ -26,7 +26,7 @@
             <div class="game-action">
               {% for verb in verbs %}
                 <button class="btn verb-btn {{ verb }}-btn"
-                        data-verb="{{ verb.pk }}">
+                        data-verb="{{ verb.pk }}" type="button">
                   {{ verb|title }}
                 </button>
                 <input type="radio" name="{{ verb }}" value="{{ subject.pk }}"

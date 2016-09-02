@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, resolve_url
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -119,6 +119,7 @@ class GameView(BaseView):
         stats, total = set_obj.stats
         return render(request, self.template, {
             'set': set_obj,
+            'subjects': set_obj.subjects.all(),
             'verbs': verbs,
             'stats': stats,
             'total': total,

@@ -262,14 +262,6 @@ $.ajaxSetup({
     this.originalContent = this.button.html();
     this.successMessage = message || 'Success!';
     this.successIcon = icon || 'thumbs-o-up';
-
-    // Fix button height and width before replacing content
-    this.button.height(this.button.height());
-    this.button.width(this.button.width());
-
-    // Replace with spinner
-    var html = this.defaultSpinner;
-    this.button.html(html);
   };
 
   widget.prototype = {
@@ -279,12 +271,29 @@ $.ajaxSetup({
       '<div class="bounce3"></div>' +
     '</div>',
 
+    start: function () {
+      if (this.button.data('completed')) {
+        return false;
+      }
+
+      // Fix button height and width before replacing content
+      this.button.height(this.button.height());
+      this.button.width(this.button.width());
+
+      // Replace with spinner
+      var html = this.defaultSpinner;
+      this.button.html(html);
+    },
+
     reset: function () {
       this.button.html(this.originalContent);
     },
+
     success: function () {
       var html = generateHtml(this.successMessage, this.successIcon);
-      this.button.html(html);
+      this.button.html(html)
+        .addClass('btn-completed')
+        .data('completed', true);
     },
   };
 
@@ -299,6 +308,7 @@ $.ajaxSetup({
     var url = $t.data('href') || window.location.toString();
 
     var button = new LoadingButton($t, 'Awesome!', 'thumbs-o-up fa-2x');
+    if (!button.start()) return;
 
     FB.ui({
       method: 'share',
@@ -320,6 +330,7 @@ $.ajaxSetup({
     var celebrity = $t.data('celebrity');
 
     var button = new LoadingButton($t, 'Awesome!', 'thumbs-o-up fa-2x');
+    if (!button.start()) return;
 
     FB.api(
       'me/' + action,

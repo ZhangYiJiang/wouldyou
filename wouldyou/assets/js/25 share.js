@@ -6,6 +6,7 @@
     var url = $t.data('href') || window.location.toString();
 
     var button = new LoadingButton($t, 'Awesome!', 'thumbs-o-up fa-2x');
+    if (!button.start()) return;
 
     FB.ui({
       method: 'share',
@@ -27,6 +28,7 @@
     var celebrity = $t.data('celebrity');
 
     var button = new LoadingButton($t, 'Awesome!', 'thumbs-o-up fa-2x');
+    if (!button.start()) return;
 
     FB.api(
       'me/' + action,

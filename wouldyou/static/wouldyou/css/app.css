@@ -2368,6 +2368,10 @@ footer.global a {
           flex: 1 auto;
 }
 
+.btn-completed {
+  pointer-events: none;
+}
+
 body.index .index-header {
   position: relative;
   margin-top: 20px;

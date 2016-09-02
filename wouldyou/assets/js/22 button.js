@@ -7,7 +7,7 @@
     this.button = $(buttonElement);
     this.originalContent = this.button.html();
     this.successMessage = message || 'Success!';
-    this.successIcon = icon || 'thumb-o-up';
+    this.successIcon = icon || 'thumbs-o-up';
 
     // Fix button height and width before replacing content
     this.button.height(this.button.height());

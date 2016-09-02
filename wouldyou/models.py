@@ -1,9 +1,11 @@
 import math
 import random
+from urllib.parse import urljoin
 
 from django.conf import settings
 from django.db import models
 from django.db.models import Count, F
+from django.shortcuts import resolve_url
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.html import format_html
@@ -366,6 +368,11 @@ class Profile(AbstractProfile):
     @property
     def portrait(self):
         return self.image.url
+
+    @property
+    def facebook_object_url(self):
+        url = resolve_url('app:facebook.profile', profile_id=self.pk)
+        return urljoin(settings.SITE_URL, url)
 
     def image_tag(self):
         return format_html('<img src="{}" alt="" style="max-width: 100px">', self.image.url)

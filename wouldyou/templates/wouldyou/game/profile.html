@@ -19,7 +19,7 @@
 
       <button class="btn facebook-btn story-btn"
               data-action="{{ verb.facebook_action }}"
-              data-celebrity="{% url 'app:facebook.profile' subject.pk %}">
+              data-celebrity="{{ subject.facebook_object_url }}">
         <i class="fa fa-2x fa-facebook-official"></i>
         Share on Facebook
       </button>

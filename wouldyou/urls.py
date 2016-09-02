@@ -22,10 +22,12 @@ urlpatterns = [
     url(r'^logout/$', views.logout, name='logout'),
 
     # Game pages
+
     url(r'^celebrities/next/$', views.NextProfile.as_view(model=models.Profile), name='profile.next'),
     url(r'^celebrities/(?P<set_id>[0-9]+)/$', views.CelebrityGame.as_view(), name='profile.play'),
 
     url(r'^friends/invite/$', views.NeedMoreFriends.as_view(), name='player.invite'),
+    url(r'^celebrities/end/$', views.OutOfCelebrities.as_view(), name='profile.end'),
 
     url(r'^friends/next/$', views.NextProfile.as_view(model=models.Player), name='player.next'),
     url(r'^friends/(?P<set_id>[0-9]+)/$', views.PlayerGame.as_view(), name='player.play'),

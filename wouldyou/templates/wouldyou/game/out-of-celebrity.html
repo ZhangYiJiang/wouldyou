@@ -1,0 +1,15 @@
+{% extends 'wouldyou/game/base.html' %}
+
+{% load static %}
+
+{% block game_area %}
+<div class="game-area invite-area">
+  <h1>Wow, you've completed the game!</h1>
+  <p class="text-muted">We didn't think anyone would make it so far</p>
+	<img src="{% static "wouldyou/img/trophy.png" %}" alt="">
+
+	<p><a class="btn btn-lg btn-success btn-continue-playing" href="{% url 'app:player.next' %}">
+    Continue playing with friends
+  </a></p>
+</div>
+{% endblock %}

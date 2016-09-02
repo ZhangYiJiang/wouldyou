@@ -8,7 +8,7 @@ from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 
-from wouldyou.exceptions import OutOfGameSets, OutOfPlayerSets
+from wouldyou.exceptions import OutOfGameSets, OutOfPlayerSets, OutOfProfileSets
 from . import facebook
 from .models import Verb, PlayerSet, ProfileSet, Player, Profile
 
@@ -81,8 +81,10 @@ class NextProfile(BaseView):
 
         try:
             next_obj = request.user.player.next_set(self.model)
-        except OutOfGameSets:
+        except OutOfPlayerSets:
             return redirect('app:player.invite')
+        except OutOfProfileSets:
+            return redirect('app:profile.end')
 
         return redirect(next_obj, set_id=next_obj.pk)
 
@@ -155,6 +157,11 @@ class NeedMoreFriends(BaseView):
             'friends': player.friends.all(),
             'required_count': player.required_friend_count(),
         })
+
+
+class OutOfCelebrities(BaseView):
+    def get(self, request):
+        return render(request, 'wouldyou/game/out-of-celebrity.html')
 
 
 class CelebrityMeta(facebook.AllowCrawlerMixin, View):

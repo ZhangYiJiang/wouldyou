@@ -15,6 +15,7 @@ $('.invite-btn').click(function (evt) {
   FB.ui({
     method: 'apprequests',
     message: message,
+    filters: ['app_non_users'],
   }, function(response){
     if (!response || 'error_code' in response ||
         (Array.isArray(response) && !response.length)) {

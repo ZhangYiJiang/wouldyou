@@ -1,13 +1,11 @@
 import logging
 
+from django.conf import settings
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import Http404
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, resolve_url
-from django.shortcuts import render, redirect
+from django.http import Http404, JsonResponse
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 
 from wouldyou.exceptions import OutOfGameSets, OutOfPlayerSets
@@ -183,26 +181,6 @@ class InviteView(AjaxView):
             return {'redirect': set_obj.get_absolute_url(), }
         except OutOfPlayerSets:
             return {'required_count': player.required_friend_count(), }
-
-
-class ActionView(AjaxView):
-    models = (PlayerSet, ProfileSet, )
-
-    def get_model(self, view):
-        for model in self.models:
-            if model.view_prefix == view:
-                return model
-        raise ValueError
-
-    def post(self, request):
-        model = self.get_model(request.POST['model'])
-        set = model.objects.get(pk=request.POST['set'])
-        subject = set.subjects.get(pk=request.POST['subject'])
-        verb = Verb.objects.get(pk=request.POST['verb'])
-
-        player = request.user.player
-        action = set.create_subject_action(player, verb, set, subject)
-        action.save()
 
 
 def disconnect(request):

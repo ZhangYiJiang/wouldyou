@@ -283,7 +283,7 @@ $.ajaxSetup({
       this.button.html(this.originalContent);
     },
     success: function () {
-      var html = generateHtml(this.successIcon, this.successMessage);
+      var html = generateHtml(this.successMessage, this.successIcon);
       this.button.html(html);
     },
   };

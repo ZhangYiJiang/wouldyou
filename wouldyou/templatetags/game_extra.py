@@ -1,3 +1,5 @@
+import random
+
 from django import template
 
 from wouldyou.facebook import Facebook
@@ -39,4 +41,4 @@ def subject_portrait(subject, width, height=None):
 
 @register.simple_tag
 def random_exclamation():
-    return random.choice()
+    return random.choice(['OMG!', 'Oh yeah!', 'Fantastic!', 'Wooo!', 'Geronimo!', 'Awesome!', ])

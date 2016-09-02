@@ -46,8 +46,10 @@ body.game .match-modal {
 
   .match-btn {
     font-size: 20px;
-    padding: 20px 40px;
+    padding: 16px 40px 20px;
     box-shadow: inset 0 -4px rgba(#000, .4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 }
 

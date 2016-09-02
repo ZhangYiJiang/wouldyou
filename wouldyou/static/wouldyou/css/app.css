@@ -2977,6 +2977,37 @@ body.game .game-story p {
   font-size: 15px;
 }
 
+body.game .friend-stories p {
+  margin: 40px 20px;
+  font-size: 15px;
+  color: #fff;
+}
+
+body.game .friend-stories .game-story {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+body.game .friend-stories .game-story.match-kiss {
+  background: url("../img/kiss_border.png") no-repeat center/cover;
+}
+
+body.game .friend-stories .game-story.match-marry {
+  background: url("../img/marry_border.png");
+}
+
+body.game .friend-stories .game-story.match-kill {
+  background: url("../img/blood_border.png");
+}
+
+body.game .friend-stories .game-story img {
+  width: 75px;
+  margin: 0 auto;
+}
+
 body.game .game-controls .btn {
   font-size: 16px;
   padding-left: 25px;

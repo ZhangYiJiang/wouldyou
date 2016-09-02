@@ -625,7 +625,6 @@ $('.invite-btn').click(function (evt) {
       setTimeout(this.showResults.bind(this), 400);
 
       // Show a like button after the player played the game a few times
-
       setTimeout(this.showLikeAlert.bind(this), 1800);
     },
 

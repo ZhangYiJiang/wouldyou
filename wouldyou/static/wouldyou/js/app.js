@@ -298,7 +298,7 @@ $.ajaxSetup({
     var $t = $(this);
     var url = $t.data('href') || window.location.toString();
 
-    var button = new LoadingButton($t);
+    var button = new LoadingButton($t, 'Awesome!', 'thumbs-o-up fa-2x');
 
     FB.ui({
       method: 'share',
@@ -319,7 +319,7 @@ $.ajaxSetup({
     var action = $t.data('action');
     var celebrity = $t.data('celebrity');
 
-    var button = new LoadingButton($t);
+    var button = new LoadingButton($t, 'Awesome!', 'thumbs-o-up fa-2x');
 
     FB.api(
       'me/' + action,
@@ -329,17 +329,15 @@ $.ajaxSetup({
         access_token: userAccessToken,
       },
       function(response) {
-        console.log(response);
-
         if (response && !response.hasOwnProperty('error') && response.hasOwnProperty('id')) {
           button.success();
         } else {
           button.reset();
+          Alerts.add('danger', 'Sorry, something went wrong. Please refresh the ' +
+            'page and try again later', 'exclamation-triangle', true);
         }
       }
     );
-
-
   });
 })(jQuery);
 (function ($) {

@@ -354,6 +354,15 @@ $.ajaxSetup({
   window.LoadingButton = widget;
 })(jQuery);
 
+(function () {
+  FB.Event.subscribe('edge.create', function () {
+    // Make sure the alert doesn't show up again after the like button is clicked
+    Cookies.set('like_alert_dismissed', true, {
+      expires: 365,  // One year
+    });
+  });
+})();
+
 (function ($) {
   $('body').on('click', '.share-btn', function (evt) {
     evt.preventDefault();
@@ -625,7 +634,6 @@ $('.invite-btn').click(function (evt) {
       setTimeout(this.showResults.bind(this), 400);
 
       // Show a like button after the player played the game a few times
-
       setTimeout(this.showLikeAlert.bind(this), 1800);
     },
 

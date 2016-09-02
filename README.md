@@ -1,3 +1,22 @@
+
+CS3216 Assignment 1 - Life of a Facebook Application
+
+Group Name: Group 8
+
+App Name: Would You ___?
+App URL: https://wouldyou.space
+Group Members:
+
+Le Xuan Manh (A0126501W)
+Piyush Varanjani (A0105178H)
+You Jing (A0133895U)
+Zhang YiJiang (A0135817B)
+
+
+
+
+
+
 ## Setup
  
  1. Check you have the prerequisites installed. Python 3.5 is required for the server and Node 6.x and gulp is required for the asset pipeline. 

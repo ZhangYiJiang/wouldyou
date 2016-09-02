@@ -218,6 +218,28 @@ class PlayerSet(AbstractSet):
     def create_subject_action(self, player, verb, set, subject):
         return PlayerAction(player=player, verb=verb, friendset=set, friend=subject)
 
+    @property
+    def friends_uid(self):
+        return self.player_id_set.split(',')
+
+    @cached_property
+    def matching_friend_actions(self):
+        matches = self.players.filter(playeraction__friend=self.owner)\
+            .values_list(
+                'playeraction__verb',
+                'playeraction__player',
+                'playeraction__player__uid',
+            ).distinct()
+
+        # Whittle the list down to distinct users and re-key it
+        selection = {}
+        for verb_id, player_pk, player_uid in matches:
+            if player_uid not in selection:
+                selection[player_pk] = verb_id
+                if len(selection) == settings.VERB_COUNT:
+                    break
+        return selection
+
 
 class AbstractProfile(BaseModel):
     set_model = AbstractSet

@@ -1,5 +1,7 @@
 {% extends "wouldyou/game/game.html" %}
 
+{% load game_extra %}
+
 {% block alerts %}
   {% if player.sets_nearing_depletion %}
     <div class="alert alert-info">
@@ -19,5 +21,16 @@
 {% endblock %}
 
 {% block result %}
-
+    <div class="game-stories">
+      {% for verb in verbs %}
+        <div class="game-story hidden" data-verb="{{ verb.pk }}">
+          {% matching_friend subject as matched_verb %}
+          {% if verb.pk == matched_verb %}
+          <p>You found a match! Congrats!</p>
+          {% else %}
+          <p>{{ verb.random_description }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+  </div>
 {% endblock %}

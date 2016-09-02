@@ -17,3 +17,8 @@ def get_total(context, subject):
 @register.simple_tag(takes_context=True)
 def get_percentage(context, subject, verb):
     return round(get_count(context, subject, verb) / get_total(context, subject) * 100)
+
+
+@register.simple_tag(takes_context=True)
+def matching_friend(context, friend):
+    return context['set'].matching_friend_actions.get(friend.pk, '')

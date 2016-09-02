@@ -1757,6 +1757,115 @@ footer.global .footer-dot {
   pointer-events: none;
 }
 
+/**
+ * Featherlight – ultra slim jQuery lightbox
+ * Version 1.4.1 - http://noelboss.github.io/featherlight/
+ *
+ * Copyright 2016, Noël Raoul Bossart (http://www.noelboss.com)
+ * MIT Licensed.
+**/
+@media all {
+  .featherlight {
+    display: none;
+    /* dimensions: spanning the background from edge to edge */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2147483647;
+    /* z-index needs to be >= elements on the site. */
+    /* position: centering content */
+    text-align: center;
+    /* insures that the ::before pseudo element doesn't force wrap with fixed width content; */
+    white-space: nowrap;
+    /* styling */
+    cursor: pointer;
+    background: #333;
+    /* IE8 "hack" for nested featherlights */
+    background: transparent;
+  }
+  /* support for nested featherlights. Does not work in IE8 (use JS to fix) */
+  .featherlight:last-of-type {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  .featherlight:before {
+    /* position: trick to center content vertically */
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+  .featherlight .featherlight-content {
+    /* make content container for positioned elements (close button) */
+    position: relative;
+    /* position: centering vertical and horizontal */
+    text-align: left;
+    vertical-align: middle;
+    display: inline-block;
+    /* dimensions: cut off images */
+    overflow: auto;
+    padding: 25px 25px 0;
+    border-bottom: 25px solid transparent;
+    border-radius: 4px;
+    /* dimensions: handling large content */
+    margin-left: 5%;
+    margin-right: 5%;
+    max-height: 95%;
+    /* styling */
+    background: #333;
+    cursor: auto;
+    /* reset white-space wrapping */
+    white-space: normal;
+  }
+  /* contains the content */
+  .featherlight .featherlight-inner {
+    /* make sure its visible */
+    display: block;
+  }
+  .featherlight .featherlight-close-icon {
+    /* position: centering vertical and horizontal */
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    /* dimensions: 25px x 25px */
+    line-height: 25px;
+    width: 25px;
+    /* styling */
+    cursor: pointer;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+  .featherlight .featherlight-image {
+    /* styling */
+    width: 100%;
+  }
+  .featherlight-iframe .featherlight-content {
+    /* removed the border for image croping since iframe is edge to edge */
+    border-bottom: 0;
+    padding: 0;
+  }
+  .featherlight iframe {
+    /* styling */
+    border: none;
+  }
+}
+
+/* handling phones and small screens */
+@media only screen and (max-width: 1024px) {
+  .featherlight .featherlight-content {
+    /* dimensions: maximize lightbox with for small screens */
+    margin-left: 10px;
+    margin-right: 10px;
+    max-height: 98%;
+    padding: 10px 10px 0;
+    border-bottom: 10px solid transparent;
+  }
+}
+
 body.index .index-header {
   position: relative;
   margin-top: 20px;
@@ -2116,6 +2225,18 @@ body.game .card-overlay {
   opacity: 0;
 }
 
+body.game .card-overlay.transparent {
+  background: transparent;
+}
+
+body.game .card-overlay.transparent .game-result {
+  background: transparent;
+}
+
+body.game .card-overlay.transparent .overlay-image {
+  opacity: 0;
+}
+
 body.game .game-action {
   padding: 40px 0;
   height: 100%;
@@ -2308,7 +2429,23 @@ body.game .option-percentage .text {
 body.game .game-story p {
   color: #fff;
   margin: 15px 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+body.game .friend-stories .game-story {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+body.game .friend-stories .game-story p.text-muted {
+  font-weight: normal;
   font-size: 15px;
+  font-style: italic;
+  opacity: .7;
 }
 
 body.game .game-controls .btn {
@@ -2416,6 +2553,48 @@ body.game .undo-btn i {
     padding-bottom: 10px;
     margin: 0 10px;
   }
+}
+
+body.game .match-modal {
+  text-align: center;
+  color: #fff;
+  display: none;
+  padding: 0 40px 10px;
+}
+
+body.game .match-modal h1 {
+  font-family: Pacifico, cursive;
+  font-size: 54px;
+  margin-bottom: 40px;
+}
+
+body.game .match-modal .match-image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+body.game .match-modal .match-player-img img {
+  border-radius: 50%;
+  border: 6px solid #fff;
+}
+
+body.game .match-modal .match-verb-img img {
+  width: 70px;
+  display: block;
+  margin: 20px -10px;
+  z-index: 1000;
+  position: relative;
+}
+
+body.game .match-modal .match-btn {
+  font-size: 20px;
+  padding: 20px 40px;
+}
+
+body.game .featherlight-content .match-modal {
+  display: block;
 }
 
 body.game .invite-area {

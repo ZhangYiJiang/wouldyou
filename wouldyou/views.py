@@ -117,6 +117,7 @@ class GameView(BaseView):
         stats, total = set_obj.stats
         return render(request, self.template, {
             'set': set_obj,
+            'subjects': set_obj.subjects.all(),
             'verbs': verbs,
             'stats': stats,
             'total': total,

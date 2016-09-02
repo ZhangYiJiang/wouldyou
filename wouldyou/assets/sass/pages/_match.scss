@@ -1,0 +1,39 @@
+body.game .match-modal {
+  text-align: center;
+  color: #fff;
+  display: none;
+  padding: 0 40px 10px;
+
+  h1 {
+    font-family: Pacifico, cursive;
+    font-size: 54px;
+    margin-bottom: 40px;
+  }
+
+  .match-image {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .match-player-img img {
+    border-radius: 50%;
+    border: 6px solid #fff;
+  }
+
+  .match-verb-img img {
+    width: 70px;
+    display: block;
+    margin: 20px -10px;
+    z-index: 1000;
+    position: relative;
+  }
+
+  .match-btn {
+    font-size: 20px;
+    padding: 20px 40px;
+  }
+}
+
+body.game .featherlight-content .match-modal {
+  display: block;
+}

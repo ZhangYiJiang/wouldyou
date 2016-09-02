@@ -620,6 +620,7 @@ $('.invite-btn').click(function (evt) {
     complete: function () {
       var me = this;
       var gameCards = this.gameArea.find('.game-card');
+      var specialMatches = [];
 
       this.completed = true;
 
@@ -632,14 +633,29 @@ $('.invite-btn').click(function (evt) {
 
       // Show the correct user story button
       gameCards.each(function(i){
+        var $t = $(this);
         var selected = me.selected[i];
-        $(this).find('.game-story[data-verb="' + selected + '"]')
+        var story = $t.find('.game-story[data-verb="' + selected + '"]')
           .removeClass('hidden');
+
+        // Special match
+        console.log(story);
+        if (!story.length) {
+          specialMatches.push($t.find('.friend-stories').data('subject'));
+        }
       });
+
+      console.log(specialMatches);
 
       // Wait a bit before showing the results, so that any
       // card animations can complete in time
       setTimeout(this.showResults.bind(this), 400);
+
+      if (specialMatches.length) {
+        setTimeout(function(){
+          me.showMatchModal(specialMatches);
+        }, 500);
+      }
 
       // Show a like button after the player played the game a few times
       setTimeout(this.showLikeAlert.bind(this), 1800);
@@ -652,6 +668,21 @@ $('.invite-btn').click(function (evt) {
           $(ele).find('.game-result').fadeIn(300);
         }, 400 * i);
       });
+    },
+
+    showMatchModal: function (matches) {
+      var modalContent = $('.match-modal');
+
+      modalContent.find('.player-match').filter(function () {
+        console.log(this, matches, $(this).data('subject'));
+        return matches.includes($(this).data('subject'));
+      }).removeClass('hidden');
+
+      modalContent.find('.match-btn').click(function () {
+        $.featherlight.close();
+      });
+
+      $.featherlight(modalContent);
     },
 
     showLikeAlert: function () {

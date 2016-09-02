@@ -1,5 +1,8 @@
 {% extends "wouldyou/game/game.html" %}
 
+{% load static %}
+{% load game_extra %}
+
 {% block alerts %}
   {% if player.sets_nearing_depletion %}
     <div class="alert alert-info">
@@ -19,5 +22,54 @@
 {% endblock %}
 
 {% block result %}
+    <div class="friend-stories" data-subject="{{ subject.pk }}">
+      {% matching_friend subject as matched_verb %}
+      {% for verb in verbs %}
+        {% if matched_verb == None %}
+          {# Not played yet #}
+          <div class="game-story hidden" data-verb="{{ verb.pk }}">
+            <p>{{ verb.random_description }}</p>
+            <p class="text-muted">Your friend hasn't played yet.
+              Things will get more interesting when they do.</p>
+          </div>
+        {% elif verb.pk != matched_verb.pk %}
+          {# Not a match #}
+          <div class="game-story hidden" data-verb="{{ verb.pk }}">
+            <p>Hmmm, that's not what what the other person told us...</p>
+            <p class="text-muted">Uh oh, it seems the two of you don't see eye to eye!</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+  </div>
+{% endblock %}
 
+{% block footer %}
+  {{ block.super }}
+
+  <div class="match-modal">
+    <h1>It's a Match!</h1>
+    {% for subject in subjects %}
+      {% matching_friend subject as matched_verb %}
+      {% if matched_verb != None %}
+        <div class="player-match hidden" data-subject="{{ subject.pk }}">
+          <div class="match-image">
+            <div class="match-player-img">
+              <img src="{% subject_portrait subject 140 %}" alt="">
+            </div>
+            <div class="match-verb-img">
+              {% with 'wouldyou/img/'|add:matched_verb.verb|add:'.png' as src %}
+                <img src="{% static src %}" alt="">
+              {% endwith %}
+            </div>
+            <div class="match-player-img">
+              <img src="{% subject_portrait player 140 %}" alt="">
+            </div>
+          </div>
+          <h3>{{ matched_verb.match_text }}</h3>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <button class="btn btn-lg btn-success match-btn" type="button">OMG!</button>
+  </div>
 {% endblock %}

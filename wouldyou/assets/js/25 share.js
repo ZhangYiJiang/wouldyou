@@ -42,8 +42,8 @@
           button.success();
         } else {
           button.reset();
-          Alerts.add('danger', 'Sorry, something went wrong. Please refresh the ' +
-            'page and try again later', 'exclamation-triangle', true);
+          AlertManager.add('danger', 'Sorry, something went wrong. Please ' +
+            'refresh the page and try again later', 'exclamation-triangle', true);
         }
       }
     );

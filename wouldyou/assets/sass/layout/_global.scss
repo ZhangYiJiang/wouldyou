@@ -42,3 +42,11 @@ body {
   text-transform: uppercase;
   font-family: CheapSign, Arial Narrow, Arial, sans-serif;
 }
+
+.close {
+  opacity: .6;
+
+  &:hover, &:focus {
+    opacity: .9;
+  }
+}

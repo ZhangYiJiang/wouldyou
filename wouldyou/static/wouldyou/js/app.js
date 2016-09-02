@@ -194,26 +194,60 @@ $.ajaxSetup({
   // No need to continue if there are no place for alerts on this page
   if (!alertArea.length) return;
 
-  function makeAlert(level, text, icon, dismissable) {
-    var alert = $('<div>', {
+  var Widget = function (level, text, icon, dismissable) {
+    var me = this;
+
+    this.level = level;
+    this.dismissed = false;
+    this.alert = $('<div>', {
       'class': 'alert alert-' + level,
     });
 
-    $('<p>', { text: text }).appendTo(alert);
+    $('<p>', { html: text }).appendTo(this.alert);
 
     if (icon) {
       $('<i>', {
         'class': 'fa fa-2x fa-' + icon,
-      }).prependTo(alert);
+      }).prependTo(this.alert);
     }
 
-    return alert;
-  }
+    if (dismissable) {
+      var closeBtn = $(this.closeBtnHtml);
+      closeBtn.appendTo(this.alert)
+        .click(function () {
+          me.dismiss();
+          if (typeof dismissable === 'function') {
+            dismissable(alert);
+          }
+        });
+    }
 
-  var widget = function () {
+    this.alert.hide();
+  };
+
+  Widget.prototype = {
+    closeBtnHtml: '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
+
+    open: function () {
+      this.alert.slideDown(200);
+    },
+
+    dismiss: function () {
+      if (this.dismissed)
+        return;
+
+      var me = this;
+      this.alert.slideUp(200, function () {
+        $(this).remove();
+        me.dismissed = true;
+      });
+    },
+
+  };
+
+  var Manager = function () {
     var me = this;
 
-    // Instantiate alerts array with
     this.alerts = [];
     this.alertArea = alertArea;
 
@@ -222,35 +256,46 @@ $.ajaxSetup({
     });
   };
 
-  widget.prototype = {
+  Manager.prototype = {
     add: function (level, text, icon, dismissable) {
-      var alert = makeAlert(level, text, icon, dismissable);
+      var alert = this.makeButton(level, text, icon, dismissable);
       this.alerts.push(alert);
-      this.alertArea.append(alert);
-
-      alert.hide().slideDown();
+      this.alertArea.prepend(alert.alert);
+      alert.open();
+      return alert;
     },
 
     clear: function (level) {
-      var removedElements;
+      var removedElements, keepElements = [];
 
       if (!level) {
-        removedElements = this.alertArea.children();
-        this.alerts = [];
+        removedElements = this.alerts;
       } else {
-        removedElements = this.alertArea.find('.alert-' + level);
-        this.alerts = this.alerts.filter(function () {
-          return !$(this).hasClass('alert-' + level);
+        removedElements = [];
+
+        this.alerts.forEach(function(alert){
+          if (alert.level == level) {
+            removedElements.push(alert);
+          } else {
+            keepElements.push(alert);
+          }
         });
       }
 
-      removedElements.slideUp(300, function () {
-        $(this).remove();
+      removedElements.forEach(function (alert) {
+        alert.dismiss();
       });
+
+      this.alerts = keepElements;
+    },
+
+    makeButton: function(level, text, icon, dismissable) {
+      return new Widget(level, text, icon, dismissable);
     }
   };
 
-  window.Alerts = new widget();
+  window.AlertManager = new Manager();
+  window.Alert = Widget;
 })(jQuery);
 (function ($) {
   function generateHtml(content, icon) {
@@ -353,8 +398,8 @@ $.ajaxSetup({
           button.success();
         } else {
           button.reset();
-          Alerts.add('danger', 'Sorry, something went wrong. Please refresh the ' +
-            'page and try again later', 'exclamation-triangle', true);
+          AlertManager.add('danger', 'Sorry, something went wrong. Please ' +
+            'refresh the page and try again later', 'exclamation-triangle', true);
         }
       }
     );
@@ -436,8 +481,8 @@ $('.invite-btn').click(function (evt) {
       var data = json.data;
       if (data.hasOwnProperty('redirect')) {
         if (btn.data('no-redirect')) {
-          Alerts.clear();
-          Alerts.add('info', 'Your friends have been successfully added!', 'info-circle');
+          AlertManager.clear();
+          AlertManager.add('info', 'Your friends have been successfully added!', 'info-circle');
         } else {
           window.location.href = data.redirect;
         }
@@ -448,12 +493,12 @@ $('.invite-btn').click(function (evt) {
         $('.invite-count').text(count);
 
         // Hide existing error messages
-        Alerts.clear('danger');
+        AlertManager.clear('danger');
 
         // And add the new one
         var message = "Sorry, you didn't invite enough friends. Please invite " +
             count + " or more friends to continue playing.";
-        Alerts.add('danger', message, 'exclamation-triangle');
+        AlertManager.add('danger', message, 'exclamation-triangle');
       }
     }).fail(function () {
       // TODO: Figure out front end error handling strategy
@@ -496,6 +541,8 @@ $('.invite-btn').click(function (evt) {
   };
 
   widget.prototype = {
+    showLikeAlertAfter: 5,
+
     undo: function () {
       // Clear selected verbs
       this.selected = [];
@@ -555,6 +602,7 @@ $('.invite-btn').click(function (evt) {
 
     complete: function () {
       var me = this;
+      var gameCards = this.gameArea.find('.game-card');
 
       this.completed = true;
 
@@ -566,18 +614,51 @@ $('.invite-btn').click(function (evt) {
       this.gameArea.find('.next-btn').removeClass('hidden');
 
       // Show the correct user story button
-      me.gameArea.find('.game-card').each(function(i){
+      gameCards.each(function(i){
         var selected = me.selected[i];
         $(this).find('.game-story[data-verb="' + selected + '"]')
           .removeClass('hidden');
       });
 
-      setTimeout(function () {
-        // Show the game results
-        me.gameArea.find('.game-result').fadeIn();
-        me.gameArea.addClass('game-complete');
-      }, 600);
+      // Wait a bit before showing the results, so that any
+      // card animations can complete in time
+      setTimeout(this.showResults.bind(this), 400);
+
+      // Show a like button after the player played the game a few times
+
+      setTimeout(this.showLikeAlert.bind(this), 1800);
     },
+
+    showResults: function () {
+      this.gameArea.find('.game-card').each(function (i, ele) {
+        // Add a bit of delay between each card to add tension
+        setTimeout(function () {
+          $(ele).find('.game-result').fadeIn(300);
+        }, 400 * i);
+      });
+    },
+
+    showLikeAlert: function () {
+      if (!Cookies.get('like_alert_dismissed')) {
+        var completeCount = +Cookies.get('complete_count') || 0;
+
+        if (completeCount > this.showLikeAlertAfter) {
+          // TODO: Hacky, should be replaced later
+          var btnHtml = $('footer.global .fb-like').get(0).outerHTML;
+          var message = 'Having fun? Why not spread the word by ' +
+            'giving us a like? ';
+          var alert = AlertManager.add('info', message + btnHtml, 'thumbs-o-up', function() {
+            Cookies.set('like_alert_dismissed', true, {
+              expires: 365,  // One year
+            });
+          });
+        } else {
+          Cookies.set('complete_count', completeCount + 1, {
+            expires: 365,  // One year
+          });
+        }
+      }
+    }
   };
 
   window.Game = widget;

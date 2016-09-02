@@ -1,10 +1,22 @@
 footer.global {
   text-align: center;
   margin: 40px 0;
+  color: rgba(#fff, .7);
+  font-size: 15px;
 
   a {
     color: rgba(#fff, .7);
     font-weight: bold;
-    font-size: 15px;
+    display: inline-block;
+  }
+
+  .fb-like {
+    vertical-align: -3px;
+  }
+
+  .footer-dot {
+    display: inline-block;
+    padding: 0 6px;
+    font-size: 18px;
   }
 }

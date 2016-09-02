@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load url_extra %}
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}Would You __?{% endblock %}</title>
@@ -39,6 +40,8 @@
 {% block footer %}
   <footer class="global">
     <a href="{% url 'app:static.privacy' %}">Privacy Policy</a>
+    <span class="footer-dot">•</span>
+    <div class="fb-like" data-href="{% url_absolute 'app:index' %}" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
   </footer>
 
   {% include 'wouldyou/components/block_ui.html' %}

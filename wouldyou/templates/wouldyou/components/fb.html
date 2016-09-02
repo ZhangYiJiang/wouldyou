@@ -5,7 +5,7 @@
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '{{ settings.SOCIAL_AUTH_FACEBOOK_KEY }}',
-      xfbml      : false,
+      xfbml      : true,
       version    : 'v2.7'
     });
   };

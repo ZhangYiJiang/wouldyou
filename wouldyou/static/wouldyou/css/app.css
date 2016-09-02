@@ -2171,12 +2171,24 @@ header.global .profile .profile-image {
 footer.global {
   text-align: center;
   margin: 40px 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
 }
 
 footer.global a {
   color: rgba(255, 255, 255, 0.7);
   font-weight: bold;
-  font-size: 15px;
+  display: inline-block;
+}
+
+footer.global .fb-like {
+  vertical-align: -3px;
+}
+
+footer.global .footer-dot {
+  display: inline-block;
+  padding: 0 6px;
+  font-size: 18px;
 }
 
 .block-ui {

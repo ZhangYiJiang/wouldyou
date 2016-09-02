@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^welcome/$', views.OnboardView.as_view(), name='onboard'),
     url(r'^privacy/$', views.StaticView.as_view(page='privacy'), name='static.privacy'),
-    url(r'^how-to-play/$', views.StaticView.as_view(page='how-to-play'), name='static.how-to-play'),
+    url(r'^how-app-works/$', views.StaticView.as_view(page='how-app-works'), name='static.how-app-works'),
 
     # Actions
     url(r'^disconnect/$', views.disconnect, name='disconnect'),

@@ -18,7 +18,7 @@
     '</div>',
 
     start: function () {
-      if (this.button.data('completed')) {
+      if (this.button.data('started')) {
         return false;
       }
 
@@ -29,17 +29,26 @@
       // Replace with spinner
       var html = this.defaultSpinner;
       this.button.html(html);
+
+      // Make sure button can't be pressed multiple times
+      this.button.addClass('btn-started')
+        .data('started', true);
+
+      return true;
     },
 
     reset: function () {
       this.button.html(this.originalContent);
+
+      // Reset started button state
+      this.button
+        .removeClass('btn-started')
+        .data('started', false);
     },
 
     success: function () {
       var html = generateHtml(this.successMessage, this.successIcon);
-      this.button.html(html)
-        .addClass('btn-completed')
-        .data('completed', true);
+      this.button.html(html);
     },
   };
 

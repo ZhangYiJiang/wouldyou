@@ -2368,7 +2368,7 @@ footer.global a {
           flex: 1 auto;
 }
 
-.btn-completed {
+.btn-started {
   pointer-events: none;
 }
 

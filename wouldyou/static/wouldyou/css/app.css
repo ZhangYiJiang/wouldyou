@@ -2446,6 +2446,10 @@ body.game .friend-stories .game-story p.text-muted {
   font-size: 15px;
   font-style: italic;
   opacity: .7;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 body.game .game-controls .btn {
@@ -2565,7 +2569,7 @@ body.game .match-modal {
 body.game .match-modal h1 {
   font-family: Pacifico, cursive;
   font-size: 54px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 body.game .match-modal .match-image {
@@ -2575,9 +2579,23 @@ body.game .match-modal .match-image {
   margin-bottom: 10px;
 }
 
+body.game .match-modal .player-match {
+  margin-bottom: 18px;
+}
+
+body.game .match-modal .player-match h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 body.game .match-modal .match-player-img img {
   border-radius: 50%;
   border: 6px solid #fff;
+}
+
+body.game .match-modal .match-player-img p {
+  margin-top: 12px;
+  font-weight: bold;
 }
 
 body.game .match-modal .match-verb-img img {
@@ -2591,6 +2609,7 @@ body.game .match-modal .match-verb-img img {
 body.game .match-modal .match-btn {
   font-size: 20px;
   padding: 20px 40px;
+  box-shadow: inset 0 -4px rgba(0, 0, 0, 0.4);
 }
 
 body.game .featherlight-content .match-modal {

@@ -38,6 +38,7 @@ class VerbDescription(BaseModel):
 class Verb(BaseModel):
     verb = models.CharField(max_length=30)
     action = models.CharField(max_length=30, verbose_name='Facebook action name')
+    match_text = models.CharField(max_length=200, verbose_name='Text to show when two players match')
 
     @property
     def facebook_action(self):
@@ -279,6 +280,13 @@ class Player(AbstractProfile):
         else:
             self._facebook = Facebook(self.user)
             return self._facebook
+
+    @property
+    def pronoun(self):
+        if self.gender == 'M':
+            return 'he'
+        else:
+            return 'she'
 
     def next_set(self, model):
         if model == Player:

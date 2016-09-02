@@ -1667,6 +1667,33 @@ tbody.collapse.in {
   color: #e5abab;
 }
 
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-shadow: none;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
+.close:hover, .close:focus {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
 .clearfix:before, .clearfix:after {
   content: " ";
   display: table;
@@ -2029,6 +2056,14 @@ body {
 .logo-font {
   text-transform: uppercase;
   font-family: CheapSign, Arial Narrow, Arial, sans-serif;
+}
+
+.close {
+  opacity: .6;
+}
+
+.close:hover, .close:focus {
+  opacity: .9;
 }
 
 header.global {

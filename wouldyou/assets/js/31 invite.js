@@ -32,8 +32,8 @@ $('.invite-btn').click(function (evt) {
       var data = json.data;
       if (data.hasOwnProperty('redirect')) {
         if (btn.data('no-redirect')) {
-          Alerts.clear();
-          Alerts.add('info', 'Your friends have been successfully added!', 'info-circle');
+          AlertManager.clear();
+          AlertManager.add('info', 'Your friends have been successfully added!', 'info-circle');
         } else {
           window.location.href = data.redirect;
         }
@@ -44,12 +44,12 @@ $('.invite-btn').click(function (evt) {
         $('.invite-count').text(count);
 
         // Hide existing error messages
-        Alerts.clear('danger');
+        AlertManager.clear('danger');
 
         // And add the new one
         var message = "Sorry, you didn't invite enough friends. Please invite " +
             count + " or more friends to continue playing.";
-        Alerts.add('danger', message, 'exclamation-triangle');
+        AlertManager.add('danger', message, 'exclamation-triangle');
       }
     }).fail(function () {
       // TODO: Figure out front end error handling strategy

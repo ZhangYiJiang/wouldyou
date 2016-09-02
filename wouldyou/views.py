@@ -164,7 +164,7 @@ class CelebrityMeta(facebook.AllowCrawlerMixin, View):
 
     def render_meta(self, request, *args, **kwargs):
         profile = get_object_or_404(Profile, pk=kwargs['profile_id'])
-        url = profile.facebook_object_url()
+        url = profile.facebook_object_url
         return render(request, 'wouldyou/meta/profile.html', {
             'profile': profile,
             'url': url,

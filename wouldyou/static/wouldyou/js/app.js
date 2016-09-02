@@ -361,7 +361,7 @@ $.ajaxSetup({
     var $t = $(this);
     var url = $t.data('href') || window.location.toString();
 
-    var button = new LoadingButton($t, 'Awesome!', 'thumbs-o-up fa-2x');
+    var button = new LoadingButton($t, 'Awesome!', 'tick fa-2x');
     if (!button.start()) return;
 
     FB.ui({
@@ -383,7 +383,7 @@ $.ajaxSetup({
     var action = $t.data('action');
     var celebrity = $t.data('celebrity');
 
-    var button = new LoadingButton($t, 'Awesome!', 'thumbs-o-up fa-2x');
+    var button = new LoadingButton($t, 'Awesome!', 'tick fa-2x');
     if (!button.start()) return;
 
     FB.api(

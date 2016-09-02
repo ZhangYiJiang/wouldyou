@@ -1537,6 +1537,24 @@ header.global .profile .profile-image {
   }
 }
 
+@media (max-width: 539px) {
+  header.global h1 {
+    font-size: 32px;
+  }
+  header.global .profile {
+    -webkit-transform: translateX(calc(100% - 47px));
+            transform: translateX(calc(100% - 47px));
+    -webkit-transition: -webkit-transform .3s;
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+  }
+  header.global .profile .profile-image {
+    height: 47px;
+    width: 47px;
+  }
+}
+
 footer.global {
   text-align: center;
   margin: 40px 0;
@@ -1724,6 +1742,18 @@ footer.global .footer-dot {
 .alert-container {
   margin: -24px -80px 20px -80px;
   font-size: 16px;
+}
+
+@media (max-width: 860px) {
+  .alert-container {
+    margin: -24px -40px 20px -40px;
+  }
+}
+
+@media (max-width: 739px) {
+  .alert-container {
+    margin: -24px -10px 20px -10px;
+  }
 }
 
 .alert-container .alert {

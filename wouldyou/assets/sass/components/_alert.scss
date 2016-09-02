@@ -2,8 +2,12 @@
   margin: -24px -80px 20px -80px;
   font-size: 16px;
   
-  @media (max-width: $screen-md-max) {
+  @media (max-width: 860px) {
+    margin: -24px -40px 20px -40px;
+  }
 
+  @media (max-width: $screen-sm-max) {
+    margin: -24px -10px 20px -10px;
   }
 
   .alert {

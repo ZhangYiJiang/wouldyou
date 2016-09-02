@@ -119,4 +119,22 @@ header.global {
       justify-content: center;
     }
   }
+
+  @media (max-width: $screen-xs-max) {
+    h1 {
+      font-size: 32px;
+    }
+
+    $profile-image-size: 47px;
+
+    .profile {
+      transform: translateX(calc(100% - #{$profile-image-size}));
+      transition: transform .3s;
+
+      .profile-image {
+        height: $profile-image-size;
+        width: $profile-image-size;
+      }
+    }
+  }
 }

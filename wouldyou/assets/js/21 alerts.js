@@ -13,7 +13,7 @@
       'class': 'alert alert-' + level,
     });
 
-    $('<p>', { text: text }).appendTo(this.alert);
+    $('<p>', { html: text }).appendTo(this.alert);
 
     if (icon) {
       $('<i>', {

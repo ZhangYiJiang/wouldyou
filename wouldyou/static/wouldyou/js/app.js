@@ -203,7 +203,7 @@ $.ajaxSetup({
       'class': 'alert alert-' + level,
     });
 
-    $('<p>', { text: text }).appendTo(this.alert);
+    $('<p>', { html: text }).appendTo(this.alert);
 
     if (icon) {
       $('<i>', {
@@ -541,6 +541,8 @@ $('.invite-btn').click(function (evt) {
   };
 
   widget.prototype = {
+    showLikeAlertAfter: 5,
+
     undo: function () {
       // Clear selected verbs
       this.selected = [];
@@ -600,6 +602,7 @@ $('.invite-btn').click(function (evt) {
 
     complete: function () {
       var me = this;
+      var gameCards = this.gameArea.find('.game-card');
 
       this.completed = true;
 
@@ -611,18 +614,51 @@ $('.invite-btn').click(function (evt) {
       this.gameArea.find('.next-btn').removeClass('hidden');
 
       // Show the correct user story button
-      me.gameArea.find('.game-card').each(function(i){
+      gameCards.each(function(i){
         var selected = me.selected[i];
         $(this).find('.game-story[data-verb="' + selected + '"]')
           .removeClass('hidden');
       });
 
-      setTimeout(function () {
-        // Show the game results
-        me.gameArea.find('.game-result').fadeIn();
-        me.gameArea.addClass('game-complete');
-      }, 600);
+      // Wait a bit before showing the results, so that any
+      // card animations can complete in time
+      setTimeout(this.showResults.bind(this), 400);
+
+      // Show a like button after the player played the game a few times
+
+      setTimeout(this.showLikeAlert.bind(this), 1800);
     },
+
+    showResults: function () {
+      this.gameArea.find('.game-card').each(function (i, ele) {
+        // Add a bit of delay between each card to add tension
+        setTimeout(function () {
+          $(ele).find('.game-result').fadeIn(300);
+        }, 400 * i);
+      });
+    },
+
+    showLikeAlert: function () {
+      if (!Cookies.get('like_alert_dismissed')) {
+        var completeCount = +Cookies.get('complete_count') || 0;
+
+        if (completeCount > this.showLikeAlertAfter) {
+          // TODO: Hacky, should be replaced later
+          var btnHtml = $('footer.global .fb-like').get(0).outerHTML;
+          var message = 'Having fun? Why not spread the word by ' +
+            'giving us a like? ';
+          var alert = AlertManager.add('info', message + btnHtml, 'thumbs-o-up', function() {
+            Cookies.set('like_alert_dismissed', true, {
+              expires: 365,  // One year
+            });
+          });
+        } else {
+          Cookies.set('complete_count', completeCount + 1, {
+            expires: 365,  // One year
+          });
+        }
+      }
+    }
   };
 
   window.Game = widget;

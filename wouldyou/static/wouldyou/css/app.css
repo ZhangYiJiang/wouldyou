@@ -2415,6 +2415,10 @@ footer.global .footer-dot {
           flex: 1 auto;
 }
 
+.alert-container .alert .fb-like {
+  vertical-align: -3px;
+}
+
 .btn-started {
   pointer-events: none;
 }

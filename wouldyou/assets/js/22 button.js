@@ -23,8 +23,7 @@
       }
 
       // Fix button height and width before replacing content
-      this.button.height(this.button.height());
-      this.button.width(this.button.width());
+      this.button.height(this.button.outerHeight());
 
       // Replace with spinner
       var html = this.defaultSpinner;

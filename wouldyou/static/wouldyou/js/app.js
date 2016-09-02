@@ -330,8 +330,7 @@ $.ajaxSetup({
       }
 
       // Fix button height and width before replacing content
-      this.button.height(this.button.height());
-      this.button.width(this.button.width());
+      this.button.height(this.button.outerHeight());
 
       // Replace with spinner
       var html = this.defaultSpinner;
@@ -369,7 +368,7 @@ $.ajaxSetup({
     var $t = $(this);
     var url = $t.data('href') || window.location.toString();
 
-    var button = new LoadingButton($t, 'Awesome!', 'tick fa-2x');
+    var button = new LoadingButton($t, 'Awesome!', 'check fa-2x');
     if (!button.start()) return;
 
     FB.ui({
@@ -391,7 +390,7 @@ $.ajaxSetup({
     var action = $t.data('action');
     var celebrity = $t.data('celebrity');
 
-    var button = new LoadingButton($t, 'Awesome!', 'tick fa-2x');
+    var button = new LoadingButton($t, 'Awesome!', 'check fa-2x');
     if (!button.start()) return;
 
     FB.api(

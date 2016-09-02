@@ -330,7 +330,7 @@ $.ajaxSetup({
       }
 
       // Fix button height and width before replacing content
-      this.button.height(this.button.outerHeight());
+      this.button.height(this.button.height());
 
       // Replace with spinner
       var html = this.defaultSpinner;

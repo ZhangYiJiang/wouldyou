@@ -157,7 +157,6 @@ class Facebook:
     def invitable_friends(self, user_id='me', picture_width=70):
         # TODO: Account for when the user declines to give permission
         return self._user_request(user_id, 'invitable_friends', data={
-            # TODO: Figure out how Facebook's image width work
             'fields': [
                 'id',
                 'name',

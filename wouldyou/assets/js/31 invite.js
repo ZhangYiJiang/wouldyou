@@ -53,7 +53,7 @@ $('.invite-btn').click(function (evt) {
         AlertManager.add('danger', message, 'exclamation-triangle');
       }
     }).fail(function () {
-      // TODO: Figure out front end error handling strategy
+      AlertManager.add('danger', 'Oops! Something seems to have went wrong. Please refresh and try again', 'exclamation-triangle');
     }).always(function () {
       block.hide();
     });

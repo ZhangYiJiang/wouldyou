@@ -20,10 +20,9 @@
   .on('click', '.story-btn', launchShareDialog(function(btn) {
     return {
       method: 'share_open_graph',
-      mobile_iframe: true,
       action_type: btn.data('action'),
       action_properties: JSON.stringify({
-        object: btn.data('celebrity'),
+        celebrity: btn.data('celebrity'),
       }),
     };
   }));

@@ -1,6 +1,10 @@
 {% extends 'wouldyou/meta/base.html' %}
 
+{% load url_extra %}
+
 {% block meta %}
   <meta property="og:type" content="{{ settings.SOCIAL_AUTH_FACEBOOK_NAMESPACE }}:celebrity">
   <meta property="og:title" content="{{ profile.name }}">
+  <meta property="og:image" content="{% static_absolute profile.portrait %}">
+  <meta property="og:description" content="Come and play a thrilling game of Kiss, Marry or Kill! Play with friends or celebrities!">
 {% endblock %}

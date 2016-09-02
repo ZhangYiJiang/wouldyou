@@ -12,8 +12,6 @@
       href: url,
       mobile_iframe: true,
     }, function (response) {
-      console.log(response);
-
       if (response && !response.hasOwnProperty('error')) {
         button.success();
       } else {
@@ -37,11 +35,11 @@
         celebrity: celebrity,
         access_token: userAccessToken,
       },
-     function(response) {
+      function(response) {
         console.log(response);
 
         if (response && !response.hasOwnProperty('error') && response.hasOwnProperty('id')) {
-          button.complete();
+          button.success();
         } else {
           button.reset();
         }

@@ -9,6 +9,8 @@
     this.buttons = this.gameArea.find('.verb-btn');
     this.selected = [];
     this.completed = false;
+    this.gameCards = this.gameArea.find('.game-card');
+    this.playerImages = this.gameCards.children('img');
 
     // Event binding
     this.gameArea.on('click', '.verb-btn', function (evt) {
@@ -27,6 +29,23 @@
         return false;
     });
 
+    this.playerImages.imagesLoaded(function () {
+      me.fixImageSize();
+    });
+
+    // Debounced image resizing on window resizing
+    this.resizeTimeoutId = false;
+    $(window).on('resize', function () {
+      if (me.resizeTimeoutId !== false) {
+        clearTimeout(me.resizeTimeoutId);
+      }
+
+      me.resizeTimeoutId = setTimeout(function () {
+        me.playerImages.prop('style', '');
+        me.fixImageSize();
+        me.resizeTimeoutId = false;
+      }, 50);
+    });
   };
 
   widget.prototype = {
@@ -101,7 +120,6 @@
 
     complete: function () {
       var me = this;
-      var gameCards = this.gameArea.find('.game-card');
       var specialMatches = [];
 
       this.completed = true;
@@ -114,7 +132,7 @@
       this.gameArea.find('.next-btn').removeClass('hidden');
 
       // Show the correct user story button
-      gameCards.each(function(i){
+      this.gameCards.each(function(i){
         var $t = $(this);
         var selected = me.selected[i];
         var story = $t.find('.game-story[data-verb="' + selected + '"]')
@@ -183,7 +201,20 @@
           });
         }
       }
-    }
+    },
+
+    fixImageSize: function () {
+      var heights = this.playerImages.map(function () {
+          return $(this).height();
+        }).get();
+      var widths = this.playerImages.map(function () {
+          return $(this).width();
+        }).get();
+
+      var maxHeight = Math.max.apply(null, heights);
+      var maxWidth = Math.max.apply(null, widths);
+      this.playerImages.height(maxHeight).width(maxWidth);
+    },
   };
 
   window.Game = widget;

@@ -403,6 +403,9 @@ $.ajaxSetup({
       function(response) {
         if (response && !response.hasOwnProperty('error') && response.hasOwnProperty('id')) {
           button.success();
+        } else if (response.hasOwnProperty('error') && response.error.code == 3501) {
+          // Duplicate response, just ignore
+          button.success();
         } else {
           button.reset();
           AlertManager.add('danger', 'Sorry, something went wrong. Please ' +

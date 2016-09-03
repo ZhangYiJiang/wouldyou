@@ -1008,6 +1008,7 @@ $('.invite-btn').click(function (evt) {
 
     this.playerImages.imagesLoaded(function () {
       me.fixImageSize();
+      $(window).scroll();
     });
 
     // Debounced image resizing on window resizing
@@ -1023,6 +1024,15 @@ $('.invite-btn').click(function (evt) {
         me.resizeTimeoutId = false;
       }, 50);
     });
+
+    // Sticky action buttons on mobile
+    $(window).on('scroll', function () {
+      var controls = me.gameArea.find('.game-controls');
+      var gameHeight = me.gameArea.outerHeight(true) +
+        me.gameArea.offset().top + controls.height();
+      var windowHeight = $(window).height() + $(window).scrollTop();
+      controls.toggleClass('sticky-bottom', gameHeight < windowHeight);
+    }).scroll();
   };
 
   widget.prototype = {

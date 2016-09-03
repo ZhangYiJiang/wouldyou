@@ -1330,6 +1330,257 @@ button.close {
   position: fixed;
 }
 
+@-ms-viewport {
+  width: device-width;
+}
+
+.visible-xs {
+  display: none !important;
+}
+
+.visible-sm {
+  display: none !important;
+}
+
+.visible-md {
+  display: none !important;
+}
+
+.visible-lg {
+  display: none !important;
+}
+
+.visible-xs-block,
+.visible-xs-inline,
+.visible-xs-inline-block,
+.visible-sm-block,
+.visible-sm-inline,
+.visible-sm-inline-block,
+.visible-md-block,
+.visible-md-inline,
+.visible-md-inline-block,
+.visible-lg-block,
+.visible-lg-inline,
+.visible-lg-inline-block {
+  display: none !important;
+}
+
+@media (max-width: 539px) {
+  .visible-xs {
+    display: block !important;
+  }
+  table.visible-xs {
+    display: table !important;
+  }
+  tr.visible-xs {
+    display: table-row !important;
+  }
+  th.visible-xs,
+  td.visible-xs {
+    display: table-cell !important;
+  }
+}
+
+@media (max-width: 539px) {
+  .visible-xs-block {
+    display: block !important;
+  }
+}
+
+@media (max-width: 539px) {
+  .visible-xs-inline {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 539px) {
+  .visible-xs-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: 540px) and (max-width: 739px) {
+  .visible-sm {
+    display: block !important;
+  }
+  table.visible-sm {
+    display: table !important;
+  }
+  tr.visible-sm {
+    display: table-row !important;
+  }
+  th.visible-sm,
+  td.visible-sm {
+    display: table-cell !important;
+  }
+}
+
+@media (min-width: 540px) and (max-width: 739px) {
+  .visible-sm-block {
+    display: block !important;
+  }
+}
+
+@media (min-width: 540px) and (max-width: 739px) {
+  .visible-sm-inline {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 540px) and (max-width: 739px) {
+  .visible-sm-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 959px) {
+  .visible-md {
+    display: block !important;
+  }
+  table.visible-md {
+    display: table !important;
+  }
+  tr.visible-md {
+    display: table-row !important;
+  }
+  th.visible-md,
+  td.visible-md {
+    display: table-cell !important;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 959px) {
+  .visible-md-block {
+    display: block !important;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 959px) {
+  .visible-md-inline {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 959px) {
+  .visible-md-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .visible-lg {
+    display: block !important;
+  }
+  table.visible-lg {
+    display: table !important;
+  }
+  tr.visible-lg {
+    display: table-row !important;
+  }
+  th.visible-lg,
+  td.visible-lg {
+    display: table-cell !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .visible-lg-block {
+    display: block !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .visible-lg-inline {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .visible-lg-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 539px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+
+@media (min-width: 540px) and (max-width: 739px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 959px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+
+.visible-print {
+  display: none !important;
+}
+
+@media print {
+  .visible-print {
+    display: block !important;
+  }
+  table.visible-print {
+    display: table !important;
+  }
+  tr.visible-print {
+    display: table-row !important;
+  }
+  th.visible-print,
+  td.visible-print {
+    display: table-cell !important;
+  }
+}
+
+.visible-print-block {
+  display: none !important;
+}
+
+@media print {
+  .visible-print-block {
+    display: block !important;
+  }
+}
+
+.visible-print-inline {
+  display: none !important;
+}
+
+@media print {
+  .visible-print-inline {
+    display: inline !important;
+  }
+}
+
+.visible-print-inline-block {
+  display: none !important;
+}
+
+@media print {
+  .visible-print-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
+}
+
 @font-face {
   font-family: 'CheapSign';
   src: url("../fonts/CheapSign.eot?#iefix") format("embedded-opentype"), url("../fonts/CheapSign.woff") format("woff"), url("../fonts/CheapSign.ttf") format("truetype"), url("../fonts/CheapSign.svg#CheapSign") format("svg");
@@ -2528,7 +2779,7 @@ body.game .undo-btn i {
     -webkit-box-direction: reverse;
         -ms-flex-direction: row-reverse;
             flex-direction: row-reverse;
-    margin: 0 0 20px;
+    margin: 0 0 40px;
     padding: 0;
     position: relative;
   }
@@ -2572,6 +2823,20 @@ body.game .undo-btn i {
   body.game .overlay-image > div {
     background: rgba(0, 0, 0, 0.6);
   }
+  body.game .game-controls {
+    position: fixed;
+    padding: 10px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #fff;
+  }
+  body.game .game-controls.sticky-bottom {
+    position: absolute;
+  }
+  body.game .game-controls .btn {
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 539px) {
@@ -2586,6 +2851,9 @@ body.game .undo-btn i {
     padding-top: 10px;
     padding-bottom: 10px;
     margin: 0 10px;
+  }
+  body.game .game-controls .btn {
+    font-size: 14px;
   }
 }
 

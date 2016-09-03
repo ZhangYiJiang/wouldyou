@@ -1,3 +1,12 @@
+Object.values = Object.values || function (obj) {
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        var val = obj[key];
+    }
+  }
+  return val;
+};
+
 $.ajaxSetup({
   headers: {
     'X-CSRFToken': $('meta[name="csrf_token"]').attr('content'),

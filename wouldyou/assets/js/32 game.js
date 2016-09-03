@@ -42,7 +42,8 @@
         .addClass('card-unselected');
 
       // Enable all buttons
-      this.buttons.prop('disabled', false);
+      this.buttons.prop('disabled', false)
+        .removeClass('disabled');
 
       // Clear all hidden inputs
       this.gameArea.find('.game-card input')
@@ -63,7 +64,6 @@
       if (this.selected.hasOwnProperty(btnIndex))
         return;
       if (Object.values(this.selected).includes(verb)) {
-        console.log('Hello Yang Shun!');
         return;
       }
 
@@ -71,7 +71,8 @@
 
       // Disable the button of the same verb on other cards
       this.otherButtons(btn)
-        .addClass('disabled');
+        .addClass('disabled')
+        .prop('disabled', true);
 
       // Switch current card class
       var card = btn.closest('.game-card')

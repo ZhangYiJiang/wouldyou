@@ -542,11 +542,16 @@ $('.invite-btn').click(function (evt) {
       // Make sure the button can't be clicked again
       if (this.selected.hasOwnProperty(btnIndex))
         return;
+      if (Object.values(this.selected).includes(verb)) {
+        console.log('Hello Yang Shun!');
+        return;
+      }
+
       this.selected[btnIndex] = verb;
 
       // Disable the button of the same verb on other cards
       this.otherButtons(btn)
-        .prop('disabled', true);
+        .addClass('disabled');
 
       // Switch current card class
       var card = btn.closest('.game-card')

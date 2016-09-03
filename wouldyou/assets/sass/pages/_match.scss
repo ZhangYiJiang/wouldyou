@@ -12,6 +12,7 @@ body.game .match-modal {
 
   .match-image {
     display: flex;
+    justify-content: center;
     margin-bottom: 10px;
   }
 
@@ -50,6 +51,19 @@ body.game .match-modal {
     box-shadow: inset 0 -4px rgba(#000, .4);
     text-transform: uppercase;
     letter-spacing: 1px;
+  }
+
+  @media (max-width: $screen-xs-max) {
+    padding: 10px;
+
+    .match-player-img img {
+      width: 100px;
+      border-width: 3px;
+    }
+
+    .match-verb-img img {
+      width: 50px;
+    }
   }
 }
 

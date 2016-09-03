@@ -2823,6 +2823,9 @@ body.game .undo-btn i {
   body.game .overlay-image > div {
     background: rgba(0, 0, 0, 0.6);
   }
+  body.game .game-result {
+    background: rgba(0, 0, 0, 0.8);
+  }
   body.game .game-controls {
     position: fixed;
     padding: 10px;
@@ -2874,6 +2877,9 @@ body.game .match-modal .match-image {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-bottom: 10px;
 }
 
@@ -2910,6 +2916,19 @@ body.game .match-modal .match-btn {
   box-shadow: inset 0 -4px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+@media (max-width: 539px) {
+  body.game .match-modal {
+    padding: 10px;
+  }
+  body.game .match-modal .match-player-img img {
+    width: 100px;
+    border-width: 3px;
+  }
+  body.game .match-modal .match-verb-img img {
+    width: 50px;
+  }
 }
 
 body.game .featherlight-content .match-modal {

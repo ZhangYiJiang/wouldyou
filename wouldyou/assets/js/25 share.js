@@ -5,7 +5,7 @@
     var $t = $(this);
     var url = $t.data('href') || window.location.toString();
 
-    var button = new LoadingButton($t, 'Awesome!', 'check fa-2x');
+    var button = new LoadingButton($t, 'Awesome!', 'check');
     if (!button.start()) return;
 
     FB.ui({

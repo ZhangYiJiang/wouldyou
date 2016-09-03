@@ -42,7 +42,7 @@
         .addClass('card-unselected');
 
       // Enable all buttons
-      this.buttons.removeClass('disabled');
+      this.buttons.prop('disabled', false);
 
       // Clear all hidden inputs
       this.gameArea.find('.game-card input')
@@ -66,7 +66,7 @@
 
       // Disable the button of the same verb on other cards
       this.otherButtons(btn)
-        .addClass('disabled');
+        .prop('disabled', true);
 
       // Switch current card class
       var card = btn.closest('.game-card')

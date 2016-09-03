@@ -368,7 +368,7 @@ $.ajaxSetup({
     var $t = $(this);
     var url = $t.data('href') || window.location.toString();
 
-    var button = new LoadingButton($t, 'Awesome!', 'check fa-2x');
+    var button = new LoadingButton($t, 'Awesome!', 'check');
     if (!button.start()) return;
 
     FB.ui({
@@ -519,7 +519,7 @@ $('.invite-btn').click(function (evt) {
         .addClass('card-unselected');
 
       // Enable all buttons
-      this.buttons.removeClass('disabled');
+      this.buttons.prop('disabled', false);
 
       // Clear all hidden inputs
       this.gameArea.find('.game-card input')
@@ -543,7 +543,7 @@ $('.invite-btn').click(function (evt) {
 
       // Disable the button of the same verb on other cards
       this.otherButtons(btn)
-        .addClass('disabled');
+        .prop('disabled', true);
 
       // Switch current card class
       var card = btn.closest('.game-card')

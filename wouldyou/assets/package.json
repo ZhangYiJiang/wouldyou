@@ -9,7 +9,12 @@
   "author": "",
   "license": "ISC",
   "private": true,
-  "devDependencies": {
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "featherlight": "^1.4.1",
+    "imagesloaded": "^4.1.1",
+    "js-cookie": "^2.1.2",
+    "lodash": "^4.15.0",
     "autoprefixer": "^6.4.0",
     "browser-sync": "^2.14.0",
     "gulp": "^3.9.1",
@@ -23,12 +28,5 @@
     "gulp-uglify": "^2.0.0",
     "lodash": "^4.15.0",
     "yargs": "^4.8.1"
-  },
-  "dependencies": {
-    "bootstrap-sass": "^3.3.7",
-    "featherlight": "^1.4.1",
-    "imagesloaded": "^4.1.1",
-    "js-cookie": "^2.1.2",
-    "lodash": "^4.15.0"
   }
 }
